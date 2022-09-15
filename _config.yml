@@ -27,8 +27,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   We hope, it helps people to prevent mistakes we made and motivates them to explore technologies for modern healthcare! 
 # baseurl: "" # the subpath of your site, e.g. /blog
 # url: "https://techblog.gematik.de" # the base hostname & protocol for your site, e.g. http://example.com
-baseurl: "/techblog"
-url: "https://gematik.github.io"
+baseurl: "/techblog" # the subpath of your site, e.g. /blog
+url: "https://gematik.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: gematik
 github_username:  gematik
 
