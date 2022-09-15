@@ -1,4 +1,4 @@
-## gematik's technology blog
+# gematik's technology blog
 
 This is a place where we would like to give back to the community by telling our story from the technology front line of the German Healthcare system.
 
