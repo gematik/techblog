@@ -30,7 +30,7 @@
 <ul>
   {% for post in category[1] %}
     <li>
-      <a href="{{ post.url }}">{{ post.title }}, {{ post.date | date_to_string }}</a>
+      <a href="{{ post.url }}">{{ post.title }} - {{ post.date | date_to_string }}</a>
       {{ post.excerpt }}
     </li>
   {% endfor %}
