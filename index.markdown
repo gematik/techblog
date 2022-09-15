@@ -4,3 +4,6 @@
 
 layout: default
 ---
+Have fun at the gematik tech blog!
+
+{% include navigation.md %}
