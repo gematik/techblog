@@ -25,8 +25,8 @@ title: gematik tech blog
 description: >- # this means to ignore newlines until "baseurl:"
   The gematik technology blog has the intention to give back to the community. As open source is part of our DNA, we do not only share our work results on GitHub but also want to share the stories behind that.
   We hope, it helps people to prevent mistakes we made and motivates them to explore technologies for modern healthcare! 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://techblog.gematik.de" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/techblog" # the subpath of your site, e.g. /blog
+url: "https://gematik.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: gematik
 github_username:  gematik
 
