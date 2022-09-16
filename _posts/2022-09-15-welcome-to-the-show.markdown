@@ -4,6 +4,7 @@ title:  "Welcome to the show!"
 date:   2022-09-15 13:51:16 +0200
 author: Axel Schulz
 categories: culture
+tags: learning culture coding 
 ---
 Welcome to the tech blog of the gematik! We know that starting a blog in 2022 is by no means innovative. But sharing knowledge is part of our DNA! We do it internally with our fellow developers, testers, and product owners - and we do it externally by sharing code and specifications on GitHub.
 
@@ -11,7 +12,7 @@ When I started as Director of Software Engineering at gematik, I was overwhelmed
 Constant learning is essential! 
 
 ![Learning together]({{ site.baseurl }}/assets/img/pexels-christina-morillo-1181371.jpg)
-*Learning together is essential*
+*Learning together is essential (Photo by Christina Morillo)*
 
 You may not call it learning, but extending your knowledge beyond what you already know is the core driver of our evolution as humans. The ancestors of Homo sapiens grabbed two stones and noticed that they could form a sharp blade by clashing them together. We learn through experience, and as an organization, it is your job to enable and drive learning. 
 Here are a few examples and what they did to our team.
@@ -53,8 +54,33 @@ So that's what our learning pipeline looks like:
 3. Daily work & Team Meetings
 
 ![Our learning cycle]({{site.baseurl}}/assets/img/learn_cycle.png)
+*Our learning cycle (gematik GmbH)*
 
-If you think about establishing a learning culture in your organization, look at your assets first: what can be low-hanging fruits that some of your people can teach others and vice versa? What do they need to know but never had a chance to learn because there is more work to be done? And finally, what does it cost you to spend 1-2 days a month on learning?
-Start with simple formats, 30min - 1 hour per week can be enough for a start. Some speakers feel uncomfortable speaking in front of 40 or 60 people, split the audience into smaller groups on several dates to let the speaker gain experience. Collect feedback and outcomes, so you know where to improve.
+## Our way
+One question that immediately pops up is: how did you get there? <br/>
+We started roughly 5 years ago with the Code Brunches - like real brown bag sessions between breakfast and lunch where people gathered every 2-3 week physically in a meeting room. 
 
-The most important thing is to define your success! Maybe it's the number of covered frameworks, the satisfaction rate, or the amount of reduced technical debt - so, what's your blade?
+Normally, there would always be a new tool, conference experience or project to show. While sometimes people had to be pointed to a specific topic, most of the time the urge for sharing knowledge prevailed. Nobody was ever forced into that, everyone saw it as a give and take.
+
+Over the time, the amount of potential topics grew and the topics themselves became bigger. So, the Code Brunches became a weekly thing.
+
+After a while, the developers wanted to explore things deeper where they saw a potential benefit for their daily work. So we started the Innovation Fridays with support from our management board as an experiment for 3 months. 
+
+The feedback and outcome was overwhelming! People started to think about their work from a new angle. They completed online coourses that helped them understanding the context of their work. They wrote add-ons for analyzing merge request time, and so on.  
+
+## My recommendation
+If you think about establishing a learning culture in your organization, look at your assets first: 
+- What can be low-hanging fruits that some of your people can teach others and vice versa? 
+- What do they need to know but never had a chance to learn because there is more work to be done? 
+- And finally, what does it cost you to spend 1-2 days a month on learning?
+
+Start with simple formats, 30min - 1 hour per week can be enough for a start. Some speakers feel uncomfortable speaking in front of 40 or 60 people, split the audience into smaller groups on several dates to let the speaker gain experience. 
+Collect feedback and outcomes, so you know where to improve.
+
+### Summary
+1. **Make it feel natural** to your employees. Create an open environment where people have fun to tell about their experiences
+2. **Define your success!** Maybe it's the number of covered frameworks, the satisfaction rate, or the amount of reduced technical debt, it can even be the number of reserved spots!
+3. **Work iteratively!** Invite people to small formats, let them speak and take it from there.
+4. **Get the management board involved.** Learning a strategic initiative for the whole company, and needs to be backed by management from the very beginning.
+
+ So, what's your blade?
