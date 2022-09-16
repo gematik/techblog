@@ -9,6 +9,10 @@ Welcome to the tech blog of the gematik! We know that starting a blog in 2022 is
 
 When I started as Director of Software Engineering at gematik, I was overwhelmed by how much the organization is focused on learning and sharing knowledge. 
 Constant learning is essential! 
+
+![Learning together]({{ site.baseurl }}/assets/img/pexels-christina-morillo-1181371.jpg)
+*Learning together is essential*
+
 You may not call it learning, but extending your knowledge beyond what you already know is the core driver of our evolution as humans. The ancestors of Homo sapiens grabbed two stones and noticed that they could form a sharp blade by clashing them together. We learn through experience, and as an organization, it is your job to enable and drive learning. 
 Here are a few examples and what they did to our team.
 
@@ -47,6 +51,8 @@ So that's what our learning pipeline looks like:
 1. Innovation Friday
 2. Code Brunch 
 3. Daily work & Team Meetings
+
+![Our learning cycle]({{site.baseurl}}/assets/img/learn_cycle.png)
 
 If you think about establishing a learning culture in your organization, look at your assets first: what can be low-hanging fruits that some of your people can teach others and vice versa? What do they need to know but never had a chance to learn because there is more work to be done? And finally, what does it cost you to spend 1-2 days a month on learning?
 Start with simple formats, 30min - 1 hour per week can be enough for a start. Some speakers feel uncomfortable speaking in front of 40 or 60 people, split the audience into smaller groups on several dates to let the speaker gain experience. Collect feedback and outcomes, so you know where to improve.
