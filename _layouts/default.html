@@ -10,7 +10,7 @@
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
-    {% include head-custom.html %}
+    {% include head_custom.html %}
   </head>
   <body>
     <div class="wrapper">
@@ -24,7 +24,13 @@
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
         {% if site.github.is_project_page %}
-        <p class="view"><a href="https://github.com/gematik">Visit us on GitHub <small>github/gematik</small></a></p>
+        <p class="view">Visit us:
+          <ul>
+            <li><a href="https://gematik.github.io^">Open Source Project<small>code.github.io</small></a></li>
+            <li><a href="https://www.gematik.de">Company Website <small>gematik.de</small></a></li>
+            <li><a href="https://fachportal.gematik.de">gematik Fachportal <small>fachportal.gematik.de</small></a></li>
+          </ul>
+        </p>
         {% endif %}
 
       </header>
