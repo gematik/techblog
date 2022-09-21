@@ -21,10 +21,9 @@
 email: techblog@gematik.de
 logo: /assets/img/gematik_logo.svg
 favicon: /assets/img/favicon.ico
-title: gematik tech blog
+title: F136 - tech blog
 description: >- # this means to ignore newlines until "baseurl:"
-  The gematik technology blog has the intention to give back to the community. As open source is part of our DNA, we do not only share our work results on GitHub but also want to share the stories behind that.
-  We hope, it helps people to prevent mistakes we made and motivates them to explore technologies for modern healthcare! 
+  A simple blog in the complex world of healthcare telematics.
 # baseurl: "" # the subpath of your site, e.g. /blog
 # url: "https://techblog.gematik.de" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: /techblog # the subpath of your site, e.g. /blog
