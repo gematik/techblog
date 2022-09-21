@@ -10,6 +10,8 @@ We hope it helps people to prevent making mistakes we made and motivates them to
 
 ![Panorama view with code]({{ site.baseurl }}/assets/img/blog_f136_index.png)
 
+The name "F136" is not a new stealth fighter airplane but derives from our location in the heart of Berlin, at Friedrichstrasse 136. It's a commonly used internal term for our office.
+
 Have fun reading at the gematik tech blog!
 
 {% include navigation.md %}
