@@ -25,9 +25,9 @@ title: F136 - tech blog
 description: >- # this means to ignore newlines until "baseurl:"
   A simple blog in the complex world of healthcare telematics.
 # baseurl: "" # the subpath of your site, e.g. /blog
-# url: "https://techblog.gematik.de" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://code.gematik.de" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: /techblog # the subpath of your site, e.g. /blog
-url: "https://gematik.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+# url: "https://gematik.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: gematik
 github_username:  gematik
 
