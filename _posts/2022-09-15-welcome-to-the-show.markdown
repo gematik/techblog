@@ -84,3 +84,7 @@ Collect feedback and outcomes, so you know where to improve.
 4. **Get the management board involved.** Learning a strategic initiative for the whole company, and needs to be backed by management from the very beginning.
 
  So, what's your blade?
+
+# About the author
+Axel Schulz has worked in development and engineering management for 20 years. His focus topics include product design, developer experience, and tech leadership. Axel leads the Software Development unit at gematik since 2022. In his previous stations, Axel was the CTO of several healthcare companies. Axel lives with his family 500m behind Berlin city limits.
+
