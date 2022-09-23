@@ -10,20 +10,21 @@ gematik GmbH<br/>
 Friedrichstraße 136<br/>
 10117 Berlin<br/>
 
-Tel. +49 30 400 41-0
-Wir bieten keinen telefonischen Support an. Bei technischen Problemen wenden Sie sich bitte an Ihren IT-Dienstleister oder direkt an den Hersteller bzw. Anbieter.
-Fax: +49 30 400 41-111
-info@gematik.de
-Bei Fragen sind wir gerne für Sie da. Sie erreichen uns über unser Kontaktformular.
+Tel. +49 30 400 41-0<br/>
+Wir bieten keinen telefonischen Support an.<br/>
+Bei technischen Problemen wenden Sie sich bitte an Ihren IT-Dienstleister oder direkt an den Hersteller bzw. Anbieter.<br/>
+Fax: +49 30 400 41-111<br/>
+info<span>@g</span>ematik.de<br/>
+Bei Fragen sind wir gerne für Sie da. Sie erreichen uns über unser <a href="https://www.gematik.de/kontakt/kontaktformular" target="_blank">Kontaktformular</a>.<br/>
 
-Geschäftsführer: Dr. med. Markus Leyck Dieken
-Registergericht: Amtsgericht Berlin-Charlottenburg
-Handelsregister-Nr.: HRB 96351
-Umsatzsteueridentifikationsnummer: DE241843684
+Geschäftsführer: Dr. med. Markus Leyck Dieken<br/>
+Registergericht: Amtsgericht Berlin-Charlottenburg<br/>
+Handelsregister-Nr.: HRB 96351<br/>
+Umsatzsteueridentifikationsnummer: DE241843684<br/>
 
 
-Verantwortlich für den Inhalt
-Dr. med. Markus Leyck Dieken
+Verantwortlich für den Inhalt<br/>
+Dr. med. Markus Leyck Dieken<br/>
 
 <strong>Hinweis</strong>
 
