@@ -1,0 +1,215 @@
+---
+layout: post
+title:  "VAU and the Brainpool; plus some Kotlin - a more lightweight approach to ECIES"
+date:   2022-10-XX XX:XX:XX +0200
+author: Tobias Schwerdtfeger
+categories: tech
+tags: ECIES VAU TEE Kotlin Java Crypto BouncyCastle Brainpool NIST
+---
+
+Probably you're here for an answer on how to implement the Elliptic Curve Integrated Encryption Scheme (ECIES) in
+something like Kotlin or Java for communicating with the trusted execution environment
+(TEE; or in german we like to call this VAU) of our e-prescription server.
+Perfect! Because otherwise I would lose your attention to three lines of code:
+
+```kotlin
+val cipher = Cipher.getInstance("ECIES", BCProvider)
+cipher.init(Cipher.ENCRYPT_MODE, publicKey)
+cipher.doFinal(content)
+```
+
+After your initial excitement I've to tell you the truth: The code above is not sufficient for our needs 😔
+
+**BUT!** If you only want to use ECIES with some defaults (like NIST curves) with e.g. Android, I can recommend to use [Tink](https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md#hybrid-encryption).
+
+_Disclaimer: I'm not a crypto expert who can answer you the ins and outs of cryptographic schemes or elliptic curves.
+I just know how to implement this stuff. And it works! Well now; not in the beginning...
+So if you only want to survive the loveliness in using rarely used elliptic curves and not so easy to implement cipher suits, you're welcome!_
+
+## Pre-requirements
+
+Not very surprisingly we'll be using BouncyCastle and as mentioned above, Kotlin.
+This way we can easily implement our encryption and decryption with ECIES for the VAU.
+
+## It all starts with the specification
+
+Well we can't really get around reading at least the steps listed in [gemSpec_Krypt 7.2.3](https://fachportal.gematik.de/fachportal-import/files/gemSpec_Krypt_V2.19.0.pdf).
+Here we find some pretty important facts about some parameters we have to use:
+
+```txt
+IV size = 12 bytes
+AES key size = 16 bytes
+Context of the key = "ecies-vau-transport"
+```
+
+And most importantly: the resulting encrypted payload will start with a `01`. I'll tell you later why this is so "important".
+
+## Let's encrypt
+
+First of all, what do we need?
+
+1. random initialization vector
+2. random ephemeral key pair
+3. the actual public key of our recipient; let's call it `otherPublicKey`
+4. and we create all keys on the **brainpoolP256r1** curve
+
+So here we go:
+
+```kotlin
+val otherPublicKey = ...
+
+val ivBytes = ByteArray(12 /* iv size */).apply {
+    SecureRandom().nextBytes(this)
+}
+val ivSpec = IvParameterSpec(ivBytes)
+
+val ephemeralKp = KeyPairGenerator.getInstance("EC", BCProvider)
+    .apply { initialize(ECGenParameterSpec("brainpoolP256r1"), SecureRandom()) }
+    .generateKeyPair()
+```
+
+The ephemeral private key plays now a role while deriving the key:
+
+```kotlin
+val sharedSecret = KeyAgreement.getInstance("ECDH", BCProvider).apply {
+    init(ephemeralKp.private, SecureRandom())
+    doPhase(otherPublicKey, true)
+}.generateSecret()
+
+val aesKey = ByteArray(16 /* aes size */).apply {
+    HKDFBytesGenerator(SHA256Digest()).apply {
+        init(HKDFParameters(sharedSecret, null, "ecies-vau-transport".toByteArray()))
+    }.generateBytes(this, 0, this.size)
+}
+```
+
+Finally, we encrypt our actual payload:
+
+```kotlin
+val ciphertext = Cipher.getInstance("AES/GCM/NoPadding", BCProvider).apply {
+    init(Cipher.ENCRYPT_MODE, SecretKeySpec(aesKey, "AES"), ivSpec)
+}.doFinal(plaintext)
+```
+
+## Final message
+
+We are ready to assemble our message ready for the VAU.
+
+Now here's the tricky part where I stumbled at the beginning as well:
+
+```kotlin
+val publicKey = ephemeralKp.public as ECPublicKey
+val x = publicKey.w.affineX.toByteArray()
+val y = publicKey.w.affineY.toByteArray()
+
+val encryptedPayload = 
+    ByteArray(1 + 32 * 2 + 12 + ciphertext.size).apply {  // (0)
+        y.copyInto(this, 1 + 32 + 32 - y.size)            // (1)
+        x.copyInto(this, 1 + 32 - x.size)                 // (2)
+        set(0, 1)                                         // (3)
+    
+        ivSpec.iv.copyInto(this, 1 + 32 + 32)
+        ciphertext.copyInto(this, 1 + 32 + 32 + 12)
+    }
+```
+
+If you take a closer look you'll notice the inverse order of copying things.
+This is due our big integer differing in the encoded size and containing a sign bit
+which can lead to a 33 byte long array representing either coordinate of the elliptic curve.
+Since our ephemeral key is random, this will easily go unnoticed in unit tests.
+
+To get an easy understanding of the copying:
+
+```txt
+Y Coord: AB AB AB AB ... AB AB AB (33 bytes)
+X Coord:          CD ... CD CD CD (30 bytes)
+
+Step 0: 00   00 00 00 ... 00 00 00   00 00 00 ... 00 00 00   00 ... 00   00 ... 00
+Step 1:                         AB   AB AB AB ... AB AB AB   00 ... 00   00 ... 00
+Step 2:            CD ... CD CD CD   AB AB AB ... AB AB AB   00 ... 00   00 ... 00
+Step 3: 01         CD ... CD CD CD   AB AB AB ... AB AB AB   00 ... 00   00 ... 00
+
+Final:  01   00 00 CD ... CD CD CD   AB AB AB ... AB AB AB   IV ... IV   CIPHER...
+```
+
+As a result we simply overwrite the `AB` in step 2.
+
+So I promised to get to this first byte.
+The thing is, other implementations would contain a `02`, `03` or `04`.
+The `04` indicates an uncompressed ec public key encoding, while the other two are used for a compressed representation.
+In our implementation we used the first byte as a version indicator for the chosen parameters.
+
+## Let's decrypt
+
+While only the e-prescription service is required to decrypt our ECIES encrypted message
+we can prove our implementation with some decryption!
+
+We start with recovering the ephemeral public key coordinates and the initialization vector:
+
+```kotlin
+val encryptedPayload = ...
+
+val x = BigInteger(1, encryptedPayload.copyOfRange(1, 1 + 32)) // starts at index 1
+val y = BigInteger(1, encryptedPayload.copyOfRange(1 + 32, 1 + 32 * 2)) // starts at index 33
+
+val ivSpec = IvParameterSpec(encryptedPayload, 1 + 32 * 2, 12) // starts at index 65
+```
+
+To decode the key into an `ECPublicKey` object we use some BouncyCastle specific functions.
+
+```kotlin
+val curveSpec = ECNamedCurveTable.getParameterSpec("brainpoolP256r1")
+val pubKeySpec = org.bouncycastle.jce.spec.ECPublicKeySpec(
+    curveSpec.curve.createPoint(x, y),
+    curveSpec
+)
+val ephemeralPublicKey = KeyFactory.getInstance("EC", BCProvider)
+    .generatePublic(pubKeySpec) as ECPublicKey
+```
+
+At this point we just reuse the code from the encryption part and exchange the used keys within the key agreement.
+For keeping the same wording as in the encryption process we stay with `otherPrivateKey` or `otherPublicKey`.
+In this case `other` means our key pair.
+
+```kotlin
+val sharedSecret = KeyAgreement.getInstance("ECDH", BCProvider).apply {
+    init(otherPrivateKey, SecureRandom())
+    doPhase(ephemeralPublicKey, true)
+}.generateSecret()
+
+val aesKey = ByteArray(16).apply {
+    HKDFBytesGenerator(SHA256Digest()).apply {
+        init(HKDFParameters(sharedSecret, null, "ecies-vau-transport".toByteArray()))
+    }.generateBytes(this, 0, this.size)
+}
+
+val cipher = Cipher.getInstance("AES/GCM/NoPadding", BCProvider).apply {
+    init(Cipher.DECRYPT_MODE, SecretKeySpec(aesKey, "AES"), ivSpec)
+}
+```
+
+If all things worked well we should be able to decrypt our message and check if the plaintext from above matches.
+
+```kotlin
+cipher.doFinal(
+    encryptedPayload, // e.g. 01 754e548941e5cd073fed6d73... 86c2b491c7... 4e6e30721...
+    1 + 32 * 2 + 12, // start index of ciphertext within encryptedPayload
+    encryptedPayload.size - (1 + 32 * 2 + 12) // length of actual ciphertext
+) == plaintext
+```
+
+---
+
+If you look for a copy & paste solution head over to the [E-Rezept Android App VAU implementation](https://github.com/gematik/E-Rezept-App-Android/blob/master/common/src/commonMain/kotlin/de/gematik/ti/erp/app/vau/Crypto.kt).
+You can find some unit tests for this implementation [here](https://github.com/gematik/E-Rezept-App-Android/blob/master/common/src/commonTest/kotlin/de/gematik/ti/erp/app/vau/CryptoTest.kt).
+
+---
+
+Have some ❤️, question, feedback or feel like 🤔 Reach out to me on https://twitter.com/t0bsdt or https://github.com/tobias-schwerdtfeger
+
+# About the author
+
+Tobias Schwerdtfeger is a software developer for some years on Android with a special enthusiasm towards exploring and realising a broad selection of UI/UX concepts;
+plus some spontaneous love for not so visuell things.
+For the last two years he has dedicated his time towards the Android E-Rezept App.
+
