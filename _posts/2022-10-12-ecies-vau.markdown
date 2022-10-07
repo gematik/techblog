@@ -205,7 +205,7 @@ You can find some unit tests for this implementation [here](https://github.com/g
 
 ---
 
-Have some ❤️, question, feedback or feel like 🤔 Reach out to me on https://twitter.com/t0bsdt or https://github.com/tobias-schwerdtfeger
+Have some ❤️, question, feedback or feel like 🤔 Reach out to me on [Twitter](https://twitter.com/t0bsdt) or [GitHub](https://github.com/tobias-schwerdtfeger).
 
 # About the author
 
