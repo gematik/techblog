@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "VAU and the Brainpool; plus some Kotlin - a more lightweight approach to ECIES"
-date:   2022-10-XX XX:XX:XX +0200
+date:   2022-10-12 11:51:12 +0200
 author: Tobias Schwerdtfeger
 categories: tech
 tags: ECIES VAU TEE Kotlin Java Crypto BouncyCastle Brainpool NIST
