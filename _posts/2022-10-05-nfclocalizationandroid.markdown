@@ -4,6 +4,7 @@ title:  "Where's my antenna?!?? Some guidance for the localization of the NFC an
 date:   2022-10-07 13:00:00 +0200
 author: Till Jannik Plewe
 categories: tech
+excerpt: "In order to fully use the *E-Rezept-App* the users have to authenticate themselves with their digital identity which is stored on their health card (eGK). NFC-Localization-Android is an open source project which was implemented by the author to gather position data of the NFC-antennas of various Android based mobile phones. The goal is to provide users with better guidance during the authentication process by displaying the correct positioning of the health card relative to the mobile phone and its NFC antenna."
 tags: NFC Android Phone eGK Gesundheitskarte
 ---
 
