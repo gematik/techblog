@@ -9,8 +9,8 @@ tags: ECIES VAU TEE Kotlin Java Crypto BouncyCastle Brainpool NIST
 
 Probably you're here for an answer on how to implement the Elliptic Curve Integrated Encryption Scheme (ECIES) in
 something like Kotlin or Java for communicating with the trusted execution environment
-(TEE; or in german we like to call this VAU) of our e-prescription server.
-Perfect! Because otherwise I would lose your attention to three lines of code:
+(TEE; or in german, we like to call this VAU) of our e-prescription server.
+Perfect! Because otherwise, I would lose your attention to three lines of code:
 
 ```kotlin
 val cipher = Cipher.getInstance("ECIES", BCProvider)
@@ -18,22 +18,40 @@ cipher.init(Cipher.ENCRYPT_MODE, publicKey)
 cipher.doFinal(content)
 ```
 
-After your initial excitement I've to tell you the truth: The code above is not sufficient for our needs 😔
+After your initial excitement, I've to tell you the truth: The code above is not sufficient for our needs 😔
 
-**BUT!** If you only want to use ECIES with some defaults (like NIST curves) with e.g. Android, I can recommend to use [Tink](https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md#hybrid-encryption).
+**BUT!** If you only want to use ECIES with some defaults (like NIST curves) using Android, I can recommend to use [Tink](https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md#hybrid-encryption).
 
-_Disclaimer: I'm not a crypto expert who can answer you the ins and outs of cryptographic schemes or elliptic curves.
-I just know how to implement this stuff. And it works! Well now; not in the beginning...
-So if you only want to survive the loveliness in using rarely used elliptic curves and not so easy to implement cipher suits, you're welcome!_
+_Disclaimer: I'm not a crypto expert who can answer the ins and outs of cryptographic schemes or elliptic curves.
+I just know how to implement this stuff. And it works! Well, now, not in the beginning...
+So if you only want to survive the loveliness of using rarely used elliptic curves and not so easy to implement cipher suits, you're welcome!_
+
+## How do we got here?
+
+So let's take some steps back and actually explain the concept of the TEE.
+Just a couple of years ago, the e-prescription was in the making.
+At that time it was clear, that the patient needed some form of autonomy over his or her own health information. So what does nearly everyone have nowadays? Yes, a smartphone!
+With the limitations even modern smartphones have, we needed some lightweight and safe encryption process, while following the guidelines of the [BSI](https://www.bsi.bund.de).
+(Yes, that's the point where Brainpool curves come into play 🤫)
+
+The actual concept of the TEE represents some kind of environment, where no one (e.g. an administrator) is able from the outside to read, or modify data during the runtime of the (server-) application.
+Another point was to ensure that the payload of the communication between the client (E-Rezept App, PVS, AVS) and the actual destination on the server stays always encrypted, until it enters the TEE.
+A normal HTTPS encryption would be terminated at the first endpoint, like a proxy.
+
+In this way, the e-prescription server, as a centralized architecture, can handle health data safely.
+
+**But what about ECIES now?** It's just an encryption scheme. Every implementation you'll find, will differ from each other on some (maybe tiny) details.
+And you'll have to deal with random data! This will always lead to "in 1 of 1000 test runs it will magically fail".
+So let's implement ECIES for the e-prescription service and explore some pitfalls.
 
 ## Pre-requirements
 
-Not very surprisingly we'll be using BouncyCastle and as mentioned above, Kotlin.
-This way we can easily implement our encryption and decryption with ECIES for the VAU.
+Not very surprisingly, we'll be using BouncyCastle and, as mentioned above, Kotlin.
+This way, we can easily implement our encryption and decryption with ECIES for the TEE.
 
 ## It all starts with the specification
 
-Well we can't really get around reading at least the steps listed in [gemSpec_Krypt 7.2.3](https://fachportal.gematik.de/fachportal-import/files/gemSpec_Krypt_V2.19.0.pdf).
+Well, we can't really get around reading at least the steps listed in [gemSpec_Krypt 7.2.3](https://fachportal.gematik.de/fachportal-import/files/gemSpec_Krypt_V2.19.0.pdf).
 Here we find some pretty important facts about some parameters we have to use:
 
 ```txt
@@ -68,7 +86,7 @@ val ephemeralKp = KeyPairGenerator.getInstance("EC", BCProvider)
     .generateKeyPair()
 ```
 
-The ephemeral private key plays now a role while deriving the key:
+The ephemeral private key now plays a role while deriving the key:
 
 ```kotlin
 val sharedSecret = KeyAgreement.getInstance("ECDH", BCProvider).apply {
@@ -93,7 +111,7 @@ val ciphertext = Cipher.getInstance("AES/GCM/NoPadding", BCProvider).apply {
 
 ## Final message
 
-We are ready to assemble our message ready for the VAU.
+We are ready to assemble our message ready for the TEE.
 
 Now here's the tricky part where I stumbled at the beginning as well:
 
@@ -113,8 +131,8 @@ val encryptedPayload =
     }
 ```
 
-If you take a closer look you'll notice the inverse order of copying things.
-This is due our big integer differing in the encoded size and containing a sign bit
+If you take a closer look, you'll notice the inverse order of copying things.
+This is due to our big integer differing in the encoded size and containing a sign bit
 which can lead to a 33 byte long array representing either coordinate of the elliptic curve.
 Since our ephemeral key is random, this will easily go unnoticed in unit tests.
 
@@ -132,16 +150,16 @@ Step 3: 01         CD ... CD CD CD   AB AB AB ... AB AB AB   00 ... 00   00 ... 
 Final:  01   00 00 CD ... CD CD CD   AB AB AB ... AB AB AB   IV ... IV   CIPHER...
 ```
 
-As a result we simply overwrite the `AB` in step 2.
+As a result, we simply overwrite the `AB` in step 2.
 
 So I promised to get to this first byte.
-The thing is, other implementations would contain a `02`, `03` or `04`.
+The thing is, other implementations would contain a `02`, `03`, or `04`.
 The `04` indicates an uncompressed ec public key encoding, while the other two are used for a compressed representation.
-In our implementation we used the first byte as a version indicator for the chosen parameters.
+In our implementation, we used the first byte as a version indicator for the chosen parameters.
 
 ## Let's decrypt
 
-While only the e-prescription service is required to decrypt our ECIES encrypted message
+While only the e-prescription service is required to decrypt our ECIES encrypted message,
 we can prove our implementation with some decryption!
 
 We start with recovering the ephemeral public key coordinates and the initialization vector:
@@ -167,9 +185,9 @@ val ephemeralPublicKey = KeyFactory.getInstance("EC", BCProvider)
     .generatePublic(pubKeySpec) as ECPublicKey
 ```
 
-At this point we just reuse the code from the encryption part and exchange the used keys within the key agreement.
-For keeping the same wording as in the encryption process we stay with `otherPrivateKey` or `otherPublicKey`.
-In this case `other` means our key pair.
+At this point, we just reuse the code from the encryption part and exchange the used keys within the key agreement.
+To keep the same wording as in the encryption process, we stay with `otherPrivateKey` or `otherPublicKey`.
+In this case, `other` means our key pair.
 
 ```kotlin
 val sharedSecret = KeyAgreement.getInstance("ECDH", BCProvider).apply {
@@ -188,7 +206,7 @@ val cipher = Cipher.getInstance("AES/GCM/NoPadding", BCProvider).apply {
 }
 ```
 
-If all things worked well we should be able to decrypt our message and check if the plaintext from above matches.
+If everything worked out, we should be able to decrypt our message and check if the plaintext from above matches.
 
 ```kotlin
 cipher.doFinal(
@@ -200,16 +218,16 @@ cipher.doFinal(
 
 ---
 
-If you look for a copy & paste solution head over to the [E-Rezept Android App VAU implementation](https://github.com/gematik/E-Rezept-App-Android/blob/master/common/src/commonMain/kotlin/de/gematik/ti/erp/app/vau/Crypto.kt).
+If you're looking for a copy & paste solution, head to the [E-Rezept Android App VAU implementation](https://github.com/gematik/E-Rezept-App-Android/blob/master/common/src/commonMain/kotlin/de/gematik/ti/erp/app/vau/Crypto.kt).
 You can find some unit tests for this implementation [here](https://github.com/gematik/E-Rezept-App-Android/blob/master/common/src/commonTest/kotlin/de/gematik/ti/erp/app/vau/CryptoTest.kt).
 
 ---
 
-Have some ❤️, question, feedback or feel like 🤔 Reach out to me on [Twitter](https://twitter.com/t0bsdt) or [GitHub](https://github.com/tobias-schwerdtfeger).
+Have some ❤️, questions, feedback, or feel like 🤔 Reach out to me at [Twitter](https://twitter.com/t0bsdt) or [GitHub](https://github.com/tobias-schwerdtfeger).
 
 # About the author
 
-Tobias Schwerdtfeger is a software developer for some years on Android with a special enthusiasm towards exploring and realising a broad selection of UI/UX concepts;
-plus some spontaneous love for not so visuell things.
+Tobias Schwerdtfeger has been a software developer for some years on Android with a particular enthusiasm towards exploring and realising a broad selection of UI/UX concepts,
+plus some spontaneous love for not so visual things.
 For the last two years he has dedicated his time towards the Android E-Rezept App.
 
