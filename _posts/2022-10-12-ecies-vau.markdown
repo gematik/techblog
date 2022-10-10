@@ -36,7 +36,7 @@ With the limitations even modern smartphones have, we needed some lightweight an
 
 The actual concept of the TEE represents some kind of environment, where no one (e.g. an administrator) is able from the outside to read, or modify data during the runtime of the (server-) application.
 Another point was to ensure that the payload of the communication between the client (E-Rezept App, PVS, AVS) and the actual destination on the server stays always encrypted, until it enters the TEE.
-A normal HTTPS encryption would be terminated at the first endpoint, like a proxy.
+A normal HTTPS encryption would be terminated at the first endpoint, like the load balancer.
 
 In this way, the e-prescription server, as a centralized architecture, can handle health data safely.
 
