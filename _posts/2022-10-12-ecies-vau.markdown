@@ -30,7 +30,8 @@ So if you only want to survive the loveliness of using rarely used elliptic curv
 
 So let's take some steps back and actually explain the concept of the TEE.
 Just a couple of years ago, the e-prescription was in the making.
-At that time it was clear, that the patient needed some form of autonomy over his or her own health information. So what does nearly everyone have nowadays? Yes, a smartphone!
+At that time it was clear, that the patient needed some form of autonomy over his or her own health information.
+So what does nearly everyone have nowadays? Yes, a smartphone! Therefore, a mobile app was the way to go.
 With the limitations even modern smartphones have, we needed some lightweight and safe encryption process, while following the guidelines of the [BSI](https://www.bsi.bund.de).
 (Yes, that's the point where Brainpool curves come into play 🤫)
 
