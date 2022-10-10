@@ -229,5 +229,5 @@ Have some ❤️, questions, feedback, or feel like 🤔 Reach out to me at [Twi
 
 Tobias Schwerdtfeger has been a software developer for some years on Android with a particular enthusiasm towards exploring and realising a broad selection of UI/UX concepts,
 plus some spontaneous love for not so visual things.
-For the last two years he has dedicated his time towards the Android E-Rezept App.
+For the last two years, he has dedicated his time to the Android E-Rezept App.
 
