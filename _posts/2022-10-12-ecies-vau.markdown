@@ -20,29 +20,29 @@ cipher.doFinal(content)
 
 After your initial excitement, I've to tell you the truth: The code above is not sufficient for our needs 😔
 
-**BUT!** If you only want to use ECIES with some defaults (like NIST curves) using Android, I can recommend to use [Tink](https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md#hybrid-encryption).
+**BUT!** If you only want to use ECIES with some defaults (like NIST curves) using Android, I can recommend [Tink](https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md#hybrid-encryption).
 
 _Disclaimer: I'm not a crypto expert who can answer the ins and outs of cryptographic schemes or elliptic curves.
 I just know how to implement this stuff. And it works! Well, now, not in the beginning...
 So if you only want to survive the loveliness of using rarely used elliptic curves and not so easy to implement cipher suits, you're welcome!_
 
-## How do we got here?
+## How do we get here?
 
 So let's take some steps back and actually explain the concept of the TEE.
 Just a couple of years ago, the e-prescription was in the making.
-At that time it was clear, that the patient needed some form of autonomy over his or her own health information.
+At that time, it was clear that the patient needed some form of autonomy over their own health information.
 So what does nearly everyone have nowadays? Yes, a smartphone! Therefore, a mobile app was the way to go.
-With the limitations even modern smartphones have, we needed some lightweight and safe encryption process, while following the guidelines of the [BSI](https://www.bsi.bund.de).
+With the limitations even modern smartphones have, we needed some lightweight and safe encryption process while following the guidelines of the [BSI](https://www.bsi.bund.de).
 (Yes, that's the point where Brainpool curves come into play 🤫)
 
-The actual concept of the TEE represents some kind of environment, where no one (e.g. an administrator) is able from the outside to read, or modify data during the runtime of the (server-) application.
-Another point was to ensure that the payload of the communication between the client (E-Rezept App, PVS, AVS) and the actual destination on the server stays always encrypted, until it enters the TEE.
-A normal HTTPS encryption would be terminated at the first endpoint, like the load balancer.
+The actual concept of the TEE represents some kind of environment where no one (e.g., an administrator) is able from the outside to read or modify data during the runtime of the (server-) application.
+Another point was to ensure that the payload of the communication between the client (E-Rezept App, PVS, AVS) and the actual destination on the server always stays encrypted, until it enters the TEE.
+A standard HTTPS encryption would be terminated at the first endpoint, like the load balancer.
 
 In this way, the e-prescription server, as a centralized architecture, can handle health data safely.
 
-**But what about ECIES now?** It's just an encryption scheme. Every implementation you'll find, will differ from each other on some (maybe tiny) details.
-And you'll have to deal with random data! This will always lead to "in 1 of 1000 test runs it will magically fail".
+**But what about ECIES now?** It's just an encryption scheme. Every implementation you'll find will differ from each other on some (maybe tiny) details.
+And you'll have to deal with random data! This will always lead to "in 1 of 1000 test runs, it will magically fail".
 So let's implement ECIES for the e-prescription service and explore some pitfalls.
 
 ## Pre-requirements
