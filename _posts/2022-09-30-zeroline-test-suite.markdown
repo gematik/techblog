@@ -1,29 +1,52 @@
 ---
 layout: post
-title:  "OpenHealthCardKit"
-date:   2022-09-23 11:51:16 +0200
+title:  "Zero-line testsuite"
+date:   2022-10-10 11:51:16 +0200
 author: Julian Peters
 categories: testing
 tags: testing testsuite tiger
 ---
 
+Writing test suites that don't age, don't require software developers to set up and still have great technical depth is an impossible goal we at Gematik are constantly working towards. Zero-line test suites are a concept for minimizing required code while maximizing technical depth.
+
 ## What seems to be the problem?
 
 At gematik, we test a lot. A LOT! The core of what our company does is to specify products and then to test, verify and validate implementations. We have about a hundred product types, hundreds of vendors and far above a thousand different products that need our attention. The upkeep alone to maintain all those testsuites is enough to engage a small army of developers and testers. But our developers much rather want to support the specification by writing POCs and of course we constantly need to add new test suites to our portfolio.
 
-In this post we propose a novel way of writing test suites, the zero-line testsuite. These test suites use a minimal amount of java code and make all the magic happen in Gherkin. Flexible BDD steps allow expressive statements that offer deep technical verification. “Zero lines” is not meant religiously. The goal here is to create expressive BDD test suites that require minimal customization but offer great flexibility and specificity. As long as the Java code is very minimal it can easily be maintained by a tester, has to meet very minimal quality standards and can easily be replaced when the need arises.
+In this post we propose a novel way of writing test suites, the zero-line testsuite. These test suites use a minimal amount of java code and make all the magic happen in Gherkin. Flexible Gherkin test-steps allow expressive statements that offer deep technical verification. “Zero lines” is not meant religiously. The goal here is to create expressive test suites that require minimal customization but offer great flexibility and specificity. As long as the Java code is very minimal it can easily be maintained by a tester, has to meet very minimal quality standards and can easily be replaced when the need arises.
 
-It should be noted that a zero-line testsuite is not a band aid solution for every scenario. When you are looking for alternatives you should consider the screenplay pattern (https://serenity-js.org/handbook/design/screenplay-pattern.html), which is also used inside the gematik. Screenplay is tailored to more complex interactions which require a great amount of custom code and helps the developer and the tester to organize the code.
+It should be noted that a zero-line testsuite is not a band-aid solution for every scenario. When you are looking for alternatives you should consider the screenplay pattern (https://serenity-js.org/handbook/design/screenplay-pattern.html), which is also used inside the gematik. Screenplay is tailored to more complex interactions which require a great amount of custom code and helps the developer and the tester to organize the code.
 
 Zero-line test suites on the other hand are especially helpful in very technical tests, protocol tests for example, where the test suite itself is ripe with technical details about the specified interaction.
 
+This violates the BRIEF-Principles for BDD-Testsuites (https://cucumber.io/blog/bdd/keep-your-scenarios-brief/). This is okay, since this is not a BDD-Testsuite. We merely use serenity and cucumber. A zero-line testsuite is not meant to communicate with the business-side. We want to convey technical details, not hide them.
+
 ## How is it done?
 
-The framework at the heart of the zero-line testsuite is the Tiger framework (https://github.com/gematik/app-Tiger). It is developed by gematik, is open source and available to the public. It is based on serenity enabling the fast and easy creation of powerful test suites using Cucumber/Gherkin, meaning BDD.
+The framework at the heart of the zero-line testsuite is the Tiger framework (https://github.com/gematik/app-Tiger). It is developed by gematik, is open source and available to the public. It is based on serenity enabling the fast and easy creation of powerful test suites using Cucumber/Gherkin.
 
 ## Set-Up: The test environment
 
 So, what do we need to write a testsuite? First we need a test environment. We use a YAML-file to describe the test objects, how they are started, where they are found and which interfaces they offer. This YAML-file replaces the concrete with the abstract, allowing to easily swap test environments. Want to code on a train? Want to do a regression test? Test a product? All of that and much more is possible.
+
+```yaml
+servers:
+  identityServer:
+    type: externalUrl
+    source:
+      - http://localhost:${free.port.1}
+  myTestClient:
+    type: externalJar
+    source:
+      - local:../octopus-identity-service/target/octopus-identity-service.jar
+    healthcheckUrl: http://localhost:${free.port.2}/status
+    dependsUpon: identityServer
+    externalJarOptions:
+      arguments:
+        - --identityServer=http://localhost:${free.port.1}
+        - --server.port=${free.port.2}
+```
+_Short example of a tiger.yaml to start a client which will connect to an already running server_
 
 You always send your requests to “http://myTestClient” and let the framework take care of the details. This myTestClient could be a local application, a docker image, a JAR to be downloaded or a remote server. The important point being that the test suite should not know or care about the details, they are abstracted away.
 
@@ -43,7 +66,21 @@ The communication data is then parsed using the RbelLogger, another in-house dev
 
 The tiger-proxy can also be run remotely. Do you need to verify traffic inside the internal network communication of more complex systems? Roll out the tiger-proxy to the deployment in question. The tiger-proxy running on your local machine as part of the test suite can then connect to the remote tiger-proxy, which will in turn forward any incoming traffic.
 
-The traffic can now be queried using RbelPath, a query language very similar to JsonPath and XPath. With these you can ask questions “Is the value at $..username” equal to myConfiguredUsername”? Placeholders will be resolved using the test data mechanism described above. This enables exactly what we want to achieve: Very expressive, easy to understand test suites. Testers are no longer held back by the lack of Java code underneath but rather enabled by the ability to directly express their questions in BDD.
+The traffic can now be queried using RbelPath, a query language very similar to JsonPath and XPath. With these you can ask questions “Is the value at $..username” equal to myConfiguredUsername”? Placeholders will be resolved using the test data mechanism described above. This enables exactly what we want to achieve: Very expressive, easy to understand test suites. Testers are no longer held back by the lack of Java code underneath but rather enabled by the ability to directly express their questions in Gherkin.
+
+```gherkin
+Feature: Login
+
+  Scenario: Login as unregistered user, then register and finally login again
+    Given I try to log in as "${octopus.user.name}" with password "${octopus.user.password}"
+    And TGR finds the last request to path "/testdriver/performLogin"
+    And TGR current response at "$.responseCode" matches "200"
+
+    And TGR current response at "$.body.header.alg" matches "RS256"
+    And TGR current response at "$..name" matches "${octopus.user.name}"
+    And TGR current response at "$.body.header.x5c.0.content.issuer" matches "${octopus.idService.certificate.dn}"
+```
+_Example scenario from our tiger-workshop. The "I try to log in as..." step is implemented in glue code. The octopus-data points are defined in a yaml and are read from there. The verification-steps prefixed with TGR are all directly available in Tiger. Note that they verify directly into http (responseCode), JWT (body.header.alg), wildcard into JSON (..name) and into a X.509-certificate (content.issuer). This is all achieved with only one line of code (The actuation-step)_
 
 ## What took you so long? Shift-left
 
