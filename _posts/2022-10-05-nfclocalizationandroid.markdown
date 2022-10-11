@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Where's my antenna?!?? Some guidance for the localization of the NFC antenna on Android devices"
+title:  "Localization of the NFC antenna on Android devices"
 date:   2022-10-07 13:00:00 +0200
 author: Till Jannik Plewe
 categories: tech
