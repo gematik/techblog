@@ -4,7 +4,7 @@ title:  "Localization of the NFC antenna on Android devices"
 date:   2022-10-07 13:00:00 +0200
 author: Till Jannik Plewe
 categories: tech
-excerpt: "In order to fully use the *E-Rezept-App* the users have to authenticate themselves with their digital identity which is stored on their health card (eGK). NFC-Localization-Android is an open source project which was implemented by the author to gather position data of the NFC-antennas of various Android based mobile phones. The goal is to provide users with better guidance during the authentication process by displaying the correct positioning of the health card relative to the mobile phone and its NFC antenna."
+excerpt: "<br/>In order to fully use the *E-Rezept-App* the users have to authenticate themselves with their digital identity which is stored on their health card (eGK). NFC-Localization-Android is an open source project which was implemented by the author to gather position data of the NFC-antennas of various Android based mobile phones. The goal is to provide users with better guidance during the authentication process by displaying the correct positioning of the health card relative to the mobile phone and its NFC antenna.<br/><br/>"
 tags: NFC Android Phone eGK Gesundheitskarte
 ---
 
@@ -70,8 +70,3 @@ The following tools are required:
 # About the author
 
 Till Jannik Plewe has just finished his Bachelor of Science in software engineering. During his studies he worked on Java and Android projects for one year. At gematik he is mainly implementing UX-Features for the  Android version of the *E-Rezept-App*.
-
-
-
-
-
