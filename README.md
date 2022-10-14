@@ -10,6 +10,20 @@ The blog is based on [github-pages](https://docs.github.com/en/pages/setting-up-
 
 Make sure to install the latest version of [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and [Bundler](https://bundler.io/) before running it locally.
 
+Alternatively, you can use a [Docker Image](https://github.com/madduci/docker-github-pages) to generate the site, without installing the aforementioned packages:
+
+In Windows (e.g. with git-bash):
+
+```sh
+docker run --rm -it -p 4000:4000 -v /$PWD:/site --entrypoint //bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
+```
+
+On Linux/Mac:
+
+```sh
+docker run --rm -it -p 4000:4000 -v $pwd:/site --entrypoint /bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
+```
+
 ## Usage
 * Clone the repo
 * Write your post
