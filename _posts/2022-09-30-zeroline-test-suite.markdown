@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Zero-line test suite"
-date:   2022-10-19 11:51:16 +0200
+date:   2022-10-19 06:51:16 +0200
 author: Julian Peters
 categories: testing
 tags: testing test suite tiger
