@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Zero-line test suite"
-date:   2022-10-10 11:51:16 +0200
+date:   2022-10-19 11:51:16 +0200
 author: Julian Peters
 categories: testing
 tags: testing test suite tiger
@@ -50,6 +50,35 @@ _Short example of a tiger.yaml to start a client which will connect to an alread
 
 You always send your requests to “http://myTestClient” and let the framework take care of the details. This myTestClient could be a local application, a docker image, a JAR to be downloaded, or a remote server. The important point is that the test suite should not know or care about the details. They are abstracted away.
 
+<p align="center">
+<img src="{{ site.baseurl }}/assets/img/220930-zlts/testEnv.png" alt="drawing" width="800"/>
+</p>
+_The resulting test setup from the above YAML_
+<!-- 
+@startuml
+!include https://raw.githubusercontent.com/bschwarz/puml-themes/master/themes/cerulean/puml-theme-cerulean.puml
+skinparam classFontColor red
+skinparam backgroundColor white
+skinparam defaultFontSize 18
+skinparam defaultFontName "Verdana Bold"
+skinparam BoxPadding 80
+rectangle "**<color:white>Tiger Proxy</color>**" as tigerProxy $WARNING
+rectangle "**<color:white>Tiger test suite</color>**" as tigerTestSuite $WARNING
+rectangle "**<color:white>myTestClient</color>**" as myTestClient $PRIMARY
+note top
+  http://localhost:${free.port.2}
+end note
+rectangle "**<color:white>identityServer</color>**" as identityServer $PRIMARY
+note top
+  http://localhost:${free.port.1}
+end note
+myTestClient <-> tigerProxy :HTTP
+tigerProxy <-> identityServer :HTTP
+tigerProxy .down.> tigerTestSuite :WebSocket
+tigerTestSuite -up-> myTestClient :HTTP
+@enduml
+-->
+
 Another important function is the integrated management of test data: By using placeholders later on in the test suite, the tester can abstract away from actual data as well, making the transition between different environments (or different test runs, different test users…) seamless.
 
 ## Let's get it moving: Actuation
@@ -94,9 +123,9 @@ On the other hand, due to the tiger framework being open-source, we can now star
 
 We had examples of sharing the test suite with external vendors even before finalizing the specification. We have introduced new test cases on the fly, releasing them to the vendor during development. This massively reduces the cost of bugs. In the past, we had failed test runs causing a delay in projects for months or even years. With this approach, we increase confidence in the products and tests while massively reducing overhead for the vendor.
 
-## Tl;dr
+## Now what do I tell my boss?
 
-The Zero-Line test suite is a great way to hit the ground running when writing a test suite. Testers can immediately start in their domain (test specification, test reporting) while developers can concentrate on the hard problems (and potentially write code that transfers well into other teams and test suites). Less code means less overhead, less aging, and fewer problems, but not less technical depths or fewer details.
+The Zero-Line test suite is a great way to hit the ground running when writing a test suite. Testers can immediately start in their domain (test specification, test reporting) while developers can concentrate on the low level problems (and potentially write code that transfers well into other teams and test suites). Less code means less overhead, less aging, and fewer problems, but not less technical depths or fewer details.
 
 # About the author
 
