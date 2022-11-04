@@ -35,7 +35,7 @@ Pretty simple, isn't it?
 
 Not really. Can the identified warnings and notices be really ignored? Where do they come from?
 
-The answer is: FHIR validators have plenty of configuration options. They may or may not validate terminologies and check or ignore externally referenced resources. Projects like Hammer try even to combine outputs of several different tools to return more detailed validation results:
+The answer is: FHIR validators have plenty of configuration options. They may or may not validate terminologies and check or ignore externally referenced resources. Projects like [Hammer](https://github.com/health-validator/Hammer) try even to combine outputs of several different tools to return more detailed validation results:
 
 <p align="center">
 <img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/hammer.png" alt="Hammer validation tool"/>
@@ -61,13 +61,13 @@ For example, to validate the E-Prescription profile `https://fhir.kbv.de/Structu
 - de.basisprofil.r4-1.3.2.tgz (dependency)
 - gematik.kbv.sfhir.cs.vs-1.0.0.tgz, which is a manually crafted FHIR package containing external code systems and value sets referenced in the profile.
 
-It is a good idea to put the information about which profiles the validator supports and the required packages into a separate configuration file, which can be extended as the validator supports more and more profiles. The packages should be distributed together with the validator to make them offline-capable. 
+It is a good idea to put the information about which profiles the validator supports and the required packages into a separate configuration file, which can be extended as the validator supports more and more profiles. The packages should be distributed together with the validator to make it offline-capable. 
 
 The next thing we need is to configure the validation algorithm. In the above E-Prescription validation module, the following configuration is used:
 
-Resources are considered to be invalid whenever they use profiles that are not defined in the above packages.
-Resources are considered to be invalid whenever they use extensions that are not defined in the above packages.
-Some code systems, like `http://fhir.de/CodeSystem/ifa/pzn`, are not validated due to the absence of freely available value sets.
+- Resources are considered to be invalid whenever they use profiles that are not defined in the above packages.
+- Resources are considered to be invalid whenever they use extensions that are not defined in the above packages.
+- Some code systems, like `http://fhir.de/CodeSystem/ifa/pzn`, are not validated due to the absence of freely available value sets.
 
 Finally, we might want to post-process outputs of the HAPI FHIR validation library to adjust the severity level of some outputs. Some warnings and information messages can be critical in the context of a particular application. In the case of the E-Prescription validation module, we suppress specific errors for the `DAV-PR-ERP-AbgabedatenBundle|1.0.3` profile due to inconsistent constraints in the FHIR profile. 
 
