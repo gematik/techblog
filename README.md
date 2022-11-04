@@ -14,12 +14,12 @@ Make sure to install the latest version of [Ruby](https://www.ruby-lang.org/en/d
 
 'bundle exec jekyll serve'
 
-Alternatively, you can use a [Docker Image](https://github.com/madduci/docker-github-pages) to generate the site, without installing the aforementioned packages:
+Alternatively, you can use a [Docker Image](https://github.com/madduci/docker-github-pages) to generate the site, without installing the aforementioned packages (make sure your current directory is the project root):
 
-In Windows (e.g. with git-bash):
+In Windows using PowerShell:
 
 ```sh
-docker run --rm -it -p 4000:4000 -v /$PWD:/site --entrypoint //bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
+docker run --rm -it -p 4000:4000 -v ${PWD}:/site --entrypoint //bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
 ```
 
 On Linux/Mac:
