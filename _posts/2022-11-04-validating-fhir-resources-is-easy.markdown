@@ -22,13 +22,13 @@ java -jar validator_cli.jar c:\temp\patient.xml -version 3.0 -ig hl7.fhir.us.cor
 Another option is to use the [Simplifier validation service](https://simplifier.net/validate) (free registration required):
 
 <p align="center">
-<img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/simplifier-1.png" alt="Simplifier validation service" width="200"/>
+<img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/simplifier-1.png" alt="Simplifier validation service"/>
 </p>
 
 The output contains found issues, categorized into errors, warnings and notices:
 
 <p align="center">
-<img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/simplifier-2.png" alt="Output of Simplifier validation service" width="200"/>
+<img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/simplifier-2.png" alt="Output of Simplifier validation service"/>
 </p>
 
 Pretty simple, isn't it?
@@ -38,7 +38,7 @@ Not really. Can the identified warnings and notices be really ignored? Where do 
 The answer is: FHIR validators have plenty of configuration options. They may or may not validate terminologies, may check or ignore externally referenced resources. Projects like Hammer try even to combine outputs of several different tools with the goal to return more detailed validation results:
 
 <p align="center">
-<img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/hammer.png" alt="drawing" width="200"/>
+<img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/hammer.png" alt="Hammer validation tool"/>
 </p>
 
 So, what tool to use? Which configuration?
