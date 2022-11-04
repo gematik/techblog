@@ -16,7 +16,7 @@ Make sure to install the latest version of [Ruby](https://www.ruby-lang.org/en/d
 
 Alternatively, you can use a [Docker Image](https://github.com/madduci/docker-github-pages) to generate the site, without installing the aforementioned packages (make sure your current directory is the project root):
 
-In Windows using Powershell:
+In Windows using PowerShell:
 
 ```sh
 docker run --rm -it -p 4000:4000 -v ${PWD}:/site --entrypoint //bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
