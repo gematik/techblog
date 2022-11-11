@@ -1,2 +1,14 @@
-- name: Tag Page Generator for Jekyll Blogs
-  uses: hendrixjoseph/jekyll-tag-page-generator-action@v1.01
+name: Generate the set of tag pages.
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-tag-pages:
+    name: Generate the set of tag pages.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hendrixjoseph/jekyll-tag-page-generator-action@master
+        with:
+          source: "https://www.joehxblog.com/data/tags.json"
+          destination: "./tags/"
