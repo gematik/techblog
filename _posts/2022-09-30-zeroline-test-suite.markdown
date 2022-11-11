@@ -4,7 +4,7 @@ title:  "Zero-line test suite"
 date:   2022-10-13 06:51:16 +0200
 author: Julian Peters
 categories: testing
-tags: testing test suite tiger
+tags: testing test-suite tiger
 ---
 
 Writing test suites that don't age, don't require software developers to set up, and still have significant technical depth is an impossible goal we at Gematik are constantly working towards. Zero-line test suites are a concept for minimizing required code while maximizing technical depth.
@@ -131,6 +131,7 @@ The Zero-Line test suite is a great way to hit the ground running when writing a
 
 Julian Peters is a programmer at heart, writing code for 20 years. He joined gematik 9 years ago and held positions ranging from tech lead to software architect. He is the leader of the chapter on testing technologies.
 
+### Linked information
 [^1]: <https://serenity-js.org/handbook/design/screenplay-pattern.html>
 [^2]: <https://cucumber.io/blog/bdd/keep-your-scenarios-brief/>
 [^3]: <https://github.com/gematik/app-Tiger>

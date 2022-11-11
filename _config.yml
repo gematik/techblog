@@ -41,6 +41,11 @@ plugins:
 # set timezone
 timezone: Europe/Berlin
 
+# Tags
+tag_page_layout: tag_index
+tag_page_dir: tag
+tag_permalink_style: pretty
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
