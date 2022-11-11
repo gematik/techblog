@@ -33,7 +33,7 @@ github_username:  gematik1
 
 # Build settings
 show_downloads: true
-remote_theme: pages-themes/minimal
+remote_theme: pages-themes/minimal@v0.2.0
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
