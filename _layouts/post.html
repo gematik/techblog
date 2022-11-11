@@ -7,7 +7,7 @@ layout: default
 
 <p class="view">by {{ page.author | default: site.author }}, reading time: {% include read_time.html %}
 <br />
-{% if page.tags != empty %}
+<!-- {% if page.tags != empty %}
         {% for tag in page.tags %}
           {% if tag != page.tags.last %}
           <em><a href="{{ site.baseurl }}{{ site.tag_page_dir | prepend: '/' }}/{{ tag | uri_escape }}">{{ tag | append: "</em> -" }}</a>
@@ -16,7 +16,7 @@ layout: default
           {% endif %}
         {% endfor %}
 {% endif %}
-</p>
+</p> -->
 
 {{content}}
 
