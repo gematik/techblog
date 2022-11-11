@@ -44,7 +44,7 @@ timezone: Europe/Berlin
 
 # Tags
 tag_page_layout: tag_index
-tag_page_dir: tag
+tag_page_dir: tags
 tag_permalink_style: pretty
 
 # Exclude from processing.
