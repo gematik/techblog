@@ -41,7 +41,7 @@ At the time of writing, the Software Factory is a composition of following tools
 * Kubernetes and some on Premise Servers for hosting applications
 * Monitoring Solutions
 
-![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/221114-swfactory/Software-Factory.webp)
+![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory.webp)
 *Logo of Software Factory @gematik (gematik GmbH)*
 
 Most of the above systems are running on Google Cloud, with the exception of some Jenkins Agents and some custom Monitoring solutions, hosted on gematik private servers. Applications that require particular constraints and access to the _Telematik Infrastruktur_ (TI) are hosted on private servers as well.
@@ -115,7 +115,7 @@ pipelineDockerHubPublish {
 
 which then translates to following Job:
 
-![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/221114-swfactory/pipeline.webp)
+![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)
 *Example of pipeline resulting from Groovy source code*
 
 That's it!
