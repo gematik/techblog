@@ -3,37 +3,11 @@
 
 @import "jekyll-theme-minimal";
 
-html,body {
-  font-family: sans-serif;
-  padding: 0 1em;
-  font-size: 19px;
-  background: #222;
-  color: #aaa;
-  text-align:center;
-}
-
-p {
-  margin: 1.5em 0;
-  color: #aaa;
-}
-
 img {
   max-height: 50vh;
 }
 
-a {
-  color: inherit;
-}
-
-a:hover {
-  color: #bbb;
-}
-
-.italic { font-style: italic; }
-.small { font-size: 0.8em; }
-
 /** LIGHTBOX MARKUP **/
-
 .lightbox {
   /* Default to hidden */
   display: none;
