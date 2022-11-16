@@ -63,7 +63,7 @@ All of the above goals can be achieved by defining build profiles, and flexible 
 The _JSL_ simplifies functionalities for building, testing, and deploying applications. The developers do not have to make any adjustments to their pipelines when the environment or default settings for functions change, as these can be made globally for everyone in the JSL. Furthermore, we have clustered the JSL functions according to functionalities such as Git, JIRA, Maven, Gradle, Nexus, Trivy, Docker, and others. For example, the Maven functions offer simple options for querying the version of the current Jira project, just with the Jira project ID, and setting it in the Maven project:
 
 ```groovy
-@Library('gematik-Jenkins-shared-library') _
+@Library('gematik-jenkins-shared-library') _
 def JIRA_PROJECT_ID = "..."
 pipeline {
     ...
@@ -82,7 +82,7 @@ pipeline {
 Another example is the vulnerability scan functionalities for Docker images. With one command, an HTML report is created for an image and saved as a result for the pipeline:
 
 ```groovy
-@Library('gematik-Jenkins-shared-library') _
+@Library('gematik-jenkins-shared-library') _
 def IMAGE_NAME= "MyImage"
 def VERSION = "latest"
 
@@ -106,7 +106,7 @@ Another example of frictionless usage of the Software Factory can be proven by t
 The following Jenkins pipeline uses the gematik Template pipeline _pipelineDockerHubPublish_ and needs only 2 parameters:
 
 ```groovy
-@Library('gematik-Jenkins-shared-library') _
+@Library('gematik-jenkins-shared-library') _
 pipelineDockerHubPublish {
     INTERNAL_IMAGE_NAME = "demis/hospital-location-service"
     EXTERNAL_IMAGE_NAME = "gematik1/demis-hospital-location-service"
