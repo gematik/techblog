@@ -9,6 +9,9 @@ tags: Jenkins Git SDLC Kubernetes Docker IaC DevOps
 
 Since May 2022 and after a long preparation, we've officially opened at gematik the _Software Factory_ to all our colleagues. It is a collection of services that help developers, test analysts, and software architects to build, test, and release their projects in a stable, trackable, and consistent way.
 
+![Logo of Software Factory @gematik (gematik GmbH)]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory.webp)
+*Logo of Software Factory @gematik (gematik GmbH)*
+
 **Stable** because the systems that compose the Software Development Life Cycle (SDLC) chain are running 100% on the cloud, with little-to-zero downtime. In stark contrast to the previous on-premise architecture, it's easily scalable and highly configurable, thanks to the infrastructure being written as code using Terraform and Helm.
 
 **Trackable** because all the code that lands on the main branch through push or merge-request events (we use Git as CVS) is tagged with human-readable names. The built artifacts are then fingerprinted and associated with the particular tag and git commit, so eventual problems in a library or application can be easily tracked back to the original code used to build it.
@@ -41,10 +44,10 @@ At the time of writing, the Software Factory is a composition of the following t
 * Kubernetes and some on-premise servers for hosting applications
 * Monitoring Solutions
 
-![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory.webp)
-*Logo of Software Factory @gematik (gematik GmbH)*
-
 Most of the above systems run on Google Cloud, except for some Jenkins agents and custom monitoring solutions hosted on gematik private servers. Applications that require particular constraints and access to the _Telematik Infrastruktur_ (TI) are also hosted on private servers.
+
+![System Overview of Software Factory]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory-Setup.svg)
+*System Overview of Software Factory*
 
 The whole environment is built using Infrastructure-as-Code with Terraform and Helm, following the industry's best practices and being supported by our technical partners.
 
@@ -102,7 +105,7 @@ pipeline {
 
 Before hitting production, artifacts are properly scanned for security or misconfiguration issues and tested using [our own test-suites]({{site.baseurl}}/testing/2022/10/13/zeroline-test-suite). If problems are found, they are visible in the form of visual feedback from Jenkins and GitLab and chat notifications through Microsoft Teams.
 
-Another example of frictionless usage of the Software Factory can be proven by the following scenario: imagine you want to publish an internally built Docker image to Docker Hub. The JSL contains not only individual functionalities but also complete pipelines. 
+Another example of frictionless usage of the Software Factory can be proven by the following scenario: imagine you want to publish an internally built Docker image to Docker Hub. The JSL contains not only individual functionalities but also complete pipelines.
 The following Jenkins pipeline uses the gematik Template pipeline _pipelineDockerHubPublish_ and needs only 2 parameters:
 
 ```groovy
@@ -115,10 +118,10 @@ pipelineDockerHubPublish {
 
 which then translates to the following job:
 
-![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)
+![Example of pipeline resulting from Groovy source code ]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)
 *Example of pipeline resulting from Groovy source code*
 
-That's it! 
+That's it!
 
 How we are constantly validating that the Software Factory was for us the right choice? Teams could increase their productivity in general, especially during the setup of new projects and their related CI/CD pipeline, dedicating their focus on solving business problems. The build times have incredibly been reduced, especially for jobs requiring more computing resources and parallel execution of processes, which all translates to faster iterations and reduced deployment time.
 
