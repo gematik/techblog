@@ -118,7 +118,9 @@ which then translates to the following job:
 ![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)
 *Example of pipeline resulting from Groovy source code*
 
-That's it!
+That's it! 
+
+How we are constantly validating that the Software Factory was for us the right choice? Teams could increase their productivity in general, especially during the setup of new projects and their related CI/CD pipeline, dedicating their focus on solving business problems. The build times have incredibly been reduced, especially for jobs requiring more computing resources and parallel execution of processes, which all translates to faster iterations and reduced deployment time.
 
 # About the author
 
