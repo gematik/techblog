@@ -22,8 +22,15 @@ java -jar validator_cli.jar c:\temp\patient.xml -version 3.0 -ig hl7.fhir.us.cor
 Another option is to use the [Simplifier validation service](https://simplifier.net/validate) (free registration required):
 
 <p align="center">
+<a href="#img1">
 <img src="{{ site.baseurl }}/assets/img/221104-validating-fhir/simplifier-1.png" alt="Simplifier validation service"/>
+</a>
 </p>
+
+<!-- lightbox container hidden with CSS -->
+<a href="#" class="lightbox" id="img1">
+  <span style="background-image: url('{{ site.baseurl }}/assets/img/221104-validating-fhir/simplifier-1.png')"></span>
+</a>
 
 The output contains found issues, categorized into errors, warnings, and notices:
 
