@@ -120,12 +120,27 @@ val a = A(
 ```
 won't even compile. Most likely you will notice it immediately because your IDE will point it out to you.
 
+**Misconception: I heard there was a Lombok plugin for Kotlin. So can't I simply use the @Builder on a Kotlin class anyway?**
+Yes and No.
+Yes, there is a [Lombok plugin for Kotlin](https://kotlinlang.org/docs/lombok.html) with support for the most common annotations.
+Yes, since Kotlin 1.8 there is also support for the @Builder annotation.
+No, you can't use it on your Kotlin class.
+The plugin only allows Kotlin code to understand Java code annotated with Lombok's most common annotations, but it won't let you annotate Kotlin classes with it.
+In more words: It simply helps your Kotlin compiler to understand that a `@Builder` annotation on a java class means
+that it's ok to call a `builder()` function on that class even though there's no function declaration to be found in the source code.
+So the plugin is really useful while converting a Java project to Kotlin, but you can (and should) safely remove it, once the conversion is done. 
+
 **Side note: wrapper types don't cause a runtime overhead in Kotlin.**
-So obviously you can also write wrapper types in Kotlin. Not so obvious is that you can do it in a way that is more efficient at runtime.
-The problem here is that normal classes cause a pointer indirection overhead, since you have to follow one more pointer to reach the final value. 
+Using wrapper types to increase type safety were mentioned in the Java section, 
+so let's see how this topic is handled in Kotlin.
+Obviously you can also write wrapper types in Kotlin, since in Java wrapper types were normal classes and Kotlin got those as well.
+Not so obvious is that Kotlin provided a better/more runtime efficient way!
+The general tradeoff with normal wrapper classes is that they cause an additional pointer indirection overhead.
 For this reason some people avoid wrapper types even though the gained compiletime safety would probably be worth it.
-Kotlin provides [inline classes](https://kotlinlang.org/docs/inline-classes.html), that are (most often) compiled away. 
-So you are left with all the safety and (probably) none of the runtime overhead.
+Kotlin provides specialised classes called [inline classes](https://kotlinlang.org/docs/inline-classes.html), that are (most often) compiled away. 
+So you are left with all the safety and (mostly) none of the runtime overhead.
+(The most common case, where the overhead can't be compiled away, is when you create a generic collection of an inline class.
+But simply passing an inline class around or storing it in a property is completely runtime performance penalty free.)
 
 An inline class can only wrap a single property and looks like this:
 
