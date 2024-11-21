@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Maintaining a Legacy System"
-date:   2024-11-07 08:00:00 +0200
+date:   2024-11-21 08:00:00 +0200
 author: Zhenwu Duan
 categories: tech
 tags: Legacy System Modernization Security Strategy Measures Experience
@@ -141,6 +141,6 @@ By following a step-by-step modernization strategy, reactivating tests, addressi
 
 ## About the author
 
-Zhenwu Duan is responsible in the smartcard team for the development and maintenance of test tools. His interests include various programming languages such as ​​Java, Go, C#, Typescript, as well as system testing and PKI technology.
+Zhenwu Duan is responsible in the Smartcard team for the development and maintenance of test tools. His interests include various programming languages such as ​​Java, Go, C#, Typescript, as well as system testing and PKI technology.
 
 ---
