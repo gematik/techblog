@@ -14,7 +14,7 @@ A legacy system, or legacy software, refers to an older system that has evolved 
 
 ## How Does a Legacy System Occur?
 
-Let's assume there is a product called "Prod.". The development phase is exciting, and then the "maintenance" phase begins. After extensive bug fixing and some optimizations, the software is accepted by the customer. Occasional bug fixes are still possible. Then comes a long quiet phase. The customers use the software, and the developers focus on other projects.
+Let's assume there is a product called "Prod". The development phase is exciting, and then the "maintenance" phase begins. After extensive bug fixing and some optimizations, the software is accepted by the customer. Occasional bug fixes are still possible. Then comes a long quiet phase. The customers use the software, and the developers focus on other projects.
 
 This quiet phase can last for several years. During this time, new techniques in the programming language have been established, and the gap between the version of “Prod” and the current state of the technology grows larger. The old code is no longer elegant and often feels outdated. The company's operating systems have likely been updated to the latest versions. Tests might have been moved to new computers, but the operating system on the new machine is no longer Windows, it changes to Linux. Half of the tests run no longer. No one has the time to address these issues. Gradually, the legacy system begins to deteriorate.
 
@@ -76,7 +76,6 @@ Replace outdated libraries with a newer, more secure alternative.
 **Update security patches regularly**: Even if the system’s core functionality does not require major changes, ensure that security patches are applied consistently to reduce the risk of attacks.
 
 Our approach in practice looks as below:
-
 The "critical" vulnerabilities in the used libraries should be replaced first with secure alternatives. Then, the "high" rated vulnerabilities should be addressed. The project is gradually transformed into secure software. Sonar findings are addressed, the test coverage is increased. OWASP findings are processed, and libraries are updated to enhance the software’s security.
 
 ## How to Prevent Problems with Legacy Systems
