@@ -88,6 +88,34 @@ public class TomcatServletCustomizer
 }
 ```
 
+<p align="center">
+<img src="{{ site.baseurl }}/assets/img/241217-checkTLScert/tls-handshake_with_cert_check.png" alt="drawing" width="800"/>
+</p>
+_TLS handshake with clients's certificate check_
+<!-- 
+@startuml
+title TLS Handshake with Client Certificate Validation
+
+actor Client as C
+participant Server as S
+participant "Handshake Interceptor\n(X509TrustManager)" as HI
+participant "Certificate Validation\nProcess (gemLibPki)" as CVP
+
+C -> S: Initiate TLS handshake
+S -> HI: Handshake Interceptor invoked
+HI -> CVP: Validate client certificate (TUC_PKI_018)
+CVP --> HI: Certificate valid
+HI -> S: Continue handshake
+S -> C: TLS handshake complete (Secure session established)
+
+alt Certificate invalid
+CVP --> HI: Certificate invalid
+HI -> S: Abort handshake
+S -> C: Handshake failed
+end
+@enduml
+-->
+
 ### Example implementation on gitHub
 
 The PKI testsuite published by gematik, includes a "System Under Test Server
