@@ -4,7 +4,7 @@ title: "Check TLS client certificate in Java"
 date: 2024-12-17 08:00:00 +0200
 author: Robert Staeber
 categories: tech
-tags: TLS handshake client certificate check TUC_PKI_018 specification Java
+tags: TLS handshake client's certificate check TUC_PKI_018 specification Java
 excerpt: "<br/>This article explains how to interrupt a TLS handshake on the server side (using Java and Spring Boot) to validate the client's certificate and, if necessary, abort the handshake. The certificate validation process adheres to the specifications provided by Gematik. The Java library introduced in this article implements this validation and is already in use by several software companies. <br/><br/>"
 ---
 
