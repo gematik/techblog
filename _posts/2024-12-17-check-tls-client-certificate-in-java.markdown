@@ -89,12 +89,12 @@ public class TomcatServletCustomizer
 ```
 
 <p align="center">
-<img src="{{ site.baseurl }}/assets/img/241217-checkTLScert/tls-handshake_with_cert_check.png" alt="drawing" width="800"/>
+<img src="{{ site.baseurl }}/assets/img/241217-checkTLScert/tls-TLS_Handshake_with_Validation_of_Client_s_Certificate.png" alt="drawing" width="800"/>
 </p>
-_TLS handshake with clients's certificate check_
+_TLS handshake with validation of client's certificate_
 <!-- 
 @startuml
-title TLS Handshake with Client Certificate Validation
+title TLS Handshake with Validation of Client's Certificate
 
 actor Client as C
 participant Server as S
