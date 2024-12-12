@@ -16,7 +16,7 @@ certificate validation process within the TI (Telematik Infrastruktur): TUC_PKI_
 Zertifikatsprüfung in der TI".<br/>
 Among other things, the document defines that the TLS handshake must be interrupted to validate the
 client's certificate.
-This leads to two main tasks:
+This results in 2 main tasks:
 
 1. Implementing a certificate validation process.
 2. Integrating this validation into the TLS handshake.
@@ -40,6 +40,12 @@ The following code snippets demonstrate how to interrupt the TLS handshake in a 
 application. <br/>
 You need to implement a Spring Boot component that extends `X509TrustManager` and use it as
 a `HandshakeInterceptor` in the `TomcatServletCustomizer`.<br/>
+
+<p align="center">
+<img src="{{ site.baseurl }}/assets/img/241217-checkTLScert/tls-TLS_Handshake_with_Validation_of_Client_s_Certificate.png" alt="drawing" width="800"/>
+</p>
+_TLS handshake with validation of client's certificate_
+
 The overridden method `checkClientTrusted` serves as the entry point for invoking the certificate
 validation process:
 
@@ -87,34 +93,6 @@ public class TomcatServletCustomizer
   }
 }
 ```
-
-<p align="center">
-<img src="{{ site.baseurl }}/assets/img/241217-checkTLScert/tls-TLS_Handshake_with_Validation_of_Client_s_Certificate.png" alt="drawing" width="800"/>
-</p>
-_TLS handshake with validation of client's certificate_
-<!-- 
-@startuml
-title TLS Handshake with Validation of Client's Certificate
-
-actor Client as C
-participant Server as S
-participant "Handshake Interceptor\n(X509TrustManager)" as HI
-participant "Certificate Validation\nProcess (gemLibPki)" as CVP
-
-C -> S: Initiate TLS handshake
-S -> HI: Handshake Interceptor invoked
-HI -> CVP: Validate client certificate (TUC_PKI_018)
-CVP --> HI: Certificate valid
-HI -> S: Continue handshake
-S -> C: TLS handshake complete (Secure session established)
-
-alt Certificate invalid
-CVP --> HI: Certificate invalid
-HI -> S: Abort handshake
-S -> C: Handshake failed
-end
-@enduml
--->
 
 ### Example implementation on gitHub
 
