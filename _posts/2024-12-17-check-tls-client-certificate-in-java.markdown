@@ -32,7 +32,7 @@ Simply use this library (introduced below) and follow the instructions in its `R
 The `gemLibPki` implements all the checks defined in TUC_PKI_018 and is already used by several
 software companies.<br/>
 [source code -> gitHub](https://github.com/gematik/ref-GemLibPki)<br/>
-[binaries -> maven central](https://search.maven.org/artifact/de.gematik.pki/gemlibpki)<br/>
+[binaries -> maven central](https://mvnrepository.com/artifact/de.gematik.pki/gemLibPki)<br/>
 
 ## Interrupting the TLS handshake on the server side to validate the client certificate
 
