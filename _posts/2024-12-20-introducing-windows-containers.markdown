@@ -1,43 +1,53 @@
 ---
 layout: post
-title:  "Introducing Windows Containers"
+title:  "Introducing Windows containers"
 date:   2024-12-20 08:00:00 +0100
 author: Michele Adduci
 categories: tech
 tags: Jenkins Docker Legacy Modernization
-excerpt: "<br/>How Windows Containers help us keeping legacy projects working and at the same time supporting new requirements.<br/><br/>"
+excerpt: "<br/>How Windows containers are helping us to keep legacy projects working and to support new requirements at the same time.<br/><br/>"
 ---
 
-## About our Software Landscape
+## About Our Software Landscape
 
-Every Product Team and Department at gematik maintains or develops a set of projects, based on a particular technological stack, depending on the goal that has to be achieved. We develop a variety of different solutions, including backend services, desktop applications, mobile applications, libraries, testing frameworks and test suites. The majority of these projects (~90%) is using a JVM-based language, most of the time this language is Java and can be built and run in a Linux or Windows environment.
+Every product team and department at gematik maintains or develops a set of projects based on a particular technological stack, depending on the goals that need to be achieved. 
+We develop a variety of solutions, including:
 
-Some particular projects, such as the gematik Authenticator, the ePA Library for Primary Systems (ePA PrimärSysteme) and Konnektor Tests with TTCN-3 require a Windows build.
+* backend services
+* desktop applications
+* mobile applications
+* libraries
+* testing frameworks
+* test suites. 
 
-Until the beginning of 2024, all these projects, built through our Build System, called [Software Factory](https://code.gematik.de/tech/2022/11/14/software-factory.html), were using the back-then existing Build Agents, which were based on many Windows Virtual Machines and Linux-based Docker Containers, all with their dedicated software packages.
+The majority of these projects (~90%) are using a JVM-based language, most of the time Java, and can be built and run both Linux and Windows environments.
+
+Some particular projects, such as the gematik Authenticator, the ePA Library for Primary Systems (ePA Primärsysteme), and Konnektor Tests with TTCN-3, require a Windows build.
+
+Until the beginning of 2024, all these projects, built through our build system called [Software Factory](https://code.gematik.de/tech/2022/11/14/software-factory.html), were using the existing build agents at the time. These agents were based on numerous Windows virtual machines and Linux-based Docker containers, each with their dedicated software packages.
 
 ## Sustainability and Maintainability
 
-Since our Software Factory is running mostly on Google Cloud since 2022, having Virtual Machines running and being underutilized most of the time represents an opportunity for optimising our monthly recurring costs.
+Since 2022, our Software Factory has been running mostly on Google Cloud. Running underutilized virtual machines presents an opportunity to optimize our monthly recurring costs.
 
-Generally speaking, keeping Virtual Machines regularly updated, in terms of operating system patches and software updates, poses a challenge in terms of sustainability and maintainability. Performing slow update cycles, executing custom operations in the virtual machine or replacing the whole VM with a newer one by big updates are all operations that cost time and requires a big effort, but has also some risks: what if there is a malicious access in the VM or some software packages don't work anymore? 
+Generally speaking, keeping virtual machines regularly updated in terms of operating system patches and software updates poses a challenge for sustainability and maintainability. Performing slow update cycles costs time and requires significant effort. Executing custom operations in the virtual machine or replacing the entire VM during major updates also adds to the workload. Additionally, these actions carry risks: what if there is malicious access to the VM, or some software packages no longer work?
 
-We have faced, and addressed, similar challenges before, moving away from Linux Virtual Machines and adopting Linux Containers, so the question was: why not give Windows Containers a try?
+We have faced and addressed similar challenges before by moving away from Linux virtual machines and adopting Linux containers. This led us to the question: why not give Windows containers a try?
 
-## Approaching Windows Containers
+## Approaching Windows containers
 
-Citing the Microsoft Learn [article about Windows Containers](https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/), Container Technology has been for years a disrupting one, but today represents a "must", or, using the [Thoughtworks TechRadar](https://www.thoughtworks.com/radar) terminology, Containers belong now in the "Adopt" quadrant.
+Citing the Microsoft Learn [article about Windows containers](https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/), Container Technology has been for years a disrupting one, but today represents a "must", or, using the [Thoughtworks TechRadar](https://www.thoughtworks.com/radar) terminology, containers belong now in the "Adopt" quadrant.
 
 Microsoft offers several base images, that can be used as a starting point:
 
 * Windows - contains the full set of Windows APIs and system services (minus server roles).
 * Windows Server - contains the full set of Windows APIs and system services.
-* Windows Server Core - a smaller image that contains a subset of the Windows Server APIs–namely the full .NET framework. It also includes most but not all server roles (for example Fax Server is not included).
+* Windows Server Core - a smaller image that contains a subset of the Windows Server APIs-namely the full .NET framework. It also includes most but not all server roles (for example Fax Server is not included).
 * Nano Server - the smallest Windows Server image and includes support for the .NET Core APIs and some server roles.
 
 <p align="center">
 <a href="#img1">
-<img src="{{ site.baseurl }}/assets/img/20241220-win-containers/images.webp" alt="Types of Windows Base Images"/>
+<img src="{{ site.baseurl }}/assets/img/20241220-win-containers/images.webp" alt="Types of Windows base images"/>
 </a>
 </p>
 
@@ -45,11 +55,11 @@ As stated in the [article on the Container Images](https://learn.microsoft.com/e
 
 > The key difference between these images is that Nanoserver has a significantly smaller API surface. PowerShell, WMI, and the Windows servicing stack are absent from the Nanoserver image.
 
-## Requirements for Windows Containers
+## Requirements for Windows containers
 
-Windows Containers were initially kicked-off at the time of Windows Server 2016 and Windows 10 Professional/Enterprise (version 1607). Their capabilities were also very limited, compared to what they can do today.
+Windows containers were initially kicked-off at the time of Windows Server 2016 and Windows 10 Professional/Enterprise (version 1607). Their capabilities were also very limited, compared to what they can do today.
 
-At the time of writing, Windows Containers are officially supported up to Windows Server 2022, although initial Images of Windows Server 2025 are already available. Also Windows 11 Pro and Enterprise can run Windows Containers. 
+At the time of writing, Windows containers are officially supported up to Windows Server 2022, although initial Images of Windows Server 2025 are already available. Also Windows 11 Pro and Enterprise can run Windows containers. 
 
 Independently from what kind of Windows setup you are using, the basic requirements are the same: 
 
@@ -59,29 +69,39 @@ Independently from what kind of Windows setup you are using, the basic requireme
 * Enough RAM (at least 8 GB)
 * Enough Storage Capacity (at least 50 GB)
 
-There is also an important requirement: you still need a build host, in form of physical or virtual machine, since a Windows Docker Image cannot be built or run inside another container: the "docker-in-docker" mechanism like in Linux is not possible. 
+Another important requirement is the necessity of a build host, either a physical or virtual machine, because Windows Docker images cannot be built or run within another container. Unlike on Linux, the _docker-in-docker_ mechanism is not supported for Windows, due to Hyper-V limitations.
 
 ## Assessing the (many) limitations
 
-Microsoft itself offers a documentation page containing a list of existing limitations of their containers and what is possible, today, use with them, instead of relying on virtual machines, called ["Lift and shift to Windows containers"](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/lift-shift-to-containers).
+Microsoft offers a [documentation page](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/lift-shift-to-containers), titled **"Lift and Shift to Windows Containers"**, which outlines the existing limitations of their containers and the current capabilities available for use without relying on virtual machines.
 
-Since at gematik we looked for replacing our virtual machines with containers to perform headless build tasks and not run any interactive or long-running application, we have accepted the limitations and digged further into using Windows Containers.
+Since our goal was to replace virtual machines with containers for performing headless build tasks, rather than running interactive or long-running applications, we accepted these limitations and invested more time learning about Windows containers.
 
-Running Windows Containers requires a well-defined orchestration of setups and configurations: you have a given version of Windows as your host, then depending on it, you can only use a compatible version of one of the four available Base Images. As an example: you can't build or have Containers based on Windows Server 2022 but your host ist a Windows 10 machine. 
+Running Windows containers necessitates a well-defined orchestration of setups and configurations:
 
-In our case, we had to make sure that in Google Cloud, not only we still needed a Virtual Machine for building the Docker Images, but also our Kubernetes Cluster had to be extended, to have Windows Worker Nodes, with the same compatible version of Windows. Since in Google Cloud the latest available version was Server Core 2022, we opted for it, after failing tests with the Server Core 2019.
+* **Host Operating System**: You must have a specific version of Windows as your host.
+* **base images Compatibility**: Depending on the host OS version, only compatible versions of the four available base images can be used.
+
+**Example**: You cannot build or run containers based on Windows Server 2022 if your host is a Windows 10 machine.
+
+In our scenario, we needed to ensure that within Google Cloud:
+
+1. **Virtual Machine Requirement**: A virtual machine was still necessary for building Docker images
+2. **Kubernetes Cluster Extension**: Our Kubernetes cluster had to be extended to include a Windows Worker Node Pool with the same compatible Windows version, that can launch a compatible Kubernetes node, running the containers
+
+Since the latest available version in Google Cloud was Server Core 2022, we opted for it after our tests with Server Core 2019 failed.
 
 ## Shifting Build Agents to Immutable Infrastructure
 
-In our task to move Build Agents to Containers, we have adopted the approach "cattle, not pets" also with the host Virtual Machine, responsible for building the Windows Docker Image: the VM is defined by a template in a Terraform project, so we can regularly update the VM itself by simply destroying and recreating it in a simple step.
+In our effort to migrate Build Agents to containers, we have adopted the "cattle, not pets" approach for the host virtual machines responsible for building Windows Docker images. The VM is defined by a template in a Terraform project, allowing us to regularly update the VM itself by simply destroying and recreating it in a straightforward step.
 
-The Windows Docker Images themselves, once built, are also immutable and easly updatable, by simply upgrading the tag or sha256 digest of the base image.
+The Windows Docker images themselves are immutable and easily updatable. Updates can be performed by simply upgrading the tag or the SHA256 digest of the base image.
 
-For our use cases, we havea at the moment 3 different Windows Images, in a hierarchy:
+For our use cases, we currently maintain three different Windows images organized in a hierarchy:
 
-* a base builder, with common tools pre-installed
-* a general builder for backend services and test suites, with many JDKs, Browsers, Visual Studio Build Tools, NodeJS
-* a builder for Konnektor Tests with TTCN-3 with JDK 11 and Maven
+* Base Builder: Includes common tools pre-installed.
+* General Builder: Designed for backend services and test suites, equipped with multiple JDKs, browsers, Visual Studio Build Tools, and Node.js.
+* Konnektor Test Builder: Tailored for Konnektor Tests with TTCN-3, featuring JDK 11 and Maven.
 
 For the base builder, we've decided to use `chocolatey` for installing all the needed packages with a given version and define PowerShell as default interpreter for the commands, instead of the default CMD:
 
@@ -94,13 +114,13 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::Sec
     $null=New-Item -Force -Path \"C:/\" -Name \"ProgramData\" -ItemType \"directory\"; `
     iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')); `
     Write-Verbose \"### Installing basic packages\" -Verbose; `
-    choco install git --version 2.47.0.20241025 -y --no-progress; `
+    choco install git --version 2.47.1 -y --no-progress; `
     choco install openssl --version 3.4.0 -y --no-progress; `
     choco install jq --version 1.7.1 -y --no-progress; `
     choco install yq --version 4.40.2 -y --no-progress; `
-    choco install curl --version 8.11.0 -y --no-progress; `
+    choco install curl --version 8.11.1 -y --no-progress; `
     choco install unzip --version 6.0 -y --no-progress; `
-    choco install 7zip --version 24.8.0 -y --no-progress; `
+    choco install 7zip --version 24.9.0 -y --no-progress; `
     Write-Verbose \"### Installing Snyk\" -Verbose; `
     Write-Verbose \"### Cleanup TEMP folder\" -Verbose; `
     Remove-Item -Path $env:TEMP\* -Recurse -Force -ErrorAction SilentlyContinue;    
@@ -122,16 +142,16 @@ Other software packages that we have installed in the derived agents are: Visual
 
 ## How far we got?
 
-The Windows Docker Images are quite big. The Server Core Base Image occupies already ~4.5 GBytes. Installing VS Build Tools and other packages bumps the size to 13 GBytes. It is still much less than a Virtual Machine and the launch of the container is considerably _faster_. The build time varies from agent to agent, since some packages (such as Visual Studio Build Tools) require a lot of network traffic, but approximately the build time is around 30 Minutes, including pull and push of images.
+The Windows Docker images are quite large. The Server Core base image already occupies approximately 4.5 GB. Installing Visual Studio (VS) Build Tools and other packages increases the size to 13 GB. Despite their size, Docker containers remain significantly smaller than virtual machines, and container launch times are considerably faster. Build times vary between agents, as some packages (such as Visual Studio Build Tools) require substantial network traffic. However, the overall build time is approximately 30 minutes, including the pull and push of images.
 
-We have successfully transitioned many Jenkins Jobs to the newer Container-based agents, supporting in a shorter period of time many newer use cases that previously were not existing (e.g. monitoring of Quality Gates, Signing Applications and Packages, building C# applications). At the same time, we could isolate legacy projects that rely on older versions of Java and that require very specific packages to work with: once these projects will be phased out, we can simply remove the build agent.
+We have successfully transitioned many Jenkins jobs to the newer container-based agents, enabling support for various new use cases that previously did not exist, such as monitoring Quality Gates, signing applications and packages, and building C# applications. At the same time, we have been able to isolate legacy projects that rely on older versions of Java and require very specific packages. Once these legacy projects are phased out, we can simply remove the corresponding build agents.
 
-Running Container Agents has been for us cheaper, not only in terms of costs, having workloads running only when it is really required, by also in terms of maintenance: in few steps, new software packages can be added or the existing ones upgraded or removed, generally saving hours of time.
+Running container agents has been more cost-effective for us, not only in terms of reduced expenses due to workloads running only when required, but also in terms of maintenance. In just a few steps, new software packages can be added, or existing ones upgraded or removed, typically saving hours of time.
 
 ---
 
 ## About the author
 
-Michele Adduci is a Software Architect with a proven track record of helping organisations implementing modern solutions, focusing a focus on maintainability, reliability and efficiency. At gematik since 2021, he works on [DEMIS](https://www.gematik.de/anwendungen/demis) and is part of the Chapter "Cloud and Build Technologies".
+Michele Adduci is a Software Architect with a proven track record of assisting organizations in implementing modern solutions, with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on [DEMIS](https://www.gematik.de/anwendungen/demis) and is an integral member of the "Cloud and Build Technologies" chapter.
 
 ---
