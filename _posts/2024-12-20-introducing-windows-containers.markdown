@@ -126,7 +126,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::Sec
     Remove-Item -Path $env:TEMP\* -Recurse -Force -ErrorAction SilentlyContinue;    
 ```
 
-In addition to these tools, we've also integrated some static analisys tools for monitoring and improving our Software Quality Gates, such as the OWASP Dependency Scanner, Sonar Scanner CLI and Snyk, whose releases are available through GitHub.
+In addition to these tools, we've also integrated some static analysis tools for monitoring and improving our Software Quality Gates, such as the OWASP Dependency Scanner, Sonar Scanner CLI and Snyk, whose releases are available through GitHub.
 
 We had also to configure some custom symbolic links, to make sure that Jenkins could work with these agents, instead of being blocked, looking for the `nohup` operation:
 
@@ -140,7 +140,7 @@ RUN Write-Verbose \"### Configuring nohup for Jenkins\" -Verbose; `
 
 Other software packages that we have installed in the derived agents are: Visual Studio Build Tools, different JDKs, Maven, Gradle, NodeJS, Flutter, Google Chrome and Microsoft Edge (for browser testing). Installing browsers required the installation of some fonts, which are not shipped withing the Server Core base images. We couldn't add Firefox, since it requires other system APIs, which are not available.
 
-## How far we got?
+## How Far Have We Come?
 
 The Windows Docker images are quite large. The Server Core base image already occupies approximately 4.5 GB. Installing Visual Studio (VS) Build Tools and other packages increases the size to 13 GB. Despite their size, Docker containers remain significantly smaller than virtual machines, and container launch times are considerably faster. Build times vary between agents, as some packages (such as Visual Studio Build Tools) require substantial network traffic. However, the overall build time is approximately 30 minutes, including the pull and push of images.
 
@@ -152,6 +152,6 @@ Running container agents has been more cost-effective for us, not only in terms 
 
 ## About the author
 
-Michele Adduci is a Software Architect with a proven track record of assisting organizations in implementing modern solutions, with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on [DEMIS](https://www.gematik.de/anwendungen/demis) and is an integral member of the "Cloud and Build Technologies" chapter.
+Michele Adduci is a Software Architect with a proven track record of assisting organizations in implementing modern solutions, with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on [DEMIS](https://www.gematik.de/anwendungen/demis) and is an integral member of the "Cloud and Deployment Technologies" chapter.
 
 ---
