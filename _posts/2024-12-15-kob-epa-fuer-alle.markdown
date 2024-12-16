@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How the KOB Test Suite Improves Development and Compliance Processes"
-date:   2024-12-15 06:51:16 +0200
+date:   2024-12-16 16:51:16 +0200
 author: Julian Peters
 categories: testing
 tags: testing test-suite tiger kob kig epa
@@ -20,36 +20,39 @@ With the rollout of the 'ePA für alle', a new approach has been introduced: the
 
 ## A Paradigm Shift in Testing
 
-This new process offers significant advantages for all parties involved: faster public availability of test suites, early support during development, precise and transparent test results, and flexible integration into internal workflows. The iterative approach fosters better collaboration between gematik and manufacturers, enabling more efficient development.
+This new process offers significant advantages for all parties involved: faster public availability of test suites, early support during development, precise and transparent test results, and flexible integration into internal workflows. This iterative approach fosters better collaboration between gematik and manufacturers, enabling more efficient development.
 
 By entrusting testing to manufacturers while maintaining complete transparency regarding test content, gematik builds trust. The open-source nature of the test suite ensures all code can be reviewed and understood. Early testing (a "shift-left" approach) further supports manufacturers by improving time-to-market outcomes.
 
 ## The Tiger Framework
 
-Tiger is a comprehensive test solution designed to simplify the creation of various test types, including end-to-end, acceptance-, integration-, and interface tests. Ideal for resource-constrained teams and agile processes, it is open-source, Java-based, and built on Cucumber, offering flexibility and customizability for automated testing.
+Tiger is a comprehensive test solution designed to simplify the creation of various test types, including end-to-end, acceptance-, integration-, and interface tests. Ideal for resource-constrained teams and agile processes, it is open-source [], Java-based, and built on Cucumber, offering flexibility and customizability for automated testing.
 
 Tiger’s core feature is a proxy that intercepts and analyzes network traffic between components. This traffic is converted into a protocol-agnostic hierarchical structure (a tree), searchable with **RbelPath**, a query language inspired by XPath and JsonPath. This eliminates the need for advanced programming skills, making the framework accessible even for non-technical users.
 
-To enhance collaboration, Tiger provides the **WorkflowUI**, an HTML-based visualization of captured traffic, simplifying documentation and communication around test scenarios. The framework's plugin-based architecture supports extensions tailored to specific needs, such as Docker container provisioning or FHIR resource validation. Additionally, **Zion** enables the rapid deployment of mock services with simple logic.
+To enhance collaboration, Tiger provides the **WorkflowUI**, an HTML-based visualization of captured traffic, simplifying documentation and communication around test scenarios. The framework's plugin-based architecture supports extensions tailored to specific needs, such as Docker container provisioning or FHIR resource validation. Additionally, **Zion** enables the rapid deployment of mock services with simple logic. Future blog posts will explore these technical aspects in greater detail, diving further into the Tiger framework and its capabilities.
 
 ## KOB Tests with Tiger
 
-The KOB Test Suite, available on GitHub, allows manufacturers to run tests in their environments, providing significant flexibility. Internal setups can be used, and tests can be executed on individual developer machines or central build servers. Test results are immediate and actionable.
+The KOB test suite is open source and available for download [on GitHub](https://github.com/gematik/kob-Testsuite/)[^1]. Tests are executed directly in the manufacturers' environments, enabling the use of custom setups, execution on developer machines, or on centralized build servers. This allows tests to adapt to different workflows while providing rapid and clear results.
 
-Key benefits include integration into CI pipelines to prevent regression and the ability to develop directly against the final test suite, potentially saving significant time and costs. For gematik, delegating parts of the test setup to manufacturers reduces its operational burden.
+The test suite can be integrated into CI pipelines and supports direct development against the final test suite. This approach helps streamline processes and align manufacturers’ development with testing requirements. gematik can also reduce its workload by delegating parts of the test setup to manufacturers.
 
-Optional test cases included with the KOB Test Suite allow for enhanced technical communication. These tests address common challenges, such as non-functional requirements, by offering automated solutions to typical pitfalls. Manufacturers also benefit from guidance through implementation manuals and consultations with gematik experts.
+Optional test cases included in the suite allow for technical clarification of specific issues, particularly for non-functional aspects such as endpoint usage patterns. These cases complement gematik’s existing documentation and support services, aiming to capture potential challenges in an automated manner.
 
 ## Implementation Challenges and Long-Term Benefits
 
-The initial adaptation of the KOB Test Suite does pose challenges, particularly in integrating the test driver interface. Manufacturers must adapt to this interface to align with the tested user journeys, requiring additional development effort. Smaller manufacturers with limited resources may find this especially demanding. Building the knowledge base needed to work effectively with the new framework also consumes resources initially.
+The implementation effort for manufacturers is significant and should not be underestimated. A key challenge lies in integrating the test driver interface, which must be tailored to align with the user journeys being tested. This adaptation requires additional development work and can become complex depending on the manufacturer’s existing infrastructure and technical constraints. Moreover, building the expertise to effectively use the test framework demands time and resources, particularly for smaller manufacturers with limited development capacity.
 
-However, the long-term benefits outweigh these hurdles. Once integrated, the KOB Test Suite enables continuous automated testing within CI pipelines, accelerating bug detection and improving software quality. This leads to faster time-to-market for compliant products and reduced maintenance costs through enhanced test coverage. Moreover, as more products are to be integrated into the KOB Test Suite, manufacturers benefit from streamlined processes and standardized procedures.
+Despite these initial difficulties, the effort pays off in the long term. Once implemented, the KOB test suite enables continuous, automated testing through integration with CI processes. This improves error detection, enhances software quality, and supports faster market readiness for products that meet compliance requirements. Over time, maintenance costs can be reduced due to improved test coverage. Additionally, the test suite increasingly standardizes testing across different products, simplifying workflows for manufacturers. Adopting the KOB test suite can contribute to more efficient development processes and closer collaboration between manufacturers and gematik.
 
 ## Conclusion
 
-The introduction of the KOB Test Suite marks a pivotal advancement in conformity assessment. While the initial implementation, particularly of the test driver interface, presents challenges, the suite offers significant long-term benefits: reduced maintenance costs, automated testing, and accelerated product launches. This new level of transparency fosters trust among manufacturers and patients alike. By embracing this innovative approach, manufacturers and gematik lay the foundation for efficient and successful collaboration.
+The introduction of the KOB Test Suite marks a pivotal advancement in conformity assessment. While the initial implementation, particularly of the test driver interface, presents challenges, the suite offers significant long-term benefits: Reduced maintenance costs, automated testing, and faster time-to-market for new products are achievable goals. This new transparency from gematik fosters greater trust among manufacturers and patients. By investing in this approach, both manufacturers and gematik establish a solid foundation for efficient and successful collaboration.
 
 # About the author
 
-Julian Peters is a programmer at heart, writing code for 20 years. He joined gematik 11 years ago and held positions ranging from tech lead to software architect. He is the leader of the chapter on testing technologies.
+Julian Peters is a programmer at heart, writing code for 20 years. He joined gematik 11 years ago and held positions ranging from tech lead to software architect. He is the tech-lead of the Tiger-Team developing the Tiger Test framework.
+
+[^1]: <https://github.com/gematik/kob-Testsuite/>
+[^2]: <https://github.com/gematik/app-Tiger>
