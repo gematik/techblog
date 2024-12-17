@@ -7,6 +7,8 @@ categories: testing
 tags: testing test-suite tiger kob kig epa
 ---
 
+Gematik’s open-source KOB Test Suite, powered by Tiger, transforms healthcare digitization by enabling local testing, CI integration, and streamlined development. Discover how it fosters trust and efficiency in ePA rollout.
+
 ## Tiger Sets New Standards in Conformity Assessment
 
 Digitization in healthcare is inherently complex, particularly when it comes to creating open systems that enable seamless collaboration among diverse stakeholders. This challenge is particularly evident in the rollout of the new electronic patient record (ePA für alle).
