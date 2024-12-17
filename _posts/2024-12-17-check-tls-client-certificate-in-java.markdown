@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Check TLS client certificate in Java"
-date: 2024-12-17 08:00:00 +0200
+date: 2025-01-08 08:00:00 +0200
 author: Robert Staeber
 categories: tech
 tags: TLS handshake client's certificate check TUC_PKI_018 specification Java
@@ -21,7 +21,7 @@ This results in 2 main tasks:
 1. Implementing a certificate validation process.
 2. Integrating this validation into the TLS handshake.
 
-## Certificate validation process
+## Certificate Validation Process
 
 The certificate validation process is already implemented and well-documented in the `gemLibPki`
 library.
@@ -34,7 +34,7 @@ software companies.<br/>
 [source code -> gitHub](https://github.com/gematik/ref-GemLibPki)<br/>
 [binaries -> maven central](https://mvnrepository.com/artifact/de.gematik.pki/gemLibPki)<br/>
 
-## Interrupting the TLS handshake on the server side to validate the client certificate
+## Interrupting the TLS Handshake on the Server Side to Validate the Client Certificate
 
 The following code snippets demonstrate how to interrupt the TLS handshake in a Spring Boot
 application. <br/>
@@ -94,7 +94,7 @@ public class TomcatServletCustomizer
 }
 ```
 
-### Example implementation on gitHub
+### Example Implementation on GitHub
 
 The PKI testsuite published by gematik, includes a "System Under Test Server
 Simulator" ([gitHub -> pkits-sut-server-sim](https://github.com/gematik/app-PkiTestsuite/tree/main/pkits-sut-server-sim))
@@ -105,7 +105,7 @@ perform the required validation.<br/>
 
 ---
 
-## About the author
+## About the Author
 
 Robert Stäber is a software engineer for more than 20 years. He joined the gematik in 2016 and is
 member of the product team `IDM (Identity Management)` and the `Chapter Identity & Security` as
