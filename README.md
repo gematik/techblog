@@ -25,7 +25,7 @@ docker run --rm -it -p 4000:4000 -v ${PWD}:/site --entrypoint //bin/sh madduci/d
 On Linux/Mac:
 
 ```sh
-docker run --rm -it -p 4000:4000 -v $pwd:/site --entrypoint /bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
+docker run --rm -it -p 4000:4000 -v $PWD:/site --entrypoint /bin/sh madduci/docker-github-pages -c "bundle install && bundle exec jekyll serve --watch --force_polling --host 0.0.0.0 --incremental"
 ```
 
 ## Usage
