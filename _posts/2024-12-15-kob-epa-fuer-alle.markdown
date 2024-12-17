@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How the KOB Test Suite Improves Development and Compliance Processes"
-date:   2024-12-16 16:51:16 +0200
+date:   2024-12-16 16:51:15 +0200
 author: Julian Peters
 categories: testing
 tags: testing test-suite tiger kob kig epa
