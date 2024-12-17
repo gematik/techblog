@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Introducing Windows Containers"
-date:   2024-12-20 08:00:00 +0100
+date:   2024-12-17 08:00:00 +0100
 author: Michele Adduci
 categories: tech
 tags: Jenkins Docker Legacy Modernization
