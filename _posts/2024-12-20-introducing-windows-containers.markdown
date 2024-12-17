@@ -13,16 +13,16 @@ excerpt: "<br/>How Windows containers are helping us to keep legacy projects wor
 Every product team and department at gematik maintains or develops a set of projects based on a particular technological stack, depending on the goals that need to be achieved. 
 We develop a variety of solutions, including:
 
-* backend services
-* desktop applications
-* mobile applications
-* libraries
-* testing frameworks
-* test suites. 
+* backend services,
+* desktop applications,
+* mobile applications,
+* libraries,
+* testing frameworks,
+* test suites.
 
-The majority of these projects (~90%) are using a JVM-based language, most of the time Java, and can be built and run both Linux and Windows environments.
+The majority of these projects (~90%) are using a JVM-based language, most of the time Java, and can be built and run on both Linux and Windows environments.
 
-Some particular projects, such as the gematik Authenticator, the ePA Library for Primary Systems (ePA Primärsysteme), and Konnektor Tests with TTCN-3, require a Windows build.
+Some particular projects, such as the gematik Authenticator, the ePA Library for Primary Systems (ePA Primärsysteme), and connector tests with TTCN-3, require a Windows build.
 
 Until the beginning of 2024, all these projects, built through our build system called [Software Factory](https://code.gematik.de/tech/2022/11/14/software-factory.html), were using the existing build agents at the time. These agents were based on numerous Windows virtual machines and Linux-based Docker containers, each with their dedicated software packages.
 
@@ -34,7 +34,7 @@ Generally speaking, keeping virtual machines regularly updated in terms of opera
 
 We have faced and addressed similar challenges before by moving away from Linux virtual machines and adopting Linux containers. This led us to the question: why not give Windows containers a try?
 
-## Approaching Windows containers
+## Approaching Windows Containers
 
 Citing the Microsoft Learn [article about Windows containers](https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/), Container Technology has been for years a disrupting one, but today represents a "must", or, using the [Thoughtworks TechRadar](https://www.thoughtworks.com/radar) terminology, containers belong now in the "Adopt" quadrant.
 
@@ -55,7 +55,7 @@ As stated in the [article on the Container Images](https://learn.microsoft.com/e
 
 > The key difference between these images is that Nanoserver has a significantly smaller API surface. PowerShell, WMI, and the Windows servicing stack are absent from the Nanoserver image.
 
-## Requirements for Windows containers
+## Requirements for Windows Containers
 
 Windows containers were initially kicked-off at the time of Windows Server 2016 and Windows 10 Professional/Enterprise (version 1607). Their capabilities were also very limited, compared to what they can do today.
 
@@ -71,7 +71,7 @@ Independently from what kind of Windows setup you are using, the basic requireme
 
 Another important requirement is the necessity of a build host, either a physical or virtual machine, because Windows Docker images cannot be built or run within another container. Unlike on Linux, the _docker-in-docker_ mechanism is not supported for Windows, due to Hyper-V limitations.
 
-## Assessing the (many) limitations
+## Assessing the (Many) Limitations
 
 Microsoft offers a [documentation page](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/lift-shift-to-containers), titled **"Lift and Shift to Windows Containers"**, which outlines the existing limitations of their containers and the current capabilities available for use without relying on virtual machines.
 
@@ -101,7 +101,7 @@ For our use cases, we currently maintain three different Windows images organize
 
 * Base Builder: Includes common tools pre-installed.
 * General Builder: Designed for backend services and test suites, equipped with multiple JDKs, browsers, Visual Studio Build Tools, and Node.js.
-* Konnektor Test Builder: Tailored for Konnektor Tests with TTCN-3, featuring JDK 11 and Maven.
+* Konnektor Test Builder: Tailored for connector tests with TTCN-3, featuring JDK 11 and Maven.
 
 For the base builder, we've decided to use `chocolatey` for installing all the needed packages with a given version and define PowerShell as default interpreter for the commands, instead of the default CMD:
 
