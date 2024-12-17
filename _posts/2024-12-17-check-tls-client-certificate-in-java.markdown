@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Check TLS client certificate in Java"
+title: "Check TLS Client Certificate in Java"
 date: 2025-01-08 08:00:00 +0200
 author: Robert Staeber
 categories: tech
