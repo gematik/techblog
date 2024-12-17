@@ -30,6 +30,7 @@ url: "https://code.gematik.de" # the base hostname & protocol for your site, e.g
 # url: "https://gematik.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: gematik1
 github_username:  gematik1
+repository: gematik/techblog
 
 # Build settings
 show_downloads: true
