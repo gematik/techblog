@@ -13,13 +13,13 @@ For this purpose, several web interfaces are available in the elektronische Pati
 
 Example of a VAU connection bewtween PVS and VAU:
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/overview_vau.png" alt="Overview VAU Channel" width="651" height="210"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/overview_vau.png" alt="Overview VAU Channel" width="501" height="210"/>
 
 ## The VAU Encryption Protocol?
 
 The purpose of the VAU protocol is to establish an encrypted channel to the VAU instance. Encryption is performed symmetrically with AES-256 and GCM mode. However, a prerequisite for encryption is that both sides agree on two symmetric keys for AES encryption. One key is called client2server (c2s) and is used to encrypt communication data sent from the PVS to the VAU instance, for example. The second key, called server2client (s2c), is used when sending communication data from the VAU instance to the PVS. In contrast to conventional TLS connections, where both sides use a shared key, two different symmetric keys are used here. Of course, both keys must be present on both sides so that each side can correctly decrypt the data from the other side.
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/vaumessages.png" alt="VAU Messages" width="810" height="261"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/vaumessages.png" alt="VAU Messages" width="530" height="221"/>
 
 In order for both sides to calculate the same symmetric keys (key negotiation), the asymmetric algorithms Elliptic Curves in combination with Diffie Hellman, as well as the Cyberalgorithm are used. The exchange of the calculations of these algorithms takes place in the 4 messages, called “VAUMessage1, VAUMessage2, VAUMessage3 and VAUMessage4”.
 
@@ -28,7 +28,7 @@ In order for both sides to calculate the same symmetric keys (key negotiation), 
 ### The Algorithm Elliptic Curve in combination with Diffie Hellman
 To understand how the complexity of the VAU protocol works, we will first take a closer look at the algorithms used and how they work. Similar to a TLS connection, the client and server must first agree on a shared secret (ss1) to be used to encrypt and decrypt the information. In today's TLS connections, the asymmetric algorithm Elliptic Curve is used in combination with the key exchange method Diffie Hellmann in TLS 1.3 and later. The Diffie-Hellman algorithm was developed in 1976 by Whifield Diffie and Martin Hellman to establish a secure shared key between two parties over an insecure communcation channel. The process allows to communicate in encrypted form, without the key having to be exchanged over the actual communication channel. A 32-byte shared secret is currently calculated here.
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretecdh.png" alt="Shared Secret with ECDH" width="951" height="396"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretecdh.png" alt="Shared Secret with ECDH" width="472" height="711"/>
 
 **Step 1**: The server (e.g. VAU instance) and the client (e.g. PVS) generate their own private asymmetric key pair of the elliptical curve SECP256R1.
 
@@ -50,7 +50,7 @@ Unlike TLS, both sides must agree on a further shared secret (ss2). In the VAU c
 
 In this procedure, for example, the client generates a cyber key pair consisting of a public and private key. The public key is then transferred to the server. A secret shared secret is randomly generated in the server and encrypted using the client's public cyber key. The encrypted ciphertext is then transferred to the client, which can decrypt the ciphertext using its matching private key. In this way, a key exchange for the symmetric algorithm AES-256 is also carried out using Kyber, and both sides again have the same shared secrets.
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretkyber.png" alt="Shared Secret with Kyber" width="781" height="377"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretkyber.png" alt="Shared Secret with Kyber" width="471" height="701"/>
 
 **Step 1**: The client (e.g. PVS) generates its own private asymmetric key pair for the cyber-algorithm.
 
@@ -65,7 +65,7 @@ In this procedure, for example, the client generates a cyber key pair consisting
 
 Both sides now have the same two shared secrets (ss1 and ss2). Finally, both sides have to derive two symmetric keys for the AES-256 from these shared secrets. The key derivation function (KDF) is used for this.
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/kdf.png" alt="Symmetric key generation with KDF" width="722" height="362"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/kdf.png" alt="Symmetric key generation with KDF" width="411" height="342"/>
 
 **Step 1**: Both shared secrets are passed to the key derivation function. Both shared secrets are concatenated into an array. The array is then passed to the HMAC. HMAC stands for “Hash-based Message Authentication Code” and is used in the VAU channel with the hash algorithm SHA-256. The HMAC is used to create a 64-byte key, which is then halved into two symmetrical 32-byte keys.
 
