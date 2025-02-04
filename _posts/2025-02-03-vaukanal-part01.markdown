@@ -28,7 +28,7 @@ In order for both sides to calculate the same symmetric keys (key negotiation), 
 ### The Algorithm Elliptic Curve in combination with Diffie Hellman
 To understand how the complexity of the VAU protocol works, we will first take a closer look at the algorithms used and how they work. Similar to a TLS connection, the client and server must first agree on a shared secret (ss1) to be used to encrypt and decrypt the information. In today's TLS connections, the asymmetric algorithm Elliptic Curve is used in combination with the key exchange method Diffie Hellmann in TLS 1.3 and later. The Diffie-Hellman algorithm was developed in 1976 by Whifield Diffie and Martin Hellman to establish a secure shared key between two parties over an insecure communcation channel. The process allows to communicate in encrypted form, without the key having to be exchanged over the actual communication channel. A 32-byte shared secret is currently calculated here.
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretecdh.png" alt="Shared Secret with ECDH" width="472" height="711"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretecdh.png" alt="Shared Secret with ECDH" width="531" height="711"/>
 
 **Step 1**: The server (e.g. VAU instance) and the client (e.g. PVS) generate their own private asymmetric key pair of the elliptical curve SECP256R1.
 
@@ -50,7 +50,7 @@ Unlike TLS, both sides must agree on a further shared secret (ss2). In the VAU c
 
 In this procedure, for example, the client generates a cyber key pair consisting of a public and private key. The public key is then transferred to the server. A secret shared secret is randomly generated in the server and encrypted using the client's public cyber key. The encrypted ciphertext is then transferred to the client, which can decrypt the ciphertext using its matching private key. In this way, a key exchange for the symmetric algorithm AES-256 is also carried out using Kyber, and both sides again have the same shared secrets.
 
-<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretkyber.png" alt="Shared Secret with Kyber" width="471" height="701"/>
+<img src="{{ site.baseurl }}/assets/img/20250203-vaukanal-part01/sharedsecretkyber.png" alt="Shared Secret with Kyber" width="521" height="701"/>
 
 **Step 1**: The client (e.g. PVS) generates its own private asymmetric key pair for the cyber-algorithm.
 
