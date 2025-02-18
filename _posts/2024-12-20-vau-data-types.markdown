@@ -1,28 +1,28 @@
 ---
 layout: post
-title: "The 3 levels of Vau (version 1) data types explored in Kotlin"
+title: "The 3 Levels of VAU (version 1) Data Types Explored in Kotlin"
 date:   2024-12-20 16:00:00 +0200
 author: Stephan Schröder
 categories: tech
 tags: Kotlin VAU
-excerpt: "<br/>Presenting the Vau (version 1) data types in Kotlin<br/><br/>"
+excerpt: "<br/>Presenting the VAU (version 1) data types in Kotlin<br/><br/>"
 ---
 
-The vau encryption protocol en-/decrypts http requests and responses and can be modeled in three layers.
-- level 1: just the raw data of the request or response to be wrapped/transmitted
-- level 2: we add identifying and cryptographic information used match a response to it's request and to tell the backend with key to use to symmetrically encrypt the response
-- level 3: the encrypted version of level 2
+The VAU encryption protocol en-/decrypts http requests and responses and can be modeled in three layers.
+- Level 1: just the raw data of the request or response to be wrapped/transmitted
+- Level 2: cryptographic data as well as an id to match request and response is added
+- Level 3: the encrypted version of Level 2
 
 Let's look at how we can model this Kotlin.
 
-## Vau Requests
+## VAU Requests
 
-The complete code for the vau requests data types can be found [here](https://github.com/simon-void/vauk/blob/main/src/main/kotlin/de/gmx/simonvoid/vau/request.kt).
+The complete code for the VAU requests data types can be found [here](https://github.com/simon-void/VAUk/blob/main/src/main/kotlin/de/gmx/simonvoid/VAU/request.kt).
 (This isn't a gematik project and the code comes without warranty or support.)
 
-### Level 1 Vau Request
+### Level 1 VAU Request
 
-This is a serialized example of a level 1 vau request: 
+This is a serialized example of a Level 1 VAU request: 
 ```text
 POST /Task/$create HTTP/1.1
 content-type: application/fhir+xml
@@ -46,25 +46,25 @@ content-length: 270
 In it's first line `POST /Task/$create HTTP/1.1` we see the http method, path and http version used of the original request.
 The next conceptual block consists of all the headers of the original request (excluding the host header).
 Next comes an empty line and then the bytes of the original request are appended. Within the context of eRezept,
-the body is actually always text (more specifically json or xml) encoded in utf8, but Vau encoding isn't concerned about its content,
-so treating the body as bytes is more correct when creating Vau data types.
+the body is actually always text (more specifically json or xml) encoded in UTF-8, but VAU encoding isn't concerned about its content,
+so treating the body as bytes is more correct when creating VAU data types.
 
-Another curiosity of Vau in the context of eRezept is that while the newline characters used in Vau encoding is "\r\n"
+Another curiosity of VAU in the context of eRezept is that the newline sequence used in VAU encoding is "\r\n"
 while the xml or json send as a payload seems to generally use "\n".
 
 Ok, let's put all this information into a data type:
 
 ```kotlin
-class L1VauReqEnvelopeAkaInnerVau(
+class L1VAUReqEnvelopeAkaInnerVAU(
     val method: HttpMethod,
     val path: String,
     val httpVersion: HttpVersion,
-    val headers: VauHeaders,
+    val headers: VAUHeaders,
     val body: BodyBytes,
 )
 ```
 
-with `HttpMethod`, `HttpVersion`, `VauHeaders` and `BodyBytes` adding additional type safety around `String`, `Map` and `ByteArray` data types.
+with `HttpMethod`, `HttpVersion`, `VAUHeaders` and `BodyBytes` adding additional type safety around `String`, `Map` and `ByteArray` data types.
 
 ```kotlin
 enum class HttpMethod {
@@ -79,7 +79,7 @@ enum class HttpVersion(val value: String) {
 
 // Headers are represented/required as Map<String, String> or as Map<String, List<String>>
 @JvmInline
-value class VauHeaders private constructor(private val map: Map<String, List<String>>) {
+value class VAUHeaders private constructor(private val map: Map<String, List<String>>) {
     val contentType: String? get() = ...
     val jwt: String? get() = ...
     val contentLength: Int? get() = ...
@@ -89,8 +89,8 @@ value class VauHeaders private constructor(private val map: Map<String, List<Str
     fun asMapWithConcatenatedValues(splitStrategy: HeaderValueConcatenationStrategy = defaultValueConcatenationStrategy): Map<String, String> = ...
 
     companion object {
-        fun fromConcatenatedHeaderValues(map: Map<String, String>): VauHeaders = ...
-        fun fromSeparateHeaderValues(map: Map<String, List<String>>): VauHeaders = VauHeaders(map)
+        fun fromConcatenatedHeaderValues(map: Map<String, String>): VAUHeaders = ...
+        fun fromSeparateHeaderValues(map: Map<String, List<String>>): VAUHeaders = VAUHeaders(map)
     }
 }
 
@@ -106,31 +106,31 @@ value class BodyBytes(val bytes: ByteArray) {
 }
 ```
 
-### Level 2 Vau Request
+### Level 2 VAU Request
 
-Unfortunately a Level 2 Vau Request, like one from Level 1, is often simply referred to "InnerVau".
-The easiest way, to discern which level it is from its serialised form is to check if the first token is a number (level 2) or an http method (level 1).
+Unfortunately a Level 2 VAU Request, like one from Level 1, is often simply referred to "InnerVAU".
+The easiest way, to discern which level it is given its serialised form is to check if the first token is a number (Level 2) or an http method (Level 1).
 It has the following form:
 
 ```text
-{vauVersion} {accessToken} {requestId} {aesKey} {l1vauRequest}
+{VAUVersion} {accessToken} {requestId} {aesKey} {l1VAURequest}
 ```
 
-- vauVersion: since we're specifically looking at version 1 of Vau, the first token will always be "1"
+- VAUVersion: since we're specifically looking at version 1 of VAU, the first token will always be "1"
 - accessToken: this is the jwt token from the *Authorization* header of the original request (so the value of the header minus the "Bearer " prefix)
 - requestId: is a random lowercase hex value intended to match a response to its request (if necessary). The length isn't strictly specified, we use 32 characters.
 - aesKey: is a generated, random 32-character long lowercase hex value of the AES-key used to encrypt the response symmetrically
-- l1vauRequest: is exactly as specified above (and as showcased by the given example)
+- l1VAURequest: is exactly as specified above (and as showcased by the given example)
 
 So as data type(s) this looks like this:
 
 ```kotlin
-class L2VauReqEnvelopeAkaInnerVau(
+class L2VAUReqEnvelopeAkaInnerVAU(
     val version: Int = 1,
     val accessToken: AccessCode,
     val requestId: RequestId,
     val aesKey: AesKey,
-    val l1InnerVau: L1VauReqEnvelopeAkaInnerVau,
+    val l1InnerVAU: L1VAUReqEnvelopeAkaInnerVAU,
 )
 ```
 
@@ -167,18 +167,18 @@ value class AesKey(val hexValue: String) {
 }
 ```
 
-### Level 3 Vau Request
+### Level 3 VAU Request
 
-The third level of a Vau request is in its encrypted form (asymmetrically encrypted with the public key of the receiver).
-But even here there's still a certain structure to be found. The first byte contains the version of Vau used, so in our context that's always a 1.
+The third level of a VAU request is in its encrypted form (asymmetrically encrypted with the public key of the receiver).
+But even here there's still a certain structure to be found. The first byte contains the version of VAU used, so in our context that's always a 1.
 Then come the x- and y-coordinate used to encrypt this request each taking 32 bytes. Then comes the cipher which starts off with a 12 byte initialisation vector
-and everything afterwards the the tagged cipher text. 
+and everything afterwards is the tagged cipher text. 
 
 ```kotlin
-class L3VauReqEnvelopeAkaOuterVau(
+class L3VAUReqEnvelopeAkaOuterVAU(
     val bytes: ByteArray,
 ) {
-    val version: VauVersion = VauVersion(bytes[0])
+    val version: VAUVersion = VAUVersion(bytes[0])
 
     val xCoordinate: XCoordinate get() = XCoordinate(bytes.copyOfRange(1, 33))
     val yCoordinate: YCoordinate get() = YCoordinate(bytes.copyOfRange(33, 65))
@@ -190,7 +190,7 @@ class L3VauReqEnvelopeAkaOuterVau(
             )
         )
 
-    override fun toString(): String = "L3VauReqEnvelopeAkaOuterVau(nrBytes=${bytes.size})"
+    override fun toString(): String = "L3VAUReqEnvelopeAkaOuterVAU(nrBytes=${bytes.size})"
 }
 ```
 
@@ -198,7 +198,7 @@ with helper classes:
 
 ```kotlin
 @JvmInline
-value class VauVersion(val value: Byte) {
+value class VAUVersion(val value: Byte) {
     init {
         require(value.toInt() == 1) { "Invalid version: $value, expected 1" }
     }
@@ -235,9 +235,11 @@ value class InitialisationVector(val bytes: ByteArray) {
 }
 ```
 
-### Level 1 Vau Response
+## VAU Responses
 
-A level 1 Vau Response has a structure very similar to that of its request counterpart.
+### Level 1 VAU Response
+
+A Level 1 VAU Response has a structure very similar to that of its request counterpart.
 Here's an example:
 
 ```text
@@ -254,19 +256,19 @@ While the first two elements always use a single token, the status text can actu
 So the modelling is very straight forward:
 
 ```kotlin
-class L1VauResEnvelope(
+class L1VAUResEnvelope(
     val httpVersion: HttpVersion,
     val statusCode: StatusCode,
-    val headers: VauHeaders,
+    val headers: VAUHeaders,
     val body: BodyBytes,
 )
 
 data class StatusCode(val code: Int, val text: String)
 ```
 
-### Level 2 Vau Response
+### Level 2 VAU Response
 
-A level 2 Vau response adds a Vau version and requestId in-front of the data from level 1. 
+A Level 2 VAU response adds a VAU version and requestId in front of the data from Level 1. 
 
 ```text
 1 0123456789abcdef0123456789abcdef HTTP/1.1 201 Created
@@ -280,26 +282,31 @@ Content-Length: 1286
 which can be represented as
 
 ```kotlin
-class L2VauResEnvelope(
+class L2VAUResEnvelope(
     val version: Int = 1,
     val requestId: RequestId,
-    val l1VauRes: L1VauResEnvelope,
+    val l1VAURes: L1VAUResEnvelope,
 )
 ```
 
 with no new helper classes.
 
-### Level 3 Vau Response
+### Level 3 VAU Response
 
-The data type for a level 3 Vau response is once more a simple wrapper around a byte array. This time without
-additional structure since it has been created by symmetric encryption (using the `aesKey` of the level 2 Vau request).
+The data type for a Level 3 VAU response is once more a simple wrapper around a byte array. This time without
+additional structure since it has been created by symmetric encryption (using the `aesKey` of the Level 2 VAU request).
 
 ```kotlin
 @JvmInline
-value class L3VauResEnvelopeAkaEncryptedL2(val bytes: ByteArray) {
-    override fun toString(): String = "L3VauResEnvelopeAkaEncryptedL2(nrOfBytes=${bytes.size})"
+value class L3VAUResEnvelopeAkaEncryptedL2(val bytes: ByteArray) {
+    override fun toString(): String = "L3VAUResEnvelopeAkaEncryptedL2(nrOfBytes=${bytes.size})"
 }
 ```
+
+## Conclusion
+
+Kotlin with its strict typing, nullability, and (often) no-overhead inline classes makes it convenient, efficient, and safe to
+to map data types like those found in the VAU protocol into code.
 
 ### About the author
 
