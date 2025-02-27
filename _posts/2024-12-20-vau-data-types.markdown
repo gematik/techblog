@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "The 3 Levels of VAU (version 1) Data Types Explored in Kotlin"
-date:   2024-12-20 16:00:00 +0200
+date:   2025-01-28 16:00:00 +0200
 author: Stephan Schröder
 categories: tech
 tags: Kotlin VAU
 excerpt: "<br/>Presenting the VAU (version 1) data types in Kotlin<br/><br/>"
 ---
 
-The VAU encryption protocol en-/decrypts http requests and responses and can be modeled in three layers.
+The VAU (*"vertrauenswürdige Ausführungsumgebung"*) encryption protocol en-/decrypts http requests and responses and can be modeled in three layers.
 - Level 1: just the raw data of the request or response to be wrapped/transmitted
 - Level 2: cryptographic data as well as an id to match request and response is added
 - Level 3: the encrypted version of Level 2
