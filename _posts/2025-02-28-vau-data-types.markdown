@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The 3 Levels of VAU (version 1) Data Types Explored in Kotlin"
-date:   2025-01-28 16:00:00 +0200
+date:   2025-02-28 16:00:00 +0200
 author: Stephan Schröder
 categories: tech
 tags: Kotlin VAU
@@ -17,7 +17,7 @@ Let's look at how we can model this Kotlin.
 
 ## VAU Requests
 
-The complete code for the VAU requests data types can be found [here](https://github.com/simon-void/VAUk/blob/main/src/main/kotlin/de/gmx/simonvoid/VAU/request.kt).
+The complete code for the VAU requests data types can be found [here](https://github.com/simon-void/vauk/blob/main/src/main/kotlin/de/gmx/simonvoid/vau/request.kt).
 (This isn't a gematik project and the code comes without warranty or support.)
 
 ### Level 1 VAU Request
