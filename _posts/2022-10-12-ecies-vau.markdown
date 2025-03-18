@@ -224,7 +224,7 @@ You can find some unit tests for this implementation [here](https://github.com/g
 
 ---
 
-Have some ❤️, questions, feedback, or feel like 🤔 Reach out to me at [Twitter](https://twitter.com/t0bsdt) or [GitHub](https://github.com/tobias-schwerdtfeger).
+Have some ❤️, questions, feedback, or feel like 🤔 Reach out to me at [GitHub](https://github.com/tobias-schwerdtfeger).
 
 # About the author
 
