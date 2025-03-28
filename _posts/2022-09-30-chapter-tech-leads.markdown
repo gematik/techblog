@@ -10,7 +10,7 @@ excerpt: "<br/>We recently switched the organizational structure of the software
 
 At gematik, we work in a matrix organization like many medium or large companies. The idea of a matrix organization is to group different skills in vertical cross-functional product teams where the work is done (the What) while departments, like Software Development, are taking care of the technical education of their employees on a horizontal level across product teams (the How). 
 
-![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/220930-chapter/matrix_gematik.png)
+[![Sketch of the matrix organization @gematik]({{site.baseurl}}/assets/img/220930-chapter/matrix_gematik.png)]({{site.baseurl}}/assets/img/220930-chapter/matrix_gematik.png)
 *Sketch of the matrix organization @gematik (gematik GmbH)*
 
 While this model provides an undeniable scaling effect, it bears some challenges that should be taken into account:
@@ -24,7 +24,7 @@ This resulted in 2 teams giving their best in keeping the balls in the air but e
 
 Therefore, we decided to give up the team structure and form a chapter structure (as explained in the (in-)famous Spotify model) around Technical Leads as Chapter Leads to structure the How for the product teams more efficiently.
 
-![Differences between Chapter Leads and Product Owners]({{site.baseurl}}/assets/img/220930-chapter/how_what.png)
+[![Differences between Chapter Leads and Product Owners]({{site.baseurl}}/assets/img/220930-chapter/how_what.png)]({{site.baseurl}}/assets/img/220930-chapter/how_what.png)
 *Difference between Chapter Lead and Product Owner ([Henrik Kniberg & Anders Ivarsson, Oct 2012](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf))*
 
 ## What's a Chapter & Chapter Lead for us?

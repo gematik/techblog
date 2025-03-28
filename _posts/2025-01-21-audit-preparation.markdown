@@ -64,7 +64,7 @@ To maintain a high-level overview, we use a `requirements.properties` file. This
 
 To streamline the process, we created a Gradle plugin called `technical-requirements`. This plugin automates the generation of audit artifacts in three steps: setup, execution, and presentation.
 
-![Audit Preparation Workflow]({{site.baseurl}}/assets/img/20250121-audit-preparation/process-uml.svg)
+[![Audit Preparation Workflow](/assets/img/20250121-audit-preparation/process-uml.svg)](/assets/img/20250121-audit-preparation/process-uml.svg)
 
 *Fig.1: Workflow*
 
@@ -131,10 +131,14 @@ The final step involves packaging the HTML document with the necessary CSS, Java
 <table style="border-collapse: collapse; border: none; width: 100%; text-align: center;">
   <tr>
     <td style="border: none;">
-      <img src="{{ site.baseurl }}/assets/img/20250121-audit-preparation/audit-report-screenshot-1.png" alt="Screenshot 1" width="350"/>
+      <a href="{{ site.baseurl }}/assets/img/20250121-audit-preparation/audit-report-screenshot-1.png">
+        <img src="{{ site.baseurl }}/assets/img/20250121-audit-preparation/audit-report-screenshot-1.png" alt="Screenshot 1" width="350" />
+      </a>
     </td>
     <td style="border: none;">
-      <img src="{{ site.baseurl }}/assets/img/20250121-audit-preparation/audit-report-screenshot-2.png" alt="Screenshot 2" width="350"/>
+      <a href="{{ site.baseurl }}/assets/img/20250121-audit-preparation/audit-report-screenshot-2.png">
+        <img src="{{ site.baseurl }}/assets/img/20250121-audit-preparation/audit-report-screenshot-2.png" alt="Screenshot 2" width="350"/>
+      </a>
     </td>
   </tr>
 </table>

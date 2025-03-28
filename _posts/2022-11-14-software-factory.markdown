@@ -46,7 +46,7 @@ At the time of writing, the Software Factory is a composition of the following t
 
 Most of the above systems run on Google Cloud, except for some Jenkins agents and custom monitoring solutions hosted on gematik private servers. Applications that require particular constraints and access to the _Telematik Infrastruktur_ (TI) are also hosted on private servers.
 
-![System Overview of Software Factory]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory-Setup.svg)
+[![System Overview of Software Factory]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory-Setup.svg)]({{site.baseurl}}/assets/img/20221114-swfactory/Software-Factory-Setup.svg)
 *System Overview of Software Factory*
 
 The whole environment is built using Infrastructure-as-Code with Terraform and Helm, following the industry's best practices and being supported by our technical partners.
@@ -118,7 +118,7 @@ pipelineDockerHubPublish {
 
 which then translates to the following job:
 
-![Example of pipeline resulting from Groovy source code ]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)
+[![Example of pipeline resulting from Groovy source code ]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)]({{site.baseurl}}/assets/img/20221114-swfactory/pipeline.webp)
 *Example of pipeline resulting from Groovy source code*
 
 That's it!

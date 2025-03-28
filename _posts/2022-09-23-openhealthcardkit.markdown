@@ -16,8 +16,8 @@ The digitalization of the German Health System is progressing. One essential par
 OpenHealthCardKit (OHC) started as a proof of concept for using smart card hardware interfaces with mobile devices with no NFC interface to connect them with German health cards (elektronische Gesundheitskarte → eGK). As Apple added NFC capabilities to their mobile devices and finally opened them for general purposes, we added just another interface implementation, and OHCKit gained the ability to talk to eGKs on iPhones contactless. The OHCKit repository also comes with a demo application, "OpenHealthCard connect" (see Fig. 1), also available on AppStore [^1].
 
 <p align="center">
-<img src="{{ site.baseurl }}/assets/img/220923-ohckit/ohckit_screenshot1.png" alt="drawing" width="200"/>
-<img src="{{ site.baseurl }}/assets/img/220923-ohckit/ohckit_screenshot2.png" alt="drawing" width="200"/>
+<a href="{{ site.baseurl }}/assets/img/220923-ohckit/ohckit_screenshot1.png"><img src="{{ site.baseurl }}/assets/img/220923-ohckit/ohckit_screenshot1.png" alt="drawing" width="200"/></a>
+<a href="{{ site.baseurl }}/assets/img/220923-ohckit/ohckit_screenshot2.png"><img src="{{ site.baseurl }}/assets/img/220923-ohckit/ohckit_screenshot2.png" alt="drawing" width="200"/></a>
 </p>
 *Fig. 1: Screenshots "OpenHealthCard connect" app*
 
@@ -51,7 +51,7 @@ The groundwork of the framework is specified by three documents.
 
 All this technical depth is abstracted by OHCKit and its sub-modules.
 
-![gemSpec_COS example]({{ site.baseurl }}/assets/img/220923-ohckit/gemspec-cos-example.png)
+[![gemSpec_COS example]({{ site.baseurl }}/assets/img/220923-ohckit/gemspec-cos-example.png)]({{ site.baseurl }}/assets/img/220923-ohckit/gemspec-cos-example.png)
 *Fig. 2: Example of a "Select"-command specification in gemSpec_COS*
 
 Keep in mind that, while these documents describe the content and behavior of smart cards, one can derive the desired behavior of the coupling device, i.e. how this framework can achieve it.
