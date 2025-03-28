@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Audit Preparation in E-Rezept App"
+title:  "Audit Preparation in E-Rezept App (Android)"
 date:   2025-01-21 10:10:10 +0200
 author: Dinesh Gangatharan
 categories: tech
-tags: Audits
+tags: Audits Android
 ---
 
 As an open-source and publicly funded application, the E-Rezept app must consistently pass rigorous audits. These audits are critical, and while auditors have access to the entire codebase, it’s our responsibility to make their task easier by providing well-documented and structured audit artifacts.
