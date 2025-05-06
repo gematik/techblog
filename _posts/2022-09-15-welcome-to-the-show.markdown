@@ -11,7 +11,7 @@ Welcome to the tech blog of the gematik! We know that starting a blog in 2022 is
 When I started as Director of Software Engineering at gematik, I was overwhelmed by how much the organization is focused on learning and sharing knowledge. 
 Constant learning is essential! 
 
-![Learning together]({{ site.baseurl }}/assets/img/pexels-christina-morillo-1181371.jpg)
+[![Learning together]({{ site.baseurl }}/assets/img/pexels-christina-morillo-1181371.jpg)]({{ site.baseurl }}/assets/img/pexels-christina-morillo-1181371.jpg)
 *Learning together is essential (Photo by Christina Morillo)*
 
 You may not call it learning, but extending your knowledge beyond what you already know is the core driver of our evolution as humans. The ancestors of Homo sapiens grabbed two stones and noticed that they could form a sharp blade by clashing them together. We learn through experience, and as an organization, it is your job to enable and drive learning. 
@@ -53,7 +53,7 @@ So that's what our learning pipeline looks like:
 2. Code Brunch 
 3. Daily work & Team Meetings
 
-![Our learning cycle]({{site.baseurl}}/assets/img/learn_cycle.png)
+[![Our learning cycle]({{site.baseurl}}/assets/img/learn_cycle.png)]({{site.baseurl}}/assets/img/learn_cycle.png)
 *Our learning cycle (gematik GmbH)*
 
 ## Our way
