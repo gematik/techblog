@@ -1,0 +1,37 @@
+@startuml
+rectangle "Notification" as notification
+
+node "Validation" as vali{
+component "Validation-Service" as vs
+component "Lifecycle-Validation-Service" as lvs
+note right: uses FHIRPath
+component "Notification-Routing-Service" as nrs
+note right: uses FHIRPath
+}
+
+node "Enrichment & Clean-Up" as ecu{
+component "Context-Enrichment-Service" as ces
+component "Pseudonymization-Service" as ps
+}
+
+node "Delivery" as deli{
+component "FHIR-Storage-Writer" as fsw
+component "Destination-Lookup-Writer" as dlw
+component "PDFGen-Service" as pgs
+}
+
+notification -d-> vs
+
+vs -d-> nrs
+nrs -d-> lvs
+
+lvs -d-> ces
+ces -d-> ps
+
+ps -d-> fsw
+fsw -d-> dlw
+dlw -d-> pgs
+
+
+
+@enduml
