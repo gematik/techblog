@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How Setting Everything as Code Accelerated the DEMIS Development"
-date: 2025-12-03 08:00:00 +0200
+date: 2025-12-05 16:00:00 +0200
 author: Michele Adduci
 categories: tech
 tags: demis,terraform,kubernetes,helm,docker,security
