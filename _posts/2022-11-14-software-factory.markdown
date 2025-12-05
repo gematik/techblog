@@ -127,6 +127,6 @@ How we are constantly validating that the Software Factory was for us the right 
 
 # About the author
 
-Michele Adduci is a Software Engineer with 10+ years of experience in different topics such as Computer Vision, eID/eIDAS, and DevOps. At gematik since 2021, he focuses on Projects such as the [electronic Patient Record (ePA)](https://www.gematik.de/anwendungen/e-patientenakte) and [DEMIS](https://www.gematik.de/anwendungen/demis).
+Michele Adduci is a Software Architect with 15 years of experience and with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on different projects, such as [electronic Patient Record (ePA)](https://www.gematik.de/anwendungen/epa-fuer-alle), [DEMIS](https://www.gematik.de/anwendungen/demis) and the [National FHIR Terminology Server](https://terminologien.bfarm.de/) and is an integral member of the "Cloud and Deployment Technologies" chapter.
 
 Christian Lange is a software architect with more than 15 years of expertise and leads the Chapter Cloud & Deployment Technologies at gematik. His focus includes software architectures, cloud technologies, DevOps, and tech leadership. Christian Lange works on different projects like [DEMIS](https://www.gematik.de/anwendungen/demis) and Software Factory.
