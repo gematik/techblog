@@ -5,16 +5,16 @@ date:   2025-12-09 08:00:00 +0200
 author: Zhenwu Duan
 categories: tech
 tags: RMI migration prevent legacy Spring REST
-excerpt: "<br/>This article examines how to prevent a project from becoming legacy by migrating RMI(Remote Method Invocation) as a case study. When an outdated technology becomes a blocking factor, replacement is often more effective than continued maintenance. RMI was once a prominent component of the Java ecosystem, but Spring has discontinued its support due to evolving industry standards and modern alternatives. This article discusses: <br/>Why RMI has become problematic in contemporary projects <br/>Strategies for migrating away from RMI<br/>How to ensure long-term project maintainability and updatability<br/>While this demonstration focuses on RMI, the principles and migration strategies presented can be applied to similar scenarios involving deprecated technologies. Proactively replacing outdated dependencies prevents technical debt and keeps projects aligned with current frameworks and security standards.<br/><br/>"
+excerpt: "<br/>This article examines how to prevent a project from becoming legacy by migrating RMI(Remote Method Invocation) as a case study. When an outdated technology becomes a blocking factor, replacement is often more effective than continued maintenance. RMI was once a prominent component of the Java ecosystem, but Spring has discontinued its support due to evolving industry standards and modern alternatives. This article discusses at first,why RMI has become problematic in contemporary projects, then the strategies for migrating away from RMI, at last how to ensure long-term project maintainability and updatability. While this demonstration focuses on RMI, the principles and migration strategies presented can be applied to similar scenarios involving deprecated technologies. Proactively replacing outdated dependencies prevents technical debt and keeps projects aligned with current frameworks and security standards.<br/><br/>"
 ---
 
 **1.  Overview**
 
 Remote Method Invocation (RMI), which has existed since the introduction
-of Java, is the invocation of a method of a remote Java object and
+of Java (since 1.1), is the invocation of a method of a remote Java object and
 implements Java\'s own version of Remote Procedure Call.
 
-Java RMI (in java since 1.1) was developed as part of the Java ecosystem
+Java RMI was developed as part of the Java ecosystem
 to facilitate the creation of distributed systems where objects can
 interact across network boundaries.
 
