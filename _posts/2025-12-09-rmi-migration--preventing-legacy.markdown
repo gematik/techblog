@@ -4,31 +4,11 @@ title:  "RMI Migration - Preventing Legacy"
 date:   2025-12-09 08:00:00 +0200
 author: Zhenwu Duan
 categories: tech
-tags: Legacy System Modernization Security Strategy Measures Experience
-excerpt: "<br/>This article examines how to prevent a project from becoming legacy by
-using RMI (Remote Method Invocation) migration as a case study. When an
-outdated technology becomes a blocking factor, replacement is often more
-effective than continued maintenance.
-
-RMI was once a prominent component of the Java ecosystem, but Spring has
-discontinued its support due to evolving industry standards and modern
-alternatives. This article discusses:
-
-\- Why RMI has become problematic in contemporary projects
-
-\- Strategies for migrating away from RMI
-
-\- How to ensure long-term project maintainability and updatability
-
-While this demonstration focuses on RMI, the principles and migration
-strategies presented can be applied to similar scenarios involving
-deprecated technologies.
-
-Proactively replacing outdated dependencies prevents technical debt and
-keeps projects aligned with current frameworks and security standards.<br/><br/>"
+tags: RMI migration prevent legacy Spring REST
+excerpt: "<br/>This article examines how to prevent a project from becoming legacy by migrating RMI(Remote Method Invocation) as a case study. When an outdated technology becomes a blocking factor, replacement is often more effective than continued maintenance. RMI was once a prominent component of the Java ecosystem, but Spring has discontinued its support due to evolving industry standards and modern alternatives. This article discusses: <br/>Why RMI has become problematic in contemporary projects <br/>Strategies for migrating away from RMI<br/>How to ensure long-term project maintainability and updatability<br/>While this demonstration focuses on RMI, the principles and migration strategies presented can be applied to similar scenarios involving deprecated technologies. Proactively replacing outdated dependencies prevents technical debt and keeps projects aligned with current frameworks and security standards.<br/><br/>"
 ---
 
-1.  **Overview**
+**1.  Overview**
 
 Remote Method Invocation (RMI), which has existed since the introduction
 of Java, is the invocation of a method of a remote Java object and
@@ -38,7 +18,7 @@ Java RMI (in java since 1.1) was developed as part of the Java ecosystem
 to facilitate the creation of distributed systems where objects can
 interact across network boundaries.
 
-2.  **Problem**
+**2.  Problem**
 
 A problem was discovered during the update of the project "ZTDV" that is
 preventing the Spring Framework update.
@@ -64,7 +44,7 @@ Spring Framework update in the "ZTDV" project is blocked.
 <img src="../assets/img/20251209-rmi-migration-preventing-legacy/spring-context-5.x.x-vs-6.x.x.png" width=450 height=400>
 
 
-3.  **What is RMI\'s Current Position in the IT World?**
+**3.  What is RMI\'s Current Position in the IT World?**
 
 - **Java\'s Official Stance on RMI**
 
@@ -84,13 +64,13 @@ Recommended alternatives for distributed systems include:
 
 - **Spring Framework\'s Position on RMI**
 
-> Spring currently recommends no longer using RMI for new applications.
-> The Spring documentation indicates that RMI is obsolete and that
-> modern, HTTP-based protocols such as REST (Spring Web, Spring WebFlux)
-> or gRPC should be used instead. While RMI is still supported,
-> development has ceased, and there are security and compatibility
-> issues. For new projects, Spring recommends using REST APIs with JSON
-> or other formats.
+Spring currently recommends no longer using RMI for new applications.
+The Spring documentation indicates that RMI is obsolete and that
+modern, HTTP-based protocols such as REST (Spring Web, Spring WebFlux)
+or gRPC should be used instead. While RMI is still supported,
+development has ceased, and there are security and compatibility
+issues. For new projects, Spring recommends using REST APIs with JSON
+or other formats.
 
 - **Impact on Legacy Projects**
 
@@ -105,7 +85,7 @@ modern protocols is recommended to:
 
 \- Maintain compatibility with current frameworks and tooling
 
-4.  **Implementing the problem solution in Project "ZTDV"**
+**4.  Implementing the problem solution in Project "ZTDV"**
 
 "Carddownloader" for example is a useful tool in "ZTDV". Following
 figure shows the current implementation with RMI. The implementation is
@@ -123,7 +103,7 @@ directly on-site through the endpoints like below
 single query
 
 \`[https://host/gem-cards/cardDownloader]{.underline}\` is preferred for
-multiple queries 
+multiple queries
 
 The communication is secured by SSL/TLS.
 
@@ -134,7 +114,7 @@ the calls cleanly. It\'s a shift in implementation.
 
 <img src="../assets/img/20251209-rmi-migration-preventing-legacy/impl-with-rest.png" width=450 height=400>
 
-5.  **A Non-Disruptive Migration Strategy**
+**5.  A Non-Disruptive Migration Strategy**
 
 The migration from RMI to REST can be executed as a non-disruptive,
 localized change. This approach offers significant advantages:
@@ -176,10 +156,10 @@ interface and business logic remain consistent.
 This surgical, low-impact approach makes RMI migration an ideal template
 for modernizing other legacy components in Java applications.
 
-6.  **Conclusion**
+**6.  Conclusion**
 
 Since REST replaces RMI, the Spring Framework can be easily updated to
-the latest release. 
+the latest release.
 
 A good idea is to start the Spring Boot Server as a separate service or
 via a process management tool (such as Docker, Kubernetes, or a Windows
@@ -190,11 +170,11 @@ According to current development plans, RMI should no longer be used in
 new projects. Projects that currently use RMI should be gradually
 replaced with REST.
 
-Migrating to Spring 6.x and replacing RMI with REST ensures your
+Migrating to Spring 6.x.x and replacing RMI with REST ensures your
 application is modern, secure, and maintainable. REST is the simplest
 and most flexible solution for most use cases.
 
-\- UseREST if you need a simple, platform-independent solution.
+\- Use REST if you need a simple, platform-independent solution.
 
 \- Use gRPC if you need high-performance, binary communication.
 
