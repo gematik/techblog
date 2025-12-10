@@ -23,7 +23,7 @@ interact across network boundaries.
 A problem was discovered during the update of the project "ZTDV" that is
 preventing the Spring Framework update.
 
-Project ZTDV uses RMI to access various services of library "gem-cards".
+Project 'ZTDV' is an important in-house project that uses RMI to access various services in our 'gem-cards' project.
 
 The class \'org.springframework.remoting.rmi.RmiServiceExporter\' from
 \'spring-context\' establishes the RMI connection between "ZTDV" and
@@ -32,14 +32,11 @@ The class \'org.springframework.remoting.rmi.RmiServiceExporter\' from
 
 ![RMI Configuration in ZTDV](../assets/img/20251209-rmi-migration-preventing-legacy/ztdv-rmi-config.png)
 
-The current Spring release in "ZTDV" is 5.3.39. Update of Spring is
-approached.
-
-But Spring Framework releases 6.x.x and later no longer support RMI.
-
-All RMI classes no longer exist in 6.x.x. This is shown in Figure by
-comparison of R5.3.39 and R6.2.6 of spring-context. As a result, the
-Spring Framework update in the "ZTDV" project is blocked.
+The current Spring release in project "ZTDV" is 5.3.39, with an update planned. 
+However, Spring Framework 6.x.x and later no longer support RMI. 
+All RMI classes have been removed in 6.x.x, 
+as demonstrated by comparing spring-context versions 5.3.39 and 6.2.6. 
+Consequently, the Spring Framework upgrade in the "ZTDV" project is blocked.
 
 <img src="../assets/img/20251209-rmi-migration-preventing-legacy/spring-context-5.x.x-vs-6.x.x.png" width=450 height=400>
 
