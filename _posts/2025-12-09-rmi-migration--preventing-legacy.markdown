@@ -5,7 +5,7 @@ date:   2025-12-09 08:00:00 +0200
 author: Zhenwu Duan
 categories: tech
 tags: RMI migration prevent legacy Spring REST
-excerpt: "<br/>This article examines how to prevent a project from becoming legacy by migrating RMI(Remote Method Invocation) as a case study. When an outdated technology becomes a blocking factor, replacement is often more effective than continued maintenance. RMI was once a prominent component of the Java ecosystem, but Spring has discontinued its support due to evolving industry standards and modern alternatives. This article discusses at first,why RMI has become problematic in contemporary projects, then the strategies for migrating away from RMI, at last how to ensure long-term project maintainability and updatability. While this demonstration focuses on RMI, the principles and migration strategies presented can be applied to similar scenarios involving deprecated technologies. Proactively replacing outdated dependencies prevents technical debt and keeps projects aligned with current frameworks and security standards.<br/><br/>"
+excerpt: "<br/>This article examines how to prevent a project from becoming legacy by migrating RMI (Remote Method Invocation) as a case study. When an outdated technology becomes a blocking factor, replacement is often more effective than continued maintenance. RMI was once a prominent component of the Java ecosystem, but Spring has discontinued its support due to evolving industry standards and modern alternatives. This article discusses at first,why RMI has become problematic in contemporary projects, then the strategies for migrating away from RMI, at last how to ensure long-term project maintainability and updatability. While this demonstration focuses on RMI, the principles and migration strategies presented can be applied to similar scenarios involving deprecated technologies. Proactively replacing outdated dependencies prevents technical debt and keeps projects aligned with current frameworks and security standards.<br/><br/>"
 ---
 
 **1.  Overview**
@@ -32,7 +32,7 @@ The class \'org.springframework.remoting.rmi.RmiServiceExporter\' from
 
 ![RMI Configuration in ZTDV](../assets/img/20251209-rmi-migration-preventing-legacy/ztdv-rmi-config.png)
 
-The current Spring release in project "ZTDV" is 5.3.39, with an update planned. 
+The current Spring version in project "ZTDV" is 5.3.39, with an update planned. 
 However, Spring Framework 6.x.x and later no longer support RMI. 
 All RMI classes have been removed in 6.x.x, 
 as demonstrated by comparing spring-context versions 5.3.39 and 6.2.6. 
@@ -145,7 +145,7 @@ Key Benefits:
 
 \- Low risk of introducing new defects in unrelated components
 
-The Example from Implementation demonstrates this principle---the REST
+The Example from Implementation demonstrates this principle, i.e., the REST
 endpoint replaces RMI communication while maintaining identical
 functionality for the card terminal operations. The "gem-cards"
 interface and business logic remain consistent.
