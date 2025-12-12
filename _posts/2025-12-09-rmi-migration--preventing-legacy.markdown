@@ -30,7 +30,7 @@ The class \'org.springframework.remoting.rmi.RmiServiceExporter\' from
 "gem-cards" until now, as shown in Figure below (rmi-config.xml in
 "ZTDV").
 
-![RMI Configuration in ZTDV](../assets/img/20251209-rmi-migration-preventing-legacy/ztdv-rmi-config.png)
+![RMI Configuration in ZTDV](/assets/img/20251209-rmi-migration-preventing-legacy/ztdv-rmi-config.png)
 
 The current Spring version in project "ZTDV" is 5.3.39, with an update planned. 
 However, Spring Framework 6.x.x and later no longer support RMI. 
@@ -38,7 +38,7 @@ All RMI classes have been removed in 6.x.x,
 as demonstrated by comparing spring-context versions 5.3.39 and 6.2.6. 
 Consequently, the Spring Framework upgrade in the "ZTDV" project is blocked.
 
-<img src="../assets/img/20251209-rmi-migration-preventing-legacy/spring-context-5.x.x-vs-6.x.x.png" width=450 height=400>
+<img src="/assets/img/20251209-rmi-migration-preventing-legacy/spring-context-5.x.x-vs-6.x.x.png" width=450 height=400>
 
 
 **3.  What is RMI\'s Current Position in the IT World?**
@@ -89,7 +89,7 @@ figure shows the current implementation with RMI. The implementation is
 primarily located on the "ZTDV" side. The "gem-card" services are
 accessed remotely from "ZTDV".
 
-<img src="../assets/img/20251209-rmi-migration-preventing-legacy/impl-with-rmi.png" width=450 height=400>
+<img src="/assets/img/20251209-rmi-migration-preventing-legacy/impl-with-rmi.png" width=450 height=400>
 
 After removal of RMI, a clear client-server relationship exists. The
 implementation of the "Carddownloader" then resides on the "gem-cards"
@@ -109,7 +109,7 @@ The results are returned back to "ZTDV", where they are saved for user
 The lesson learned from migrating from RMI to REST is the need to define
 the calls cleanly. It\'s a shift in implementation.
 
-<img src="../assets/img/20251209-rmi-migration-preventing-legacy/impl-with-rest.png" width=450 height=400>
+<img src="/assets/img/20251209-rmi-migration-preventing-legacy/impl-with-rest.png" width=450 height=400>
 
 **5.  A Non-Disruptive Migration Strategy**
 
