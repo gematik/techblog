@@ -96,10 +96,10 @@ implementation of the "Carddownloader" then resides on the "gem-cards"
 side, where the services are. The "gem-cards" services are called
 directly on-site through the endpoints like below
 
-\`[https://host/gem-cards/send-apdu]{.underline}\` is preferred for a
+\`[https://host/gem-cards/send-apdu]` is preferred for a
 single query
 
-\`[https://host/gem-cards/cardDownloader]{.underline}\` is preferred for
+\`[https://host/gem-cards/cardDownloader]` is preferred for
 multiple queries
 
 The communication is secured by SSL/TLS.
