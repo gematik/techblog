@@ -2,7 +2,7 @@
 layout: post
 title: "FHIRPath in production: Why it matters in DEMIS"
 date: 2025-11-28 14:00:00 +0200
-author: Verena Sadlack, Daniel Reckel
+author: Daniel Reckel, Verena Sadlack
 category: tech
 tags: FHIR FHIRPath DEMIS Validation Routing HAPI-FHIR
 excerpt: "<br />How DEMIS uses FHIRPath to make validation and routing transparent, testable, and efficient.<br />"
@@ -449,6 +449,12 @@ patterns. In Part III, we’ll cover smart routing and orchestration with practi
 
 ## About the authors
 
-Verena and Daniel are software developers in the DEMIS NAVY team at gematik, working
-on [DEMIS - Deutsches Elektronisches Melde- und Informationssystem für den Infektionsschutz](https://www.rki.de/DE/Themen/Infektionskrankheiten/Meldewesen/DEMIS/demis-node.html).
-One aspect they focus on are reliable data pipelines and developer-friendly rule tooling.
+Daniel is a Senior Software Developer and works on the DEMIS backend since 2021 with great expertise in Java and FHIRPath. 
+
+Verena is a Software Architect with fullstack software development expertise gained in various projects i.a. as a freelancer.
+
+Both are in the DEMIS NAVY team at gematik, working on [DEMIS - Deutsches Elektronisches Melde- und Informationssystem für den Infektionsschutz](https://www.rki.de/DE/Themen/Infektionskrankheiten/Meldewesen/DEMIS/demis-node.html).
+Together they have an expertise of 17+ years in software development. They helped moving DEMIS to a microservice architecture
+and migrating the application to a Kubernetes Cluster on the way to enabling continuous deployments.
+Their main goal is to ensure future functionality and expandability in critical situations, besides reliable data pipelines 
+and developer-friendly rule tooling.
