@@ -10,10 +10,10 @@ excerpt: "<br />How DEMIS uses FHIRPath to make validation and routing transpare
 
 ## Executive summary
 
-FHIRPath is a compact, declarative language to navigate and filter FHIR resources. In DEMIS it makes complex rules
-transparent, testable, and reusable across services. Instead of writing long complex code platform-independent path
-expressions can be used to read out content and use it for decision-making or analysis. This post explains the why and
-how, with practical examples you can adapt.
+FHIRPath is a compact, declarative language to navigate and filter FHIR resources optimized for hierarchical data 
+structures used in the public health sector. In DEMIS it makes complex rules transparent, testable, and reusable across 
+services. Instead of writing long complex code platform-independent path, expressions can be used to read out content and 
+for decision-making or analysis. This post explains the why and how, with practical examples you can adapt.
 
 > Note: This is Part I of a three-part series. Part II dives into scenario-based validation, and Part III into routing.
 
@@ -23,9 +23,9 @@ how, with practical examples you can adapt.
 
 ### Motivation and value
 
-In the "Deutsches Elektronisches Melde- und Informationssystem für den Infektionsschutz" project which translates
-roughly to German Electronic Reporting and Information System for Infection Protection or short DEMIS, health data from
-various sources must be processed reliably, transparently, and flexibly. Requirements for traceability, auditability,
+Health data from various sources must be processed reliably, transparently, and flexibly in the "Deutsches Elektronisches 
+Melde- und Informationssystem für den Infektionsschutz" project which translates roughly to German Electronic Reporting 
+and Information System for Infection Protection or short DEMIS. Requirements for traceability, auditability,
 and rapid adaptability are high, especially when reporting paths or validation rules change. This is where FHIRPath comes
 in: FHIRPath allows complex checks and filtering to be expressed directly on FHIR resources, without burying logic deep
 in the code. This makes collaboration between developers, domain experts, and testers easier and enables quick wins when
@@ -33,11 +33,11 @@ implementing new requirements.
 
 ### What is FHIRPath?
 
-FHIRPath is a declarative expression language designed specifically for navigating and evaluating FHIR data models. It
-works similarly to XPath for XML, but is tailored to FHIR's structure. With FHIRPath, you can target elements, values,
-and structures within a FHIR resource, filter and check them compactly and understandably. HAPI FHIR, a Java based
-framework, uses FHIRPath expression when showing positions of warnings, errors, and information in its validation
-outputs.
+FHIRPath is a declarative expression language designed specifically for navigating, filtering, transforming and 
+evaluating HL7 FHIR data models. It works similarly to XPath for XML, but is tailored to FHIR's structure which is 
+optimized for the public health sector. With FHIRPath, you can target elements, values, and structures within a FHIR 
+resource, filter and check them compactly and understandably. HAPI FHIR, a Java based framework, uses FHIRPath expression
+when showing positions of warnings, errors, and information in its validation outputs.
 
 **Example 1:**
 
@@ -45,7 +45,7 @@ outputs.
 Patient.name.where(use = 'official').exists()
 ```
 
-This expression checks whether a patient has an official name entry.
+This expression checks whether a patient has an official name entry using navigation and filtering.
 
 **Example 2:**
 
@@ -101,10 +101,11 @@ travels as a FHIR Bundle that must be validated, routed, and sometimes transform
 FHIRPath helps by expressing rules directly against resource structures, providing a shared, declarative “rule language”
 that engineers, analysts, and QA can review together.
 
+// TODO context?
 <img src="{{ site.baseurl }}/assets/img/20251128-fhir-path-in-demis/01_demis_flow_fhirpath.png" alt="DEMIS high-level flow with FHIRPath evaluation points"/>
 
 ---
-
+TODO evtl früher?
 ## FHIRPath in a nutshell
 
 FHIRPath is an expression language tailored for FHIR. You use it to navigate resource trees, filter collections, and
@@ -122,6 +123,7 @@ FHIRPath is not a replacement for all business logic. An environment as complex 
 logic and tools, encryption performing services, and interfaces. It is no templating system or transformation engine on
 its own, and it is not able to validate schema correctness.
 
+TODO doppelt? Evtl. noch ein example from bundle
 ### Navigation and targeted selection
 
 These are some examples of FHIRPath expressions we use to navigate notifications or to find and return data.
@@ -184,6 +186,9 @@ Bundle.entry.resource.where($this is Composition).where(status = 'final').exists
 and Bundle.entry.resource.where($this is Condition).clinicalStatus.coding.where(code = 'active').exists()
 and Bundle.entry.resource.where($this is Condition).verificationStatus.coding.where(code = 'confirmed').exists()
 ```
+
+This check makes sure that only notifications are accepted that have a final status and clinicalStatus active and the 
+verificationStatus is confirmed.
 
 ### Notification Routing Service (NRS)
 
@@ -342,7 +347,7 @@ Efficient expressions keep the pipeline fast:
 - Filter early with the most selective predicates.
 - Avoid unnecessary resolve(); short-circuit when prerequisites are missing.
 
-fhirpath
+fhirpath // TODO absicht?
 
 ```
 // Early, selective filtering example
@@ -420,6 +425,6 @@ patterns. In Part III, we’ll cover smart routing and orchestration with practi
 
 ## About the authors
 
-Verena and Daniel are software developer in the DEMIS NAVY team at gematik, working
+Verena and Daniel are software developers in the DEMIS NAVY team at gematik, working
 on [DEMIS - Deutsches Elektronisches Melde- und Informationssystem für den Infektionsschutz](https://www.rki.de/DE/Themen/Infektionskrankheiten/Meldewesen/DEMIS/demis-node.html).
 One aspect they focus on are reliable data pipelines and developer-friendly rule tooling.
