@@ -40,8 +40,7 @@ FHIRPath is a declarative expression language designed specifically for navigati
 evaluating HL7 FHIR data models. It works similarly to XPath for XML, but is tailored to FHIR's structure which is
 optimized for the public health sector. With FHIRPath, you can target elements, values, and structures within a FHIR
 resource, filter and check them compactly and understandably. HAPI FHIR, a Java based framework, uses FHIRPath
-expression
-when showing positions of warnings, errors, and information in its validation outputs.
+expression when showing positions of warnings, errors, and information in its validation outputs.
 
 **Example 1:**
 
@@ -59,6 +58,13 @@ Patient.name.where(use = 'official')
 
 This expression returns the official name entry or null, when none is part of the resource.
 
+---
+
+## FHIRPath in a nutshell
+
+FHIRPath is an expression language tailored for FHIR. You use it to navigate resource trees, filter collections, and
+compute booleans for decisions.
+
 ### Core operators in the DEMIS context
 
 In DEMIS, the following FHIRPath operators are especially relevant:
@@ -71,39 +77,13 @@ In DEMIS, the following FHIRPath operators are especially relevant:
 - **Reference resolution:** Find linked resources (`resolve()`)
 - **String and set operations:** Contains, starts with, is in (`contains`, `startsWith`, `in`, `union`)
 
-**Practical DEMIS examples:**
-
-```
-// Check for lab result with LOINC code
-Bundle.entry.resource.where($this is Observation).where(code.coding.where(system = 'http://loinc.org' and code = '94500-6').exists())
-
-// At least one phone number present
-Patient.telecom.where(system = 'phone').count() > 0
-
-// Resolve reference to target resource and check
-let refs := Composition.section.entry.reference
-let targets := refs.resolve()
-refs.exists() and targets.exists() and targets.code.coding.where(code = 'cvdd').exists()
-```
-
 With these operators, the most important validation and routing rules in DEMIS can be mapped directly and transparently.
-
-
-
----
-
-## FHIRPath in a nutshell
-
-FHIRPath is an expression language tailored for FHIR. You use it to navigate resource trees, filter collections, and
-compute booleans for decisions.
 
 ### DEMIS notification example
 
 - DEMIS notifications can become quite long hence we only link to a example notification
 - contain composition, patient, up to two practitioners, multiple organizations, pathogen detection, multiple observations and at least one specimen
-- 
-
-[example file for a cvdp notificaiton bundle](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
+- [example file for a cvdp notificaiton bundle](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
 
 ### Navigation and targeted selection
 
