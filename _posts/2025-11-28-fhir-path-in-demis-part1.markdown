@@ -81,13 +81,17 @@ With these operators, the most important validation and routing rules in DEMIS c
 
 ### DEMIS notification example
 
-- DEMIS notifications can become quite long hence we only link to a example notification
-- contain composition, patient, up to two practitioners, multiple organizations, pathogen detection, multiple observations and at least one specimen
+As DEMIS notification bundles can be quite large, we do not want to go beyond the scope of this blog. However, you can
+find an  [example](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json) of a laboratory report on a
+SARS-CoV-2 pathogen here.
+These reports consist of a composition, a patient, up to two practitioners, multiple organizations, pathogen detection,
+multiple observations and at least one specimen.
 
 ### Navigation and targeted selection
 
-These are some examples of FHIRPath expressions we use to navigate notifications or to find and return data. 
-For context, you can look up the expressions in the [example file for a cvdp notification bundle](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
+These are some examples of FHIRPath expressions we use to navigate notifications or to find and return data.
+You can look up the expressions in the [example file](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
+mentioned earlier.
 
 ```
 // Find LOINC-coded Observation for a specific test
@@ -95,22 +99,33 @@ Bundle.entry.resource
   .where($this is Observation)
   .where(code.coding.where(system = 'http://loinc.org' and code = '94309-2').exists())
 ```
+
 Used on the example file this expression would return 'true'.
+
 ```
 // At least one phone number present
 Bundle.entry.resource.where($this is Patient).telecom.where(system = 'phone').count() > 0
 ```
+
 Used on the example file this expression would return 'true'.
+
 ```
 // Bundle adheres to a specific profile
 Bundle.meta.profile.contains('https://demis.rki.de/fhir/StructureDefinition/NotificationBundleLaboratory')
 ```
+
 Used on the example file this expression would return 'true'.
+
 ```
 // Code contained in a controlled set
 Bundle.entry.resource.where($this is DiagnosticReport).code.coding.code in ('cvpd'|'mytp'|'hivp'|'invp')
 ```
+
 Used on the example file this expression would return 'true'.
+
+We typically strive to work with unambigous FHIR PATH expressions that result in a true or false. These are sufficent
+for our purposes of validation or traversing a binary search tree. Of course, it is possible to create significantly
+more complex evaluations on FHIR resources.
 ---
 
 ## Context — DEMIS and the need for clear rules
