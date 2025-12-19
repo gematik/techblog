@@ -108,9 +108,9 @@ Bundle.meta.profile.contains('https://demis.rki.de/fhir/StructureDefinition/Noti
 Used on the example file this expression would return 'true'.
 ```
 // Code contained in a controlled set
-DiagnosticReport.code.coding.code in {'cvdp','mytp','hivp','invp'}
+Bundle.entry.resource.where($this is DiagnosticReport).code.coding.code in ('cvpd'|'mytp'|'hivp'|'invp')
 ```
-
+Used on the example file this expression would return 'true'.
 ---
 
 ## Context — DEMIS and the need for clear rules
