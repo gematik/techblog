@@ -83,11 +83,11 @@ With these operators, the most important validation and routing rules in DEMIS c
 
 - DEMIS notifications can become quite long hence we only link to a example notification
 - contain composition, patient, up to two practitioners, multiple organizations, pathogen detection, multiple observations and at least one specimen
-- [example file for a cvdp notificaiton bundle](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
 
 ### Navigation and targeted selection
 
-These are some examples of FHIRPath expressions we use to navigate notifications or to find and return data.
+These are some examples of FHIRPath expressions we use to navigate notifications or to find and return data. 
+For context, you can look up the expressions in the [example file for a cvdp notification bundle](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
 
 ```
 // Find LOINC-coded Observation for a specific test
