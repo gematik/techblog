@@ -82,8 +82,7 @@ With these operators, the most important validation and routing rules in DEMIS c
 ### DEMIS notification example
 
 As DEMIS notification bundles can be quite large, we do not want to go beyond the scope of this blog. However, you can
-find an  [example](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json) of a laboratory report on a
-SARS-CoV-2 pathogen here.
+find an example of a laboratory report on a SARS-CoV-2 pathogen [here](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json).
 These reports consist of a composition, a patient, up to two practitioners, multiple organizations, pathogen detection,
 multiple observations and at least one specimen.
 
