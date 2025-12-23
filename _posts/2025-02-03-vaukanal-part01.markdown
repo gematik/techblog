@@ -83,5 +83,5 @@ The result is the encrypted data (ciphertext) and a checksum (authentication tag
 ### Next Chapter
 In the following blog posts, we will look at how the individual calculation results are transported in the four VAU messages. Only two VAU messages are needed for a key negotiation (ss1 and ss2). However, the key negotiation process between server and client is done twice, which is why two more are needed, resulting in 4 VAU messages. Why a double key negotiation is carried out here is something we will also explain in the next blog posts.
 
-# About the author
+# About The Author
 As a senior softwar engineer, Mike Kurtze has been developing projects in the data encryption field for around 20 years and has also given video courses and webinars on this topic on serveral plattforms like Udemy and Heise-Academy.
