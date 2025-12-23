@@ -150,7 +150,7 @@ Running container agents has been more cost-effective for us, not only in terms 
 
 ---
 
-## About the author
+## About The Author
 
 Michele Adduci is a Software Architect with a proven track record of assisting organizations in implementing modern solutions, with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on [DEMIS](https://www.gematik.de/anwendungen/demis) and is an integral member of the "Cloud and Deployment Technologies" chapter.
 
