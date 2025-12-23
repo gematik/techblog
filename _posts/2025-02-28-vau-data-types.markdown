@@ -308,7 +308,7 @@ value class L3VAUResEnvelopeAkaEncryptedL2(val bytes: ByteArray) {
 Kotlin with its strict typing, nullability, and (often) no-overhead inline classes makes it convenient, efficient, and safe to
 to map data types like those found in the VAU protocol into code.
 
-### About the author
+### About The Author
 
 [Stephan Schröder](https://github.com/simon-void/) is a senior software developer and works for [gematik GmbH](https://www.gematik.de/).
 He has a long history with Java and is intrigued by languages that offer even more safety guarantees at compiletime like [Kotlin](https://kotlinlang.org/) and [Rust](https://www.rust-lang.org/).
