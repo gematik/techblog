@@ -180,7 +180,7 @@ the core responsibilities of A. At its declaration site, A doesn't even need to 
 But it's still nice to convert an instance of A to B on the fly by writing `a.toB()`.
 Of course, this way it's no longer possible to mock the mapping part.
 
-# About the author
+# About The Author
 
 [Stephan Schröder](https://github.com/simon-void/) is a senior software developer and works for [gematik GmbH](https://www.gematik.de/).
 He has a long history with Java and is intrigued by languages that offer even more safety guarantees at compiletime like [Kotlin](https://kotlinlang.org/) and [Rust](https://www.rust-lang.org/).
