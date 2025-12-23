@@ -226,7 +226,7 @@ You can find some unit tests for this implementation [here](https://github.com/g
 
 Have some ❤️, questions, feedback, or feel like 🤔 Reach out to me at [GitHub](https://github.com/tobias-schwerdtfeger).
 
-# About the author
+# About The Author
 
 Tobias Schwerdtfeger has been a software developer for some years on Android with a particular enthusiasm towards exploring and realising a broad selection of UI/UX concepts,
 plus some spontaneous love for not so visual things.
