@@ -50,6 +50,6 @@ The project, including all the source code of the single applications, but also 
 
 ---
 
-## About the author
+## About The Author
 
 Michele Adduci is a Software Architect with 15 years of experience and with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on different projects, such as [electronic Patient Record (ePA)](https://www.gematik.de/anwendungen/epa-fuer-alle), [DEMIS](https://www.gematik.de/anwendungen/demis) and the [National FHIR Terminology Server](https://terminologien.bfarm.de/) and is an integral member of the "Cloud and Deployment Technologies" chapter.
