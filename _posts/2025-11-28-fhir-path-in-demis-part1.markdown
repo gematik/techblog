@@ -8,7 +8,7 @@ tags: FHIR FHIRPath DEMIS Validation Routing HAPI-FHIR
 excerpt: "<br />How DEMIS Uses FHIRPath to make validation and routing transparent, testable, and efficient.<br />"
 ---
 
-## Executive summary
+## Executive Summary
 
 FHIRPath is a compact, declarative language to navigate and filter FHIR resources optimized for hierarchical data
 structures used in the public health sector. In DEMIS it makes complex rules transparent, testable, and reusable across
@@ -395,7 +395,7 @@ boolean isFinal = engine.evaluateToBoolean(bundle,
 
 ---
 
-## Sequence: bundle-only resolve()
+## Sequence: Bundle-only resolve()
 
 Here, we will first present our original implementation for the resolve method and then discuss the use of an external
 database in the Part II.
@@ -446,7 +446,7 @@ patterns. In Part III, we’ll cover smart routing and orchestration with practi
 
 ---
 
-## About the authors
+## About The Authors
 
 Daniel is a Senior Software Developer and works on the DEMIS backend since 2021 with great expertise in Java and FHIRPath. 
 
