@@ -83,5 +83,5 @@ We don't know - yet. We just started our journey and did our initial "leap of fa
 
 I'll keep you all posted!
 
-# About the author
+# About The Author
 Axel Schulz leads the Software Development unit at gematik since 2022. He has worked in development and engineering management for 20 years. His focus topics include product design, developer experience, and tech leadership. In his previous stations, Axel was the CTO of several healthcare companies. Axel lives with his family 500m behind Berlin city limits.
