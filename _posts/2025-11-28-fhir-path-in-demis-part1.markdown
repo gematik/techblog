@@ -5,7 +5,7 @@ date: 2025-12-22 14:00:00 +0200
 author: Daniel Reckel, Verena Sadlack
 category: tech
 tags: FHIR FHIRPath DEMIS Validation Routing HAPI-FHIR
-excerpt: "<br />How DEMIS Uses FHIRPath to make validation and routing transparent, testable, and efficient.<br />"
+excerpt: <br />How DEMIS uses FHIRPath to make validation and routing transparent, testable, and efficient.<br /><br />
 ---
 
 ## Executive Summary
