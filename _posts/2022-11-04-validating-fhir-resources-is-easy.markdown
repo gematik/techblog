@@ -143,6 +143,6 @@ It makes sense to distribute the validator as a Maven dependency and a stand-alo
 
 Not quite. It's important to extensively test the validator and ensure it makes its judgment correctly. For this purpose, one can create a rich test set containing both valid and invalid resource examples and discuss them with domain experts. The more the validator is used, the more instances will be found, which might require adjustments in the validation algorithm or configuration. Finally, it is crucial to continuously update the validator with new versions of profiles, external value sets, and packages, i.e., users can rely on the tool while adjusting their software to new versions of the specification.  
 
-# About the author
+# About The Author
 
 Dr. Alexey Tschudnowsky is a software architect and works on the [gematik Reference Validator](https://github.com/gematik/app-referencevalidator) project. He is an expert in software architectures, agile development processes, distributed systems, and Web technologies.
