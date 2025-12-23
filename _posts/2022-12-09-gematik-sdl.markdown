@@ -38,6 +38,6 @@ More information on the Secure Software Development Lifecycle can be found in ou
 
 Today, we have a deeper understanding of the SDLC and perform its activities much more efficiently. We can say that they contributed to the app's quality and security. Still, one of the most valuable aspects of an established SDLC was the more profound knowledge of security topics and the increased awareness of security risks for the whole team. We continuously review the process and notice things that can go better. For example, we repeat the evaluation of SAST tools to meet our (increased) demands. Furthermore, we plan to optimize our JIRA workflows to better support us in the above activities. Finally, we learn other process models to apply them in further contexts besides mobile development. 
 
-# About the author
+# About The Author
 
 Dr. Alexey Tschudnowsky is a software architect and works on the [gematik Reference Validator](https://github.com/gematik/app-referencevalidator) project. He is an expert in software architectures, agile development processes, distributed systems, and Web technologies. He helped to establish the Secure Software Development Lifecycle at gematik and continuously consults teams regarding execution. 
