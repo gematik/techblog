@@ -178,6 +178,6 @@ and most flexible solution for most use cases.
 \- Use Message Brokers (e.g., RabbitMQ, Kafka) for asynchronous
 communication.
 
-**About the author**
+**About The Author**
 
 Zhenwu Duan is responsible in the Smartcard team for the development and maintenance of test tools. His interests include various programming languages such as ​​Java, Go, C#, Typescript, as well as system testing and PKI technology.
