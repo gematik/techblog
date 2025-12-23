@@ -156,6 +156,6 @@ If you’re working on a similar project, consider adopting annotations and plug
 The source code for the above process can be found [here](https://github.com/gematik/E-Rezept-App-Android/tree/master/plugins/technical-requirements-plugin).
 
 
-# About the author
+# About The Author
 Dinesh Gangatharan has worked in mobile technologies since 2016, specializing in Android, KMP, Flutter, and iOS. He has contributed to health tech projects like ePA and E-Rezept, as well as large e-commerce platforms and eID systems.
 

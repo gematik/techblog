@@ -1,0 +1,26 @@
+@startuml
+rectangle "Notification" as notification
+
+node "Validation" as vali{
+component "Validation-Service" as vs
+component "Lifecycle-Validation-Service" as lvs
+note right: analyze notification with FHIR PATH\ntodetermine target for notification
+component "Notification-Routing-Service" as nrs
+note right: analyze notification with FHIR PATH\ntodetermine context of notification
+}
+
+node "Enrichment & Clean-Up" as ecu{
+}
+
+node "Delivery" as deli{
+}
+
+notification -d-> vs
+
+vs -d-> nrs
+nrs -d-> lvs
+
+lvs -d-> ecu
+ecu -d-> deli
+
+@enduml

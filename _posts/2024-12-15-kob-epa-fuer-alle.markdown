@@ -51,7 +51,7 @@ Despite these initial difficulties, the effort pays off in the long term. Once i
 
 The introduction of the KOB Test Suite marks a pivotal advancement in conformity assessment. While the initial implementation, particularly of the test driver interface, presents challenges, the suite offers significant long-term benefits: Reduced maintenance costs, automated testing, and faster time-to-market for new products are achievable goals. This new transparency from gematik fosters greater trust among manufacturers and patients. By investing in this approach, both manufacturers and gematik establish a solid foundation for efficient and successful collaboration.
 
-# About the author
+# About The Author
 
 Julian Peters is a programmer at heart, writing code for 20 years. He joined gematik 11 years ago and held positions ranging from tech lead to software architect. He is the tech-lead of the Tiger-Team developing the Tiger Test framework.
 

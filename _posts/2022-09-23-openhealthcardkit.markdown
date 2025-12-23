@@ -120,7 +120,7 @@ That is a lot of bases to cover from cross-compiling C code, bridging it to the 
 
 OpenHealthCardKit is available as open source software on GitHub[^2]. You can find some use cases in the Readme and the demo app that is included within the repository. The demo app is also available for free on the AppStore[^1].
 
-# About the authors
+# About The Authors
 
 Gerald Bartz has been a software developer for five years, four years on iOS. At gematik he enjoys porting not-so-standard cryptographic algorithms to the mobile world.
 

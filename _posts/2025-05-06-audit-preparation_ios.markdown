@@ -229,6 +229,6 @@ The fastlane plugin we've developed for this purpose is open-source and availabl
 
 ---
 
-# About the author
+# About The Author
 
 Martin Fiebig has worked as a software engineer for 21 years, 13 years on iOS and Apple platforms. His focus topics include large scale mobile applications and developer experience. Martin leads the iOS team at gematik since 2020 and the Mobile Chapter since 2023.

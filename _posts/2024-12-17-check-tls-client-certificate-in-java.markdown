@@ -105,7 +105,7 @@ perform the required validation.<br/>
 
 ---
 
-## About the Author
+## About The Author
 
 Robert Stäber is a software engineer for more than 20 years. He joined the gematik in 2016 and is
 member of the product team `IDM (Identity Management)` and the `Chapter Identity & Security` as

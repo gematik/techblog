@@ -125,7 +125,7 @@ That's it!
 
 How we are constantly validating that the Software Factory was for us the right choice? Teams could increase their productivity in general, especially during the setup of new projects and their related CI/CD pipeline, dedicating their focus on solving business problems. The build times have incredibly been reduced, especially for jobs requiring more computing resources and parallel execution of processes, which all translates to faster iterations and reduced deployment time.
 
-# About the author
+# About The Authors
 
 Michele Adduci is a Software Architect with 15 years of experience and with a strong focus on maintainability, reliability, and efficiency. Since joining gematik in 2021, he has been working on different projects, such as [electronic Patient Record (ePA)](https://www.gematik.de/anwendungen/epa-fuer-alle), [DEMIS](https://www.gematik.de/anwendungen/demis) and the [National FHIR Terminology Server](https://terminologien.bfarm.de/) and is an integral member of the "Cloud and Deployment Technologies" chapter.
 
