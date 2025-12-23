@@ -67,6 +67,6 @@ The following tools are required:
 
 *E-Rezept-App-Android* is also available as open source software on [GitHub](https://github.com/gematik/E-Rezept-App-Android/)
 
-# About the author
+# About The Author
 
 Till Jannik Plewe has just finished his Bachelor of Science in software engineering. During his studies he worked on Java and Android projects for one year. At gematik he is mainly implementing UX-Features for the  Android version of the *E-Rezept-App*.
