@@ -127,7 +127,7 @@ We had examples of sharing the test suite with external vendors even before fina
 
 The Zero-Line test suite is a great way to hit the ground running when writing a test suite. Testers can immediately start in their domain (test specification, test reporting) while developers can concentrate on the low level problems (and potentially write code that transfers well into other teams and test suites). Less code means less overhead, less aging, and fewer problems, but not less technical depths or fewer details.
 
-# About the author
+# About The Author
 
 Julian Peters is a programmer at heart, writing code for 20 years. He joined gematik 9 years ago and held positions ranging from tech lead to software architect. He is the leader of the chapter on testing technologies.
 
