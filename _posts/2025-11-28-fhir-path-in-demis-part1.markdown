@@ -1,28 +1,27 @@
 ---
 layout: post
-title: "FHIRPath in production: Why it matters in DEMIS"
-date: 2025-11-28 14:00:00 +0200
+title: "FHIRPath In Production: Why It Matters In DEMIS"
+date: 2025-12-22 14:00:00 +0200
 author: Daniel Reckel, Verena Sadlack
 category: tech
 tags: FHIR FHIRPath DEMIS Validation Routing HAPI-FHIR
-excerpt: "<br />How DEMIS uses FHIRPath to make validation and routing transparent, testable, and efficient.<br />"
+excerpt: "<br />How DEMIS Uses FHIRPath to make validation and routing transparent, testable, and efficient.<br />"
 ---
 
 ## Executive summary
 
 FHIRPath is a compact, declarative language to navigate and filter FHIR resources optimized for hierarchical data
 structures used in the public health sector. In DEMIS it makes complex rules transparent, testable, and reusable across
-services. Instead of writing long complex code platform-independent path, expressions can be used to read out content
-and
-for decision-making or analysis. This post explains the why and how, with practical examples you can adapt.
+services. Instead of writing long complex code platform-independent path expressions can be used to read out content
+and for decision-making or analysis. This post explains the why and how, with practical examples you can adapt.
 
 > Note: This is Part I of a three-part series. Part II dives into scenario-based validation, and Part III into routing.
 
 ---
 
-## Part I – Why FHIRPath matters in DEMIS: Fundamentals and quick wins
+## Part I – Why FHIRPath Matters In DEMIS: Fundamentals And Quick Wins
 
-### Motivation and value
+### Motivation And Value
 
 Health data from various sources must be processed reliably, transparently, and flexibly in the "Deutsches
 Elektronisches
@@ -34,7 +33,7 @@ in: FHIRPath allows complex checks and filtering to be expressed directly on FHI
 in the code. This makes collaboration between developers, domain experts, and testers easier and enables quick wins when
 implementing new requirements.
 
-### What is FHIRPath?
+### What Is FHIRPath?
 
 FHIRPath is a declarative expression language designed specifically for navigating, filtering, transforming and
 evaluating HL7 FHIR data models. It works similarly to XPath for XML, but is tailored to FHIR's structure which is
@@ -60,12 +59,12 @@ This expression returns the official name entry or null, when none is part of th
 
 ---
 
-## FHIRPath in a nutshell
+## FHIRPath In A Autshell
 
 FHIRPath is an expression language tailored for FHIR. You use it to navigate resource trees, filter collections, and
 compute booleans for decisions.
 
-### Core operators in the DEMIS context
+### Core Operators In The DEMIS Context
 
 In DEMIS, the following FHIRPath operators are especially relevant:
 
@@ -79,14 +78,14 @@ In DEMIS, the following FHIRPath operators are especially relevant:
 
 With these operators, the most important validation and routing rules in DEMIS can be mapped directly and transparently.
 
-### DEMIS notification example
+### DEMIS Notification Example
 
 As DEMIS notification bundles can be quite large, we do not want to go beyond the scope of this blog. However, you can
 find an example of a laboratory report on a SARS-CoV-2 pathogen [here](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json).
 These reports consist of a composition, a patient, up to two practitioners, multiple organizations, pathogen detection,
 multiple observations and at least one specimen.
 
-### Navigation and targeted selection
+### Navigation And Targeted Selection
 
 These are some examples of FHIRPath expressions we use to navigate notifications or to find and return data.
 You can look up the expressions in the [example file](/assets/examples/2025-11-28-fhir-path-in-demis-CVDP-example.json)
@@ -127,10 +126,10 @@ for our purposes of validation or traversing a binary search tree. Of course, it
 more complex evaluations on FHIR resources.
 ---
 
-## Context — DEMIS and the need for clear rules
+## Context — DEMIS And The Need For Clear Rules
 
 Public health reporting requires timely, reliable data flows from multiple senders (labs, hospitals, physicians) to
-various recipients (local health authorities, Robert Koch Institute (RKI), armed forces, and others). Each notification
+various recipients (local health authorities, Robert Koch Institute (RKI) and others). Each notification
 travels as a FHIR Bundle that must be validated, routed, and sometimes transformed before delivery. In this environment:
 
 - Rules must be explicit and auditable to all stakeholders as well as programmers, testers, and architects.
@@ -143,7 +142,7 @@ FHIRPath helps by expressing rules directly against resource structures, providi
 that engineers, analysts, and QA can review together.
 ---
 
-## How DEMIS applies FHIRPath (preview of Parts II and III)
+## How DEMIS Applies FHIRPath (Preview Of Parts II And III)
 
 Right now we have implemented two core services that use FHIRPath to process notifications: Lifecycle-Validation-Service
 and
@@ -185,12 +184,12 @@ Bundle.entry.resource.where($this is Composition)
 
 ---
 
-## Edge cases to plan for (production)
+## Edge Cases To Plan For (Production)
 
 Designing resilient FHIRPath rules means being explicit about ambiguous cases. Below are the key edge domains and how we
 address them in DEMIS.
 
-### 1. Arrays and multiplicity
+### 1. Arrays And Multiplicity
 
 FHIR elements that can repeat (e.g. `Patient.name`, `Observation.component`, `Condition.evidence`) often tempt
 developers to treat the first element as “the one”. That breaks as soon as additional entries appear.
@@ -215,7 +214,7 @@ If you really need a single value, reduce explicitly:
 Patient.name.where(use = 'official').given.first()
 ```
 
-### 2. Polymorphic elements
+### 2. Polymorphic Elements
 
 FHIR uses choice types (e.g. `value[x]`, `onset[x]`, `effective[x]`). You must check the actual type before casting.
 
@@ -240,7 +239,7 @@ Anti‑pattern:
 Encounter.period.start < today()
 ```
 
-### 3. Empty vs. null semantics
+### 3. Empty Vs. Null Semantics
 
 FHIRPath treats absent elements as empty collections, not null references. Use `empty()` or `exists()` appropriately.
 
@@ -254,7 +253,7 @@ Patient.telecom.where(system = 'phone').exists()
 
 Avoid comparing to literal null; it will not behave as in Java or SQL.
 
-### 4. Reference resolution boundaries
+### 4. Reference Resolution Boundaries
 
 `resolve()` is powerful but can be costly and unsafe if used unguarded. Always:
 
@@ -279,7 +278,7 @@ Composition.section.entry.reference.resolve().code.coding.where(code = 'cvdd').e
 Composition.section.entry.reference.resolve().code.coding.where(code = 'mytp').exists()
 ```
 
-### 5. Profile evolution and drift
+### 5. Profile Evolution And Drift
 
 Rules tied to profile URLs (`Bundle.meta.profile.contains('...')`) must track version changes. Mitigations:
 
@@ -295,7 +294,7 @@ Bundle.meta.profile.contains(%DEMIS_NOTIFICATION_PROFILE)
 
 `%DEMIS_NOTIFICATION_PROFILE` is supplied by the evaluation engine.
 
-### 6. Performance under load
+### 6. Performance Under Load
 
 Large Bundles (hundreds of entries) amplify inefficiencies.
 
@@ -314,7 +313,7 @@ let condTargets := refs.resolve().where($this is Condition)
 condTargets.code.coding.where(code in {'cvdd','mytp'}).exists()
 ```
 
-### 7. Ambiguous coding systems
+### 7. Ambiguous Coding Systems
 
 Multiple codings may appear for the same concept (LOINC + local). Always restrict by system.
 
@@ -328,7 +327,7 @@ Anti‑pattern:
 Observation.code.coding.where(code = '94500-6').exists() // may match unintended system
 ```
 
-### 8. Temporal comparisons
+### 8. Temporal Comparisons
 
 FHIR uses `date`, `dateTime`, `instant`. Ensure consistent granularity.
 
@@ -339,7 +338,7 @@ Encounter.period.start.as(DateTime) >= today() - 30 days
 
 Use `is()` + `as()` to avoid implicit truncation.
 
-### 9. Boolean logic clarity
+### 9. Boolean Logic Clarity
 
 Complex chains can hide intent. Prefer intermediate `let` bindings.
 
@@ -349,7 +348,7 @@ let activeCond := Bundle.entry.resource.where($this is Condition)
 activeCond.exists() and activeCond.count() <= 3
 ```
 
-### 10. Defensive resolve (concise)
+### 10. Defensive Resolve (Concise)
 
 ```
 Composition.section.entry.reference.exists() and
@@ -360,7 +359,7 @@ If external resolution (database/API) is introduced, wrap calls and cache.
 
 ---
 
-## Performance considerations
+## Performance Considerations
 
 Efficient expressions keep the pipeline fast:
 
@@ -376,7 +375,7 @@ $this is Condition and verificationStatus.coding.where(code = 'confirmed').exist
 
 ---
 
-## Implementation note: HAPI FHIR and controlled resolve()
+## Implementation Note: HAPI FHIR And Controlled resolve()
 
 In DEMIS, resolve() was deliberately limited to references within the current bundle. References were to be resolved
 deterministically, performantly, and fail-fast for unresolved references. However, requirements have expanded, so that
@@ -440,7 +439,7 @@ public class CustomEvaluationContext implements IFhirPathEvaluationContext {
 
 ---
 
-## What’s next
+## What’s Next
 
 In Part II, we’ll dive into scenario‑driven validation: robust rule design, edge handling, testing, and performance
 patterns. In Part III, we’ll cover smart routing and orchestration with practical integration notes.
