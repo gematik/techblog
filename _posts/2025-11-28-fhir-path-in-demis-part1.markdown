@@ -59,7 +59,7 @@ This expression returns the official name entry or null, when none is part of th
 
 ---
 
-## FHIRPath In A Autshell
+## FHIRPath In A Nutshell
 
 FHIRPath is an expression language tailored for FHIR. You use it to navigate resource trees, filter collections, and
 compute booleans for decisions.
