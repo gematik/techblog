@@ -1,0 +1,33 @@
+---
+layout: post
+title: "FHIRPath In Production: Why It Matters In DEMIS"
+date: 2025-12-22 14:00:00 +0200
+author: Daniel Reckel, Verena Sadlack
+category: tech
+tags: FHIR FHIRPath DEMIS Validation Routing HAPI-FHIR
+excerpt: <br />How DEMIS uses FHIRPath to make validation and routing transparent, testable, and efficient.<br /><br />
+---
+
+## Executive Summary
+
+
+
+> Note: This is Part II of a three-part series. Part I gives a overview of the use of FHIRPath in DEMIS and Part III dives III into routing.
+
+---
+
+## Part II – 
+
+#
+## What’s Next
+
+In Part II, we’ll dive into scenario‑driven validation: robust rule design, edge handling, testing, and performance
+patterns. In Part III, we’ll cover smart routing and orchestration with practical integration notes.
+
+---
+
+## About The Authors
+
+Daniel is a Senior Software Developer and works on the DEMIS backend since 2021 with great expertise in Java and FHIRPath. 
+
+Tabea is a Junior Software Developer and has only recently joined the team. 
