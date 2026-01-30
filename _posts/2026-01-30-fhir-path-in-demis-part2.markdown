@@ -40,6 +40,11 @@ the notifications is therefore handled through lifecycle management. Encoding th
 resources would make them more rigid and harder to maintain, so it was decided to communicate them via the additional
 guidance in the Implementation Guide.
 
+The scenarios therefore revolve around initial notifications, follow-up notifications, supplementary notifications, and
+correction notifications. While initial notifications must not contain an ID that already belongs to existing
+notifications, correction or supplementary notifications can only be processed if a corresponding initial notification
+has already been received.
+
 ### Robust Rule Design
 
 Wie werden die Regeln gebaut? von Szenario-Tabellen zu Szenario-Baum zur Umsetzung. Zusammenarbeit mit dem RKI
