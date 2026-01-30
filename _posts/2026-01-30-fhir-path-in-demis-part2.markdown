@@ -24,6 +24,22 @@ patterns.
 
 Was ist das, was macht das, wer macht das?
 
+The functional aspects of the DEMIS interface are handled by the project partner RKI. RKI consolidates the domain
+expertise on legal and substantive questions, while the Gematik team is responsible for the technical implementation and
+operations.
+
+In addition to FHIR profiling for generating the data model, RKI also conducted a comprehensive content review of the
+notifications. These notifications should never be seen in isolation, as several notifications can relate to a single
+infection. Laboratory notifications confirm the infection and include information about sample testing, such as sample
+type, specific test used, or detected antibiotic resistance. Disease notifications, meanwhile, contain details about
+the patient’s condition and contextual background, for example the location of infection.
+
+The relationship between notifications is crucial and can be established through IDs linking them together. However,
+these links only make sense if the corresponding values are populated within each notification. Quality management of
+the notifications is therefore handled through lifecycle management. Encoding these rules directly into the profiled
+resources would make them more rigid and harder to maintain, so it was decided to communicate them via the additional
+guidance in the Implementation Guide.
+
 ### Robust Rule Design
 
 Wie werden die Regeln gebaut? von Szenario-Tabellen zu Szenario-Baum zur Umsetzung. Zusammenarbeit mit dem RKI
