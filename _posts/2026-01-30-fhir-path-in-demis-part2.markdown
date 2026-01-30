@@ -16,13 +16,29 @@ excerpt: <br />How DEMIS uses FHIRPath to make validation and routing transparen
 
 ---
 
-## Part II – 
-
-#
-## What’s Next
+## Part II –
 
 In Part II, we’ll dive into scenario‑driven validation: robust rule design, edge handling, testing, and performance
-patterns. In Part III, we’ll cover smart routing and orchestration with practical integration notes.
+patterns.
+
+### DEMIS scenarios
+Was ist das, was macht das, wer macht das?
+
+### Robust Rule Design
+Wie werden die Regeln gebaut? von Szenario-Tabellen zu Szenario-Baum zur Umsetzung. Zusammenarbeit mit dem RKI
+
+### Wie werden die Regeln hinterlegt und wie werden sie ausgeführt.
+
+### Performance
+Einfache Mittel zur Performance Steigerung
+- mehrere "Paths"
+- externe Dienste erst zum Schluss abfragen
+- "cleveres" Regeldesign
+
+
+## What’s Next
+
+In Part III, we’ll cover smart routing and orchestration with practical integration notes.
 
 ---
 
