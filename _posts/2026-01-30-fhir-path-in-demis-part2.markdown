@@ -14,8 +14,8 @@ DEMIS uses FHIRPath to implement scenario-driven validation of FHIR notification
 partner RKI and the clever integration of FHIRPath expressions into a Java-based microservice has resulted in a flexibly
 expandable, easily maintainable construct that enables rapid technical validation.
 
-> Note: This is Part II of a three-part series. Part I gives a overview of the use of FHIRPath in DEMIS and Part III
-> dives III into routing.
+> Note: This is Part II of a three-part series. Part I gives an overview of the use of FHIRPath in DEMIS and Part III
+> dives into routing.
 
 ---
 
@@ -48,12 +48,12 @@ In addition to FHIR profiling for creating the data model and the api, the RKI-t
 content review of the
 notifications. These notifications should never be seen in isolation, as several notifications can relate to a single
 infection. Laboratory notifications confirm the infection and include information about sample testing, such as sample
-type, specific test used, or detected antibiotic resistance. Meanwhile disease notifications contain details about
-the patient’s condition and contextual background, for example the location of infection depending of the type of
+type, specific test used, or detected antibiotic resistance. Meanwhile, disease notifications contain details about
+the patient’s condition and contextual background, for example the location of infection depending on the type of
 infectious disease.
 
 The relationship between notifications is crucial and can be established through IDs linking them together. Each initial
-notification should have an unique ID, to not link it to another notification of a different disease category or patient
+notification should have a unique ID, to not link it to another notification of a different disease category or patient
 by mistake. However,
 these links only make sense if the corresponding values are populated accordingly within each notification. Quality
 management of
@@ -92,13 +92,16 @@ into smaller decision nodes, making it easier to understand the LCM.
 From a domain driven perspective this approach results in common language between the technical and functional teams in
 form of the decision tree.
 
-<img src="{{ site.baseurl }}/assets/img/20260130-fhirpath/LCM-Disease_IM_EM.jpg" alt="DEMIS high-level flow with FHIRPath evaluation points"/>
+<figure>
+  <img src="{{ site.baseurl }}/assets/img/20260130-fhirpath/LCM-Disease_IM_EM.jpg" alt="DEMIS high-level flow with FHIRPath evaluation points"/>
+  <figcaption>Decision Tree for Disease Notifications</figcaption>
+</figure>
 
 ### Rule Implementation and Integration
 
 We implemented the actual validation using HAPI FHIR. The framework provides an API for executing FHIRPath expressions
-but requires an extension of the resolve() method, which must be implemented by the user (
-see [part one of this series](https://code.gematik.de/tech/2025/12/22/fhir-path-in-demis-part1.html)).
+but requires an extension of the resolve() method, which must be implemented by the user 
+(see [part one of this series](https://code.gematik.de/tech/2025/12/22/fhir-path-in-demis-part1.html)).
 
 #### Static Validation via FHIRPath Expressions
 
@@ -107,20 +110,21 @@ review. Because the rule tree—unlike the RKI table—does not allow duplicate 
 the minimum necessary. This static validation can be made without any other context. It just validates the state of
 fields in the current notification. If all static checks are valid, the external checks will be performed.
 
-#### Dynamic Validation via external Checks
+#### Dynamic Validation via External Checks
 
-External Checks proof for initial notifications, that no other notification with the same ID exists.
-Further the LCM describes scenarios for supplementary and follow up notifications that require the reference to an
+External Checks prove for initial notifications, that no other notification with the same ID exists.
+Furthermore, the LCM describes scenarios for supplementary and follow-up notifications that require the reference to an
 initial notification with the same ID and disease category.
 
-These external checks can't be made static due to the limited scope to the state of the current notification and require
-the context of all previous notifications in the lifecycle via additional validation logic in java. The notification or
+These external checks can't be made static due to the limited scope to the state of the current notification. They require
+the context of all previous notifications in the lifecycle via additional validation logic in Java. The notification or
 relatesTo ID can be extracted from the current notification via FHIRPath in the external check and is used to make a
 dynamic request to a service, that serves
-the notification category of a previous notification, with the same Notification ID. For follow up or supplementary
+the notification category of a previous notification, with the same Notification ID. For supplementary or follow-up
 notifications the received disease category will be compared with the one extracted by FHIRPath from the current
 notification.
-If the external check for the scenario is valid as well, the notification is valid.
+
+If the external check for the scenario is valid as well, the notification is valid in its lifecycle.
 
 ### Performance
 
@@ -148,7 +152,7 @@ yet, but suspected. This is described by the purple path in the decision tree ab
 The expression "Patient.profile(byName)" mirrors the first node in the decision tree and checks whether the patient
 resource in the bundle has the profile "NotifiedPerson" for identified patients. Each other FHIRPath expression should
 be also displayed over a node in the tree.
-The external check for the scenario is of type NOTIFICATION_ID_NOT_EXISTING, meaning it is an initial notification
+The external check for this scenario is of type NOTIFICATION_ID_NOT_EXISTING, meaning it is an initial notification
 scenario.
 
 ```json
@@ -186,34 +190,34 @@ external check of type CATEGORY_MAPPING is
 performed to verify that the referencing notification ID exists in the system and is linked to a notification with the
 same disease category.
 
-``` json
- {
-    "name": "S_FM_V2EoT",
-    "fhirPathExpression": [
-      {
-        "fhirPath": "Patient.profile(byName)"
-      },
-      {
-        "fhirPath": "Composition.status(final)"
-      },
-      {
-        "fhirPath": "Condition.clinicalStatus(active)"
-      },
-      {
-        "fhirPath": "Condition.verificationStatus(confirmed)"
+```json
+{
+  "name": "S_FM_V2EoT",
+  "fhirPathExpression": [
+    {
+      "fhirPath": "Patient.profile(byName)"
+    },
+    {
+      "fhirPath": "Composition.status(final)"
+    },
+    {
+      "fhirPath": "Condition.clinicalStatus(active)"
+    },
+    {
+      "fhirPath": "Condition.verificationStatus(confirmed)"
+    }
+  ],
+  "externalChecks": [
+    {
+      "type": "CATEGORY_MAPPING",
+      "inputs": {
+        "id": "NotificationId",
+        "hasToExist": true,
+        "notificationCategory": "NotificationDiseaseCategory"
       }
-    ],
-    "externalChecks": [
-      {
-        "type": "CATEGORY_MAPPING",
-        "inputs": {
-          "id": "NotificationId",
-          "hasToExist": true,
-          "notificationCategory": "NotificationDiseaseCategory"
-        }
-      }
-    ]
-  }
+    }
+  ]
+}
 ```
 
 For better readability and reuse, we have replaced the FHIRPath expressions with short codes.
@@ -225,13 +229,10 @@ In a second file, we have documented the concrete FHIRPath expressions that thes
   "Composition.status(preliminary)": "Bundle.entry.resource.where($this is Composition).where(status = 'preliminary').exists()",
   "Composition.status(final)": "Bundle.entry.resource.where($this is Composition).where(status = 'final').exists()",
   "Condition.clinicalStatus(active)": "Bundle.entry.resource.where($this is Condition).clinicalStatus.coding.where(code = 'active').exists() or (Bundle.meta.profile = 'https://demis.rki.de/fhir/StructureDefinition/NotificationBundleDisease' and Bundle.entry.resource.where($this is Condition).clinicalStatus.empty())",
-  "Condition.verificationStatus(unconfirmed)": "Bundle.entry.resource.where($this is Condition).verificationStatus.coding.where(code = 'unconfirmed').exists()"
+  "Condition.verificationStatus(unconfirmed)": "Bundle.entry.resource.where($this is Condition).verificationStatus.coding.where(code = 'unconfirmed').exists()",
   "Condition.verificationStatus(confirmed)": "Bundle.entry.resource.where($this is Condition).verificationStatus.coding.where(code = 'confirmed').exists()",
   "NotificationId": "Bundle.entry.resource.where($this is Composition).identifier.where(system='https://demis.rki.de/fhir/NamingSystem/NotificationId').value",
-  "NotificationDiseaseCategory": "Bundle.entry.resource.where($this is Condition).code.coding.where(system='https://demis.rki.de/fhir/CodeSystem/notificationDiseaseCategory').code",
-[
-  ...
-]
+  "NotificationDiseaseCategory": "Bundle.entry.resource.where($this is Condition).code.coding.where(system='https://demis.rki.de/fhir/CodeSystem/notificationDiseaseCategory').code"
 }
 ```
 
