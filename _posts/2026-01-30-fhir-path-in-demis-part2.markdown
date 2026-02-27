@@ -25,7 +25,7 @@ expandable, easily maintainable construct that enables rapid technical validatio
 
 FHIR notifications in DEMIS have a defined lifecycle depending on the type of notification.
 The lifecycle management (LCM) defines various valid scenarios for notifications. Each scenario has rules based on the
-combination of values of specific elements and of a notification.
+combination of values of specific elements of a notification.
 Part of the validation of incoming FHIR notifications in DEMIS is to check if it is valid regarding the lifecycle.
 Due to the complexity of the rules, it is hard to implement them in a maintainable way using traditional programming
 languages.
@@ -56,7 +56,9 @@ these links only make sense if the corresponding values are populated accordingl
 management of
 the notifications is therefore handled through the LCM. Encoding these rules directly into the profiled
 resources would make them more rigid and harder to maintain, so it was decided to communicate them via the additional
-guidance in the Implementation Guide.
+guidance in the Implementation Guides
+for [laboratory notifications](https://simplifier.net/guide/rki.demis.laboratory?version=current)
+and [disease notifications](https://simplifier.net/guide/rki.demis.disease?version=current).
 
 The scenarios therefore revolve around initial notifications, follow-up notifications, supplementary notifications, and
 correction notifications. While for example initial notifications must not contain an ID that already belongs to
@@ -78,13 +80,14 @@ boundaries is therefore difficult, a challenge already hinted at in the RKI’s 
 
 The RKI defines functional, real world scenarios based on their and german health office experiences. These scenarios
 have to be translated into unique technical scenarios with unambiguous rules.
-Therefore, the RKI provided a scenario table through the Implementation Guide that lists all relevant scenarios and the
+Therefore, the RKI provided a scenario table through their Implementation Guides that lists all relevant scenarios and the
 allowed values of elements.
 Some of the defined functional scenarios could be removed due to technical overlap in field values, as the remaining
 differences are purely functional and irrelevant for the lifecycle validation.
 To improve traceability, both project partner together created a scenario decision tree that breaks down the scenarios
 into smaller decision nodes, making it easier to understand the LCM.
-From a domain driven perspective this approach results in common language between the technical and functional teams in form of the decision tree.
+From a domain driven perspective this approach results in common language between the technical and functional teams in
+form of the decision tree.
 
 <img src="{{ site.baseurl }}/assets/img/20260130-fhirpath/LCM-Disease_IM_EM.jpg" alt="DEMIS high-level flow with FHIRPath evaluation points"/>
 
@@ -94,9 +97,14 @@ We implemented the actual validation using HAPI FHIR. The framework provides an 
 but requires an extension of the resolve() method, which must be implemented by the user (
 see [part one of this series](https://code.gematik.de/tech/2025/12/22/fhir-path-in-demis-part1.html)).
 
-For each scenario in the rule tree, we generate matching FHIRPath expressions and external checks and apply them to the message under
+#### Static Validation via FHIRPath Expressions
+For each scenario in the rule tree, we generate matching FHIRPath expressions and apply them to the message under
 review. Because the rule tree—unlike the RKI table—does not allow duplicate scenarios, we reduce the number of checks to
 the minimum necessary.
+
+#### Dynamic Validation via external Checks
+FHIRPath expressions only allow the static validation of the one notification, that is currently under review.
+The LCM describes scenarios for supplementary and follow up notifications that require the existance of a initial notification with the same disease category.
 
 ### Performance
 
@@ -107,11 +115,13 @@ There are several straightforward measures to improve performance:
    in parallel.
 2. We only query external services—for example, to validate IDs from previous notifications—after all other checks have
    passed. This reduces the number of calls within the microservice cluster.
-3. The rule design avoids duplicating rules wherever possible, because many scenarios largely overlap.
+3. The rule design avoids duplicating rules wherever possible.
 4. We view rapid maintenance and updates as a performance gain, so we work closely with our project partner on a shared
    foundation: the decision tree.
 
-In part we will discuss our routing implementation which is closer to a decision tree. We will examine which option is more practical and enables better cooperation with our project partner. The development process is not yet complete at this point and will certainly be part of a later blog entry.
+In Part III we will discuss our routing implementation which is closer to a decision tree. We will examine which option is
+more practical and enables better cooperation with our project partner. The development process is not yet complete at
+this point and will certainly be part of a later blog entry.
 
 ### DEMIS Example
 
@@ -157,10 +167,9 @@ described by the orange path in the decision tree above.
 As already mentioned, supplementary notifications must reference an existing initial notification. In contrast to static
 references, dynamic references to other notifications cannot be validated via FHIRPath, because it only knows the
 current notification and
-does not have access to any previous ones. Therefore, an external check is performed to verify that the referenced
+does not have access to any previous ones. Therefore, an external check with the type NOTIFICATION_ID_NOT_EXISTING is performed to verify that the referenced
 notification ID exists in the system. External checks require additional validation logic in java outside of
 FHIRPath and are executed after all FHIRPath expressions have been evaluated successfully.
-
 
 ``` json
  {
@@ -219,8 +228,13 @@ In Part III, we’ll cover smart routing and orchestration with practical integr
 
 ## About The Authors
 
+Tabea is a Junior Software Developer and has only recently joined the team. Using FHIRPath was one of her first tasks,
+and she has been an enthusiastic user ever since.
+
 Daniel is a Senior Software Developer and works on the DEMIS backend since 2021 with great expertise in Java and
 FHIRPath.
 
-Tabea is a Junior Software Developer and has only recently joined the team. Using FHIRPath was one of her first tasks,
-and she has been an enthusiastic user ever since.
+Tabea and Daniel worked together to revise the implementation of lifecycle management in DEMIS. Their goal was to create
+an easy-to-understand and clear configuration that could also be understood and maintained by non-developers from
+project partner RKI. The previous version, which was based purely on Java code, had proven itself, but had become very
+communication-intensive to maintain. 
