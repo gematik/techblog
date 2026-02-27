@@ -23,7 +23,8 @@ expandable, easily maintainable construct that enables rapid technical validatio
 
 ### Motivation And Value
 
-FHIR notifications in DEMIS have a defined lifecycle depending on the type of notification.
+FHIR notifications in DEMIS have a defined lifecycle depending on the type of notification. A notification contains
+information about the detection of a pathogen or the suspicion of a disease in a patient.
 The lifecycle management (LCM) defines various valid scenarios for notifications. Each scenario has rules based on the
 combination of values of specific elements of a notification.
 Part of the validation of incoming FHIR notifications in DEMIS is to check if it is valid regarding the lifecycle.
@@ -51,7 +52,9 @@ type, specific test used, or detected antibiotic resistance. Meanwhile disease n
 the patient’s condition and contextual background, for example the location of infection depending of the type of
 infectious disease.
 
-The relationship between notifications is crucial and can be established through IDs linking them together. However,
+The relationship between notifications is crucial and can be established through IDs linking them together. Each initial
+notification should have an unique ID, to not link it to another notification of a different disease category or patient
+by mistake. However,
 these links only make sense if the corresponding values are populated accordingly within each notification. Quality
 management of
 the notifications is therefore handled through the LCM. Encoding these rules directly into the profiled
@@ -80,8 +83,8 @@ boundaries is therefore difficult, a challenge already hinted at in the RKI’s 
 
 The RKI defines functional, real world scenarios based on their and german health office experiences. These scenarios
 have to be translated into unique technical scenarios with unambiguous rules.
-Therefore, the RKI provided a scenario table through their Implementation Guides that lists all relevant scenarios and the
-allowed values of elements.
+Therefore, the RKI provided a scenario table through their Implementation Guides that lists all relevant scenarios and
+the allowed values of elements.
 Some of the defined functional scenarios could be removed due to technical overlap in field values, as the remaining
 differences are purely functional and irrelevant for the lifecycle validation.
 To improve traceability, both project partner together created a scenario decision tree that breaks down the scenarios
@@ -98,13 +101,26 @@ but requires an extension of the resolve() method, which must be implemented by 
 see [part one of this series](https://code.gematik.de/tech/2025/12/22/fhir-path-in-demis-part1.html)).
 
 #### Static Validation via FHIRPath Expressions
+
 For each scenario in the rule tree, we generate matching FHIRPath expressions and apply them to the message under
 review. Because the rule tree—unlike the RKI table—does not allow duplicate scenarios, we reduce the number of checks to
-the minimum necessary.
+the minimum necessary. This static validation can be made without any other context. It just validates the state of
+fields in the current notification. If all static checks are valid, the external checks will be performed.
 
 #### Dynamic Validation via external Checks
-FHIRPath expressions only allow the static validation of the one notification, that is currently under review.
-The LCM describes scenarios for supplementary and follow up notifications that require the existance of a initial notification with the same disease category.
+
+External Checks proof for initial notifications, that no other notification with the same ID exists.
+Further the LCM describes scenarios for supplementary and follow up notifications that require the reference to an
+initial notification with the same ID and disease category.
+
+These external checks can't be made static due to the limited scope to the state of the current notification and require
+the context of all previous notifications in the lifecycle via additional validation logic in java. The notification or
+relatesTo ID can be extracted from the current notification via FHIRPath in the external check and is used to make a
+dynamic request to a service, that serves
+the notification category of a previous notification, with the same Notification ID. For follow up or supplementary
+notifications the received disease category will be compared with the one extracted by FHIRPath from the current
+notification.
+If the external check for the scenario is valid as well, the notification is valid.
 
 ### Performance
 
@@ -119,20 +135,21 @@ There are several straightforward measures to improve performance:
 4. We view rapid maintenance and updates as a performance gain, so we work closely with our project partner on a shared
    foundation: the decision tree.
 
-In Part III we will discuss our routing implementation which is closer to a decision tree. We will examine which option is
+In Part III we will discuss our routing implementation which is closer to a decision tree. We will examine which option
+is
 more practical and enables better cooperation with our project partner. The development process is not yet complete at
 this point and will certainly be part of a later blog entry.
 
 ### DEMIS Example
 
-The following example shows the configuration for an initial preliminary disease notification, that is not confirmed
+The following example shows the validation configuration for the scenario of an initial preliminary disease
+notification, where the disease is not confirmed
 yet, but suspected. This is described by the purple path in the decision tree above.
-The expression "Patient.profile(byName)" checks whether the Patient resource in the Bundle has the profile for
-identified patients and belongs to the decision node "Patient.meta.profile" resulting in the path "NotifiedPerson".
-The other expressions check for a specific state of elements, that are required for a notification to result in this scenario.
-After all fhirpath expressions are validated successfully, the external checks are performed. The type NOTIFICATION_ID_NOT_EXISTING
-validates that no other Notification with the same Id was send before. This is nessecary for initial notifications.
-
+The expression "Patient.profile(byName)" mirrors the first node in the decision tree and checks whether the patient
+resource in the bundle has the profile "NotifiedPerson" for identified patients. Each other FHIRPath expression should
+be also displayed over a node in the tree.
+The external check for the scenario is of type NOTIFICATION_ID_NOT_EXISTING, meaning it is an initial notification
+scenario.
 
 ```json
 {
@@ -162,14 +179,12 @@ validates that no other Notification with the same Id was send before. This is n
 }
 ```
 
-The next example shows the configuration for a supplementary notification, were the suspected disease from the initial notification before is confirmed. This is
-described by the orange path in the decision tree above.
-As already mentioned, supplementary notifications must reference an existing initial notification. In contrast to static
-references, dynamic references to other notifications cannot be validated via FHIRPath, because it only knows the
-current notification and
-does not have access to any previous ones. Therefore, an external check with the type NOTIFICATION_ID_NOT_EXISTING is performed to verify that the referenced
-notification ID exists in the system. External checks require additional validation logic in java outside of
-FHIRPath and are executed after all FHIRPath expressions have been evaluated successfully.
+The next example shows the configuration for a supplementary notification, were the suspected disease from the initial
+notification before is confirmed. This is described by the orange path in the decision tree above.
+As already mentioned, supplementary notifications must reference an existing initial notification. Therefore, an
+external check of type CATEGORY_MAPPING is
+performed to verify that the referencing notification ID exists in the system and is linked to a notification with the
+same disease category.
 
 ``` json
  {
