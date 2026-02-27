@@ -19,7 +19,7 @@ expandable, easily maintainable construct that enables rapid technical validatio
 
 ---
 
-## Part II – Lifcycle Managemt As Scenario-Driven Validation of FHIR Notifications
+## Part II – Lifecycle Management As Scenario-Driven Validation of FHIR Notifications
 
 ### Motivation And Value
 
@@ -86,7 +86,7 @@ To improve traceability, both project partner together created a scenario decisi
 into smaller decision nodes, making it easier to understand the LCM.
 From a domain driven perspective this approach results in common language between the technical and functional teams in form of the decision tree.
 
-<img src="{{ site.baseurl }}/assets/img/20260130-fhirpath/LCM-Pathogen_IM_FM.png" alt="DEMIS high-level flow with FHIRPath evaluation points"/>
+<img src="{{ site.baseurl }}/assets/img/20260130-fhirpath/LCM-Disease_IM_EM.jpg" alt="DEMIS high-level flow with FHIRPath evaluation points"/>
 
 ### Rule Implementation and Integration
 
@@ -94,7 +94,7 @@ We implemented the actual validation using HAPI FHIR. The framework provides an 
 but requires an extension of the resolve() method, which must be implemented by the user (
 see [part one of this series](https://code.gematik.de/tech/2025/12/22/fhir-path-in-demis-part1.html)).
 
-For each scenario in the rule tree, we generate matching FHIRPath expressions and apply them to the message under
+For each scenario in the rule tree, we generate matching FHIRPath expressions and external checks and apply them to the message under
 review. Because the rule tree—unlike the RKI table—does not allow duplicate scenarios, we reduce the number of checks to
 the minimum necessary.
 
@@ -115,49 +115,46 @@ In part we will discuss our routing implementation which is closer to a decision
 
 ### DEMIS Example
 
-The following example shows the configuration for an initial laboratory notification. This is described by the orange
-path in the decision tree above.
+The following example shows the configuration for an initial preliminary disease notification, that is not confirmed
+yet, but suspected. This is described by the purple path in the decision tree above.
 The expression "Patient.profile(byName)" checks whether the Patient resource in the Bundle has the profile for
 identified patients and belongs to the decision node "Patient.meta.profile" resulting in the path "NotifiedPerson".
+The other expressions check for a specific state of elements, that are required for a notification to result in this scenario.
+After all fhirpath expressions are validated successfully, the external checks are performed. The type NOTIFICATION_ID_NOT_EXISTING
+validates that no other Notification with the same Id was send before. This is nessecary for initial notifications.
+
 
 ```json
 {
-  "name": "1",
+  "name": "S_IM_V",
   "fhirPathExpression": [
     {
       "fhirPath": "Patient.profile(byName)"
     },
     {
-      "fhirPath": "RelatesToEmpty"
+      "fhirPath": "Composition.status(preliminary)"
     },
     {
-      "fhirPath": "Composition.status(final)",
-      "description": "Ensure the Composition resource has a status of 'final' and no relatesTo entry."
+      "fhirPath": "Condition.clinicalStatus(active)"
     },
     {
-      "fhirPath": "DiagnosticReport.status(final)"
-    },
-    {
-      "fhirPath": "DiagnosticReport.conclusionCode(pathogenDetected)"
-    },
-    {
-      "fhirPath": "Observation.interpretation(pos)"
+      "fhirPath": "Condition.verificationStatus(unconfirmed)"
     }
   ],
   "externalChecks": [
     {
       "type": "NOTIFICATION_ID_NOT_EXISTING",
       "inputs": {
-        "notificationId": "NotificationId"
+        "id": "NotificationId"
       }
     }
   ]
 }
 ```
 
-The next example shows the configuration for a follow-up notification with a negative laboratory result. This is
-described by the purple path in the decision tree above.
-As already mentioned, follow-up notifications must reference an existing initial notification. In contrast to static
+The next example shows the configuration for a supplementary notification, were the suspected disease from the initial notification before is confirmed. This is
+described by the orange path in the decision tree above.
+As already mentioned, supplementary notifications must reference an existing initial notification. In contrast to static
 references, dynamic references to other notifications cannot be validated via FHIRPath, because it only knows the
 current notification and
 does not have access to any previous ones. Therefore, an external check is performed to verify that the referenced
@@ -166,8 +163,8 @@ FHIRPath and are executed after all FHIRPath expressions have been evaluated suc
 
 
 ``` json
-{
-    "name": "3A2",
+ {
+    "name": "S_FM_V2EoT",
     "fhirPathExpression": [
       {
         "fhirPath": "Patient.profile(byName)"
@@ -176,21 +173,19 @@ FHIRPath and are executed after all FHIRPath expressions have been evaluated suc
         "fhirPath": "Composition.status(final)"
       },
       {
-        "fhirPath": "DiagnosticReport.status(final)"
+        "fhirPath": "Condition.clinicalStatus(active)"
       },
       {
-        "fhirPath": "DiagnosticReport.conclusionCode(pathogenNotDetected)"
-      },
-      {
-        "fhirPath": "Observation.interpretation(neg)"
+        "fhirPath": "Condition.verificationStatus(confirmed)"
       }
     ],
     "externalChecks": [
       {
-        "type": "NOTIFICATION_ID_CATEGORY_MAPPING",
+        "type": "CATEGORY_MAPPING",
         "inputs": {
-          "notificationId": "NotificationId",
-          "notificationCategory": "NotificationCategory"
+          "id": "NotificationId",
+          "hasToExist": true,
+          "notificationCategory": "NotificationDiseaseCategory"
         }
       }
     ]
@@ -202,17 +197,17 @@ In a second file, we have documented the concrete FHIRPath expressions that thes
 
 ```json
 {
-  "Bundle.profile(negative)": "Bundle.where(meta.profile = 'https://demis.rki.de/fhir/StructureDefinition/NotificationBundleLaboratoryNegative').exists()",
-  "Patient.profile(anonymous)": "Bundle.entry.resource.where($this is Patient).meta.where(profile = 'https://demis.rki.de/fhir/StructureDefinition/NotifiedPersonAnonymous').exists()",
-  "HasRelatesToEntry": "Bundle.entry.resource.where($this is Composition and relatesTo.exists()).exists()",
-  "RelatesToEmpty": "Bundle.entry.resource.where($this is Composition and relatesTo.empty()).exists()",
   "Patient.profile(byName)": "Bundle.entry.resource.where($this is Patient).meta.where(profile = 'https://demis.rki.de/fhir/StructureDefinition/NotifiedPerson').exists()",
+  "Composition.status(preliminary)": "Bundle.entry.resource.where($this is Composition).where(status = 'preliminary').exists()",
+  "Composition.status(final)": "Bundle.entry.resource.where($this is Composition).where(status = 'final').exists()",
+  "Condition.clinicalStatus(active)": "Bundle.entry.resource.where($this is Condition).clinicalStatus.coding.where(code = 'active').exists() or (Bundle.meta.profile = 'https://demis.rki.de/fhir/StructureDefinition/NotificationBundleDisease' and Bundle.entry.resource.where($this is Condition).clinicalStatus.empty())",
+  "Condition.verificationStatus(unconfirmed)": "Bundle.entry.resource.where($this is Condition).verificationStatus.coding.where(code = 'unconfirmed').exists()"
+  "Condition.verificationStatus(confirmed)": "Bundle.entry.resource.where($this is Condition).verificationStatus.coding.where(code = 'confirmed').exists()",
   "NotificationId": "Bundle.entry.resource.where($this is Composition).identifier.where(system='https://demis.rki.de/fhir/NamingSystem/NotificationId').value",
-  "RelatesToId": "Bundle.entry.resource.where($this is Composition).relatesTo.target.identifier.value",
-  "NotificationCategory": "Bundle.entry.resource.where($this is DiagnosticReport).code.coding.where(system='https://demis.rki.de/fhir/CodeSystem/notificationCategory').code",
   "NotificationDiseaseCategory": "Bundle.entry.resource.where($this is Condition).code.coding.where(system='https://demis.rki.de/fhir/CodeSystem/notificationDiseaseCategory').code",
-  "Composition.status(final)": "Bundle.entry.resource.where($this is Composition).where(status = 'final').exists()"
-[...]
+[
+  ...
+]
 }
 ```
 
