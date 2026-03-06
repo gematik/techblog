@@ -52,6 +52,10 @@ We currently manage approximately **1,900 pipeline jobs** (30% CI, 70% CD/Releas
 
 When Microsoft retired the Office 365 connectors in 2025, it caused major disruptions. By utilizing our JSL method `teamsSendNotificationToChannel(channelId, groupId)`, we updated the logic in one central place. All teams immediately regained their rich notifications without touching a single line of their own pipeline code.
 
+As seen in the examples below, our standard notifications provide comprehensive information about the executed pipeline. An icon in the right corner instantly shows whether it was a Merge Request, a main branch, or a feature branch build. The cards clearly display the build's success or failure state along with the root cause that triggered the pipeline. Moreover, the notifications contain direct quick links to essential resources: Jenkins and Blue Ocean for pipeline views, GitLab for code and MRs, test reports, and a direct link to the published artifacts.
+
+Beyond the defaults, teams can smoothly inject additional context using a simple HashMap via the same JSL call to represent specific data from other pipeline steps. Similar JSL methods are also available for other services like Google Chat, and teams are fully empowered to use custom templates to define entirely bespoke message formats.
+
 <div class="custom-slider" style="max-width: 100%; border: 1px solid #d1d5da; border-radius: 6px; overflow: hidden; margin-bottom: 20px;">
   <div class="slider-images" id="notification-slider" style="display: flex; overflow-x: hidden; scroll-behavior: smooth;">
     <img src="/assets/img/20260310-swf/Notification_OK.png" alt="Notification OK" style="width: 100%; flex-shrink: 0; object-fit: contain; margin: 0;">
