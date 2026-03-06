@@ -71,7 +71,10 @@ Beyond the defaults, teams can smoothly inject additional context using a simple
 
 
 ### 2. "Open by Default" Through Automated Synchronization
-Since we prioritize collaboration with the community, we use automated JSL pipelines to sync internal GitLab projects to GitHub.
+
+In many projects, we work internally on gematik's own GitLab instance. However, collaboration with the community, users, and software vendors is of utmost importance to us, meaning many of our projects are made publicly available in the gematik GitHub space. Often, these projects are initially developed internally before being released to the public. 
+
+To seamlessly synchronize our internal and external codebases, the JSL provides ready-to-use pipelines. Teams only need to configure a few simple parameters in their own projects to utilize this automation. Here is an example of the configuration required for a synchronization to GitHub:
 
 ```groovy
 @Library('gematik-jenkins-shared-library')_
