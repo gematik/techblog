@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Software Factory 2.0: Evolution, Security, and Scaling at gematik"
-date: 2026-03-05 10:00:00 +0100
+date: 2026-03-10 10:00:00 +0100
 author: Christian Lange
 categories: tech
 tags: [software-factory, devops, security, jenkins, cyclonedx, snyk]
@@ -19,7 +19,7 @@ In this article, I want to highlight how the Software Factory (SWF) has transfor
 
 Securing the software supply chain is now a top priority at gematik. We have firmly integrated the creation of **Software Bill of Materials (SBOM)**—specifically using the [CycloneDX](https://cyclonedx.org/) standard—into our build process. Furthermore, we utilize **Cosign** for Docker image signatures and attestations, ensuring every module remains transparent and verifiable.
 
-![Software supply chain security workflow]({{site.baseurl}}/assets/img/20260310-swf/Secure_Supply_Chain_Workflow.png)
+[![Software supply chain security workflow]({{site.baseurl}}/assets/img/20260310-swf/Secure_Supply_Chain_Workflow.png)]({{site.baseurl}}/assets/img/20260310-swf/Secure_Supply_Chain_Workflow.png)
 *Fig.2: Software supply chain security workflow*
 
 ### New Players in the Security Stack: Snyk and Dependency Track
@@ -34,7 +34,7 @@ Crucially, this security-first approach is strictly enforced: any critical findi
 
 Standardization is the only way to scale for our developers and testers. Our **Jenkins Shared Library** now comprises over **350 functions**, providing a consistent interface for complex tasks.
 
-![Jenkins Shared Library clusters](/assets/img/20260310-swf/jsl-overview.png)
+[![Jenkins Shared Library clusters](/assets/img/20260310-swf/jsl-overview.png)](/assets/img/20260310-swf/jsl-overview.png)
 *Fig.3: Jenkins Shared Library clusters*
 
 The functions are organized into specialized clusters:
@@ -90,7 +90,7 @@ With thousands of builds, we frequently encountered "Rate Limit" issues where ex
 ### Hybrid Setup: Mac OS and TI-Testnets
 While Linux and Windows agents scale in GCP, we maintain our own **macOS hardware** in our on-premise data center for mobile development, such as the E-Rezept App. 
 
-![Architecture](/assets/img/20260310-swf/ArchitectureGCP-Simple%20Extern.svg)
+[![Architecture](/assets/img/20260310-swf/ArchitectureGCP-Simple%20Extern.svg)](/assets/img/20260310-swf/ArchitectureGCP-Simple%20Extern.svg)
 *Fig.5: Software Factory Architecture*
 
 Furthermore, for deployments into the **Telematik-Infrastruktur (TI) testnets**, the highly secured backbone of the German digital healthcare system, we utilize a specialized approach: Jenkins starts agents directly on Docker hosts within the target test network. This avoids complex tunneling; the agent executes the deployment locally on the target system, ensuring higher security and reliability during the deployment phase.
