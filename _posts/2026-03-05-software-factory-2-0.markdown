@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Software Factory 2.0: Evolution, Security, and Scaling at gematik"
-date: 2026-03-05 10:00:00 +0100
+date: 2026-03-10 10:00:00 +0100
 author: Christian Lange
 categories: tech
 tags: [software-factory, devops, security, jenkins, cyclonedx, snyk]
@@ -76,9 +76,12 @@ Beyond the defaults, teams can smoothly inject additional context using a simple
 
 ### 2. "Open by Default" Through Automated Synchronization
 
-In many projects, we work internally on gematik's own GitLab instance. However, collaboration with the community, users, and software vendors is of utmost importance to us, meaning many of our projects are made publicly available in the gematik GitHub space. Often, these projects are initially developed internally before being released to the public. 
+In many projects, we work internally on gematik's own GitLab instance. However, collaboration with the community, users, and software vendors is of utmost importance to us, meaning many of our projects are made publicly available. We are strongly committed to providing a vast amount of Open Source resources to the public. You can find our released artifacts and codebases on various platforms:
+* **Source Code:** [github.com/gematik](https://github.com/gematik)
+* **Docker Images:** [DockerHub (gematik1)](https://hub.docker.com/search?q=gematik1)
+* **Java Libraries:** [Maven Central (de.gematik)](https://mvnrepository.com/artifact/de.gematik)
 
-To seamlessly synchronize our internal and external codebases, the JSL provides ready-to-use pipelines. Teams only need to configure a few simple parameters in their own projects to utilize this automation. Here is an example of the configuration required for a synchronization to GitHub:
+Often, these projects are initially developed internally before being released to the public. To seamlessly synchronize our internal and external codebases, the JSL provides ready-to-use pipelines. Teams only need to configure a few simple parameters in their own projects to utilize this automation. Here is an example of the configuration required for a synchronization to GitHub:
 
 ```groovy
 @Library('gematik-jenkins-shared-library')_
