@@ -72,8 +72,8 @@ Since we prioritize collaboration with the community, we use automated JSL pipel
 ```groovy
 @Library('gematik-jenkins-shared-library')_
 pipelineGitHubPublishSources {
-    GITHUB_PROJECT_NAME = 'DEMIS-antibiotic-resistance-surveillance-service'
-    GEMATIK_PROJECT_NAME = 'demis/services/antibiotic-resistance-surveillance-service.git'
+    GITHUB_PROJECT_NAME = 'myGitHubProjectName'
+    GEMATIK_PROJECT_NAME = 'myProjectGoupe/myService.git'
     REMOTE_BRANCH = 'main'
 }
 ```
