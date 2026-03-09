@@ -5,7 +5,7 @@ date: 2026-03-09 10:00:00 +0100
 author: Christian Lange
 categories: tech
 tags: [software-factory, devops, security, jenkins, cyclonedx, snyk]
-excerpt: "<br/>A deep dive into gematik's Software Factory evolution, featuring advanced SAST with Snyk, SBOM management with CycloneDX/VEX, and solving rate-limiting challenges in high-scale CI/CD."
+excerpt: "<br/>A deep dive into gematik's Software Factory evolution, featuring advanced SAST with Snyk, SBOM management with CycloneDX/VEX, and solving rate-limiting challenges in high-scale CI/CD.<br/><br/>"
 ---
 
 It has been some time since I published the [initial article on the Software Factory](https://code.gematik.de/tech/2022/11/14/software-factory.html) alongside my colleague Michele Adduci. However, that does not mean development has stood still. We are continuously expanding our platform, recently introducing advanced security tools like **Dependency Track** and **Snyk**, while evaluating numerous new approaches.
