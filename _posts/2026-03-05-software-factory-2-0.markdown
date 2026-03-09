@@ -5,7 +5,7 @@ date: 2026-03-09 10:00:00 +0100
 author: Christian Lange
 categories: tech
 tags: [software-factory, devops, security, jenkins, cyclonedx, snyk]
-excerpt: "A deep dive into gematik's Software Factory evolution, featuring advanced SAST with Snyk, SBOM management with CycloneDX/VEX, and solving rate-limiting challenges in high-scale CI/CD."
+excerpt: "<br/>A deep dive into gematik's Software Factory evolution, featuring advanced SAST with Snyk, SBOM management with CycloneDX/VEX, and solving rate-limiting challenges in high-scale CI/CD."
 ---
 
 It has been some time since I published the [initial article on the Software Factory](https://code.gematik.de/tech/2022/11/14/software-factory.html) alongside my colleague Michele Adduci. However, that does not mean development has stood still. We are continuously expanding our platform, recently introducing advanced security tools like **Dependency Track** and **Snyk**, while evaluating numerous new approaches.
@@ -126,6 +126,6 @@ By centralizing these complex infrastructure tasks, we allow our teams to focus 
 
 ---
 
-# About The Authors
+# About The Author
 
 Christian Lange is a software architect with more than 15 years of expertise and leads the Chapter Cloud & Deployment Technologies at gematik. His focus includes software architectures, cloud technologies, DevOps, and tech leadership. Christian Lange works on different projects like [DEMIS](https://www.gematik.de/anwendungen/demis) and Software Factory, and is a driving force behind the [Open Source culture](https://gematik.github.io/) at gematik.
