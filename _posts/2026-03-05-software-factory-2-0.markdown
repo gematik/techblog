@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Software Factory 2.0: Evolution, Security, and Scaling at gematik"
-date: 2026-03-10 10:00:00 +0100
+date: 2026-03-09 10:00:00 +0100
 author: Christian Lange
 categories: tech
 tags: [software-factory, devops, security, jenkins, cyclonedx, snyk]
@@ -19,7 +19,7 @@ In this article, I want to highlight how the Software Factory (SWF) has transfor
 
 # Focus: Supply Chain Security & Advanced Scanning
 
-Securing the software supply chain is now a top priority at gematik. We have firmly integrated the creation of **Software Bill of Materials (SBOM)**—specifically using the [CycloneDX](https://cyclonedx.org/) standard—into our build process. Furthermore, we utilize **Cosign** for Docker image signatures and attestations, ensuring every module remains transparent and verifiable.
+Securing the software supply chain is now a top priority at gematik. We have firmly integrated the creation of **Software Bill of Materials (SBOM)**—specifically using the [CycloneDX](https://cyclonedx.org/) standard into our build process. Furthermore, we utilize **Cosign** for Docker image signatures and attestations, ensuring every module remains transparent and verifiable.
 
 [![Software supply chain security workflow]({{site.baseurl}}/assets/img/20260310-swf/Secure_Supply_Chain_Workflow.png)]({{site.baseurl}}/assets/img/20260310-swf/Secure_Supply_Chain_Workflow.png)
 *Fig.2: Software supply chain security workflow*
@@ -44,7 +44,7 @@ Standardization is the only way to scale for our developers and testers. Our **J
 The functions are organized into specialized clusters:
 * **Security & Compliance:** Cosign methods for signatures/attestations; Trivy for artifact and configuration scans.
 * **Vulnerability Management:** Dependency Track methods for project lifecycle and SBOM verification.
-* **Infrastructure & Cloud:** Docker (images, SBOMs, Compose tests), Google Cloud (buckets, secrets), and Nexus integration.
+* **Infrastructure & Cloud:** Docker (images, SBOMs, compose, tests), Google Cloud (buckets, secrets), and Nexus integration.
 * **Development Tools:** Standardized builds for Maven, Gradle, and npm; automated GitLab releases and Merge Requests.
 * **Communication & Documentation:** MS Teams notifications and automated Confluence documentation updates.
 
