@@ -44,7 +44,7 @@ consolidates the domain
 expertise on legal and substantive questions, while the gematik-team is responsible for the technical implementation and
 operations.
 
-In addition to FHIR profiling for creating the data model and the api, the RKI-team also conducted a comprehensive
+In addition to FHIR profiling for creating the data model and the API, the RKI-team also conducted a comprehensive
 content review of the
 notifications. These notifications should never be seen in isolation, as several notifications can relate to a single
 infection. Laboratory notifications confirm the infection and include information about sample testing, such as sample
@@ -81,13 +81,13 @@ boundaries is therefore difficult, a challenge already hinted at in the RKI’s 
 
 ### Robust Rule Design
 
-The RKI defines functional, real world scenarios based on their and german health office experiences. These scenarios
+The RKI defines functional, real world scenarios based on their and German health office experiences. These scenarios
 have to be translated into unique technical scenarios with unambiguous rules.
 Therefore, the RKI provided a scenario table through their Implementation Guides that lists all relevant scenarios and
 the allowed values of elements.
 Some of the defined functional scenarios could be removed due to technical overlap in field values, as the remaining
 differences are purely functional and irrelevant for the lifecycle validation.
-To improve traceability, both project partner together created a scenario decision tree that breaks down the scenarios
+To improve traceability, both project partners together created a scenario decision tree that breaks down the scenarios
 into smaller decision nodes, making it easier to understand the LCM.
 From a domain driven perspective this approach results in common language between the technical and functional teams in
 form of the decision tree.
@@ -116,7 +116,7 @@ External Checks prove for initial notifications, that no other notification with
 Furthermore, the LCM describes scenarios for supplementary and follow-up notifications that require the reference to an
 initial notification with the same ID and disease category.
 
-These external checks can't be made static due to the limited scope to the state of the current notification. They require
+These external checks should not be made static due to the limited scope to the state of the current notification. They require
 the context of all previous notifications in the lifecycle via additional validation logic in Java. The notification or
 relatesTo ID can be extracted from the current notification via FHIRPath in the external check and is used to make a
 dynamic request to a service, that serves
@@ -238,7 +238,7 @@ In a second file, we have documented the concrete FHIRPath expressions that thes
 
 ## What’s Next
 
-In Part III, we’ll cover smart routing and orchestration with practical integration notes.
+In Part III, we will cover smart routing and orchestration with practical integration notes.
 
 ---
 
