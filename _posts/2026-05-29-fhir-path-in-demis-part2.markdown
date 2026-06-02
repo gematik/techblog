@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "FHIRPath In Production: Why It Matters In DEMIS"
-date: 2026-01-30 14:00:00 +0200
+date: 2026-05-29 14:00:00 +0200
 author: Tabea Harper, Daniel Reckel
 category: tech
 tags: FHIR FHIRPath DEMIS Validation HAPI-FHIR
