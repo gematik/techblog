@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Introducing ISO/IEC 25010:2011 and ISO/IEC 25010:2023"
+title:  "Modernizing Legacy Software with ISO/IEC 25010 and AI"
 date:   2026-09-17 16:00:00 +0200
 author: Zhenwu Duan
 categories: tech
 tags: ISO25010 AI-Skills quality legacy evaluation modernization
-excerpt: "<br/>ISO/IEC 25010 gives teams a common language for software quality. This short article introduces the 2011 and 2023 editions and explains why the newer version is useful for modern assessments.<br/><br/>"
+excerpt: "ISO/IEC 25010 is a quality model that helps teams assess software in a structured and objective way. It defines key quality characteristics such as maintainability, reliability, security, and usability, without prescribing a specific technology stack. With AI support, the evaluation process becomes faster and more repeatable: reusable skills can assess a project using the same logic across different systems, libraries, and components. After evaluation, the project receives scores for each quality characteristic, a list of main weaknesses, and a prioritized modernization plan that can be implemented and re-evaluated over time."
 ---
 
 # Modernizing Legacy Software with ISO/IEC 25010 and AI  
@@ -58,9 +58,11 @@ With AI, the evaluation process becomes much faster and easier to repeat. Instea
 5. Identify weaknesses, missing evidence, and the main risks.
 6. Produce a prioritized modernization plan and a follow-up evaluation strategy.
 
-Each requirement in ISO/IEC 25010 is represented by a dedicated skill. This skill acts as a bridge between the abstract quality model and the concrete project context. The AI can then apply the same assessment logic consistently across different projects, libraries, and components, which improves comparability and makes reuse much easier. 
+In my approch, each requirement in ISO/IEC 25010 is represented by a dedicated skill. This skill acts as a bridge between the abstract quality model and the concrete project context. The AI can then apply the same assessment logic consistently across different projects, libraries, and components, which improves comparability and makes reuse much easier. 
 
-### 3.2. An example skill for the requirement “Maintainability Reviewer Assess analyzability, modifiability, stability, testability, and reusability. Review architecture, code structure, tests, and technical debt. Identify changes that are hard or risky to make.” is shown below:
+### 3.2. An example skill 
+
+Let's take a look on the requirement “Maintainability Reviewer Assess analyzability, modifiability, stability, testability, and reusability. Review architecture, code structure, tests, and technical debt. Identify changes that are hard or risky to make.”, my skill for this requirement is shown below:
 > "ISO25010-Maintainability
 > 
 > **Purpose:** Evidence-based assessment of a project's maintainability according to ISO/IEC 25010.
@@ -124,12 +126,14 @@ Each requirement in ISO/IEC 25010 is represented by a dedicated skill. This skil
 > - No mixing of observation and evaluation
 > - Do not overrate individual metrics without context
 > - If context is missing, explicitly mark the uncertainty
+> 
 > **Short form:** structured, traceable, evidence-based, with clear prioritization.
+> 
 > **File output:** After the assessment is complete, Write the complete result unchanged in a Markdown file named `ISO25010-Maintainability-Evaluation-<ProjectName>-<DD.MM.YYYY-HH-MM>.md`.
 
 This is valuable because it creates a stable evaluation method that can be reused across similar projects. The same skill can be used for different services, libraries, or project components, making assessments more consistent and easier to compare.
 
-### 3.3. Score of a software system 
+### 3.3. Scoring a software system 
 
 After an AI-assisted evaluation, the project receives a score for each quality characteristic, a clear list of the main weaknesses, and a prioritized modernization plan. The plan can then be executed in a controlled manner, and the system can be re-evaluated to verify that the modernization work has measurably improved software quality.
 
