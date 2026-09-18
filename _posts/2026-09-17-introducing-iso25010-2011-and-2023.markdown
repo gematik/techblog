@@ -58,11 +58,11 @@ With AI, the evaluation process becomes much faster and easier to repeat. Instea
 5. Identify weaknesses, missing evidence, and the main risks.
 6. Produce a prioritized modernization plan and a follow-up evaluation strategy.
 
-In my approch, each requirement in ISO/IEC 25010 is represented by a dedicated skill. This skill acts as a bridge between the abstract quality model and the concrete project context. The AI can then apply the same assessment logic consistently across different projects, libraries, and components, which improves comparability and makes reuse much easier. 
+In practice, each requirement in ISO/IEC 25010 can be represented by a dedicated skill. Such a skill acts as a bridge between the abstract quality model and the concrete project context. The AI can then apply the same assessment logic consistently across different projects, libraries, and components, which improves comparability and makes reuse much easier.
 
-### 3.2. An example skill 
+### 3.2. An example skill
 
-Let's take a look on the requirement “Maintainability Reviewer Assess analyzability, modifiability, stability, testability, and reusability. Review architecture, code structure, tests, and technical debt. Identify changes that are hard or risky to make.”, my skill for this requirement is shown below:
+Let’s take a look at the requirement “Maintainability Reviewer: Assess analyzability, modifiability, stability, testability, and reusability. Review architecture, code structure, tests, and technical debt. Identify changes that are hard or risky to make.” The skill for this requirement is shown below:
 > "ISO25010-Maintainability
 > 
 > **Purpose:** Evidence-based assessment of a project's maintainability according to ISO/IEC 25010.
@@ -100,7 +100,7 @@ Let's take a look on the requirement “Maintainability Reviewer Assess analyzab
 >    - Main justification
 >
 > 2. Assessment by sub-characteristic
-     >    For each of the six sub-characteristics:
+>    For each of the six sub-characteristics:
 >    - Score
 >    - Status: strong / medium / weak
 >    - Evidence
@@ -129,23 +129,23 @@ Let's take a look on the requirement “Maintainability Reviewer Assess analyzab
 > 
 > **Short form:** structured, traceable, evidence-based, with clear prioritization.
 > 
-> **File output:** After the assessment is complete, Write the complete result unchanged in a Markdown file named `ISO25010-Maintainability-Evaluation-<ProjectName>-<DD.MM.YYYY-HH-MM>.md`.
+> **File output:** After the assessment is complete, write the complete result unchanged in a Markdown file named `ISO25010-Maintainability-Evaluation-<ProjectName>-<DD.MM.YYYY-HH-MM>.md`.
 
-This is valuable because it creates a stable evaluation method that can be reused across similar projects. The same skill can be used for different services, libraries, or project components, making assessments more consistent and easier to compare.
+This is valuable because it creates a stable evaluation method that can be reused across similar projects. The same skill can be applied to different services, libraries, or project components, making assessments more consistent and easier to compare.
 
-### 3.3. Scoring a software system 
+### 3.3. Scoring a software system
 
-After an AI-assisted evaluation, the project receives a score for each quality characteristic, a clear list of the main weaknesses, and a prioritized modernization plan. The plan can then be executed in a controlled manner, and the system can be re-evaluated to verify that the modernization work has measurably improved software quality.
+After an AI-assisted evaluation, each quality characteristic is assigned a score, the main weaknesses are identified, and a prioritized modernization plan is derived. This creates a transparent baseline for the current state of the system and makes quality issues visible in a structured, comparable way. The plan can then be executed in a controlled manner, and the system can be re-evaluated to confirm whether the modernization work has actually improved software quality.
 
-Scoring rubric Use:
-*	5 = Excellent / fully compliant / strong evidence
-*	4 = Good / minor gaps
-*	3 = Acceptable / moderate gaps
-*	2 = Weak / significant issues
-*	1 = Poor / major nonconformance
-*	N/A = Not applicable or no evidence available
+Scoring rubric:
+* 5 = Excellent / fully compliant / strong evidence
+* 4 = Good / minor gaps
+* 3 = Acceptable / moderate gaps
+* 2 = Weak / significant issues
+* 1 = Poor / major nonconformance
+* N/A = Not applicable or no evidence available
 
-### 3.4. An example of evaluation result using skill for maintability looks as below:
+### 3.4. An example of an evaluation result using the maintainability skill is shown below:
 
 > **ISO25010 Maintainability -ProjectName--28.08.2026-11-10**
 >
@@ -196,14 +196,12 @@ Scoring rubric Use:
 > - Confidence-Level: mittel
 > - Bewertung: Das Projekt ist gut getestet und nachvollziehbar, aber die fachliche Kernlogik weist genug Legacy-Charakter auf, um gezielte Modernisierung zu erfordern.
 
-Ten skills are created to cover the main quality characteristics defined in ISO/IEC 25010. These skills are stored in a shared repository and committed to GitLab so they can be reused across projects. Because they are generic and technology-neutral, they can be applied to different software projects and adapted to specific project contexts as needed.
-The evaluation skill set is designed to be reusable, neutral, and project-independent. It does not encode a specific application domain or technology stack, which makes it suitable for many software systems and helps ensure consistent, repeatable assessments over time.
 
 ## 4. Generation of AI skills and system analysis
 
 A reusable skill is helpful because it turns evaluation into a repeatable process. It standardizes the criteria and improves comparability. Instead of each review depending on the reviewer’s background or memory, the AI applies the same logic across projects.
 
-This is especially useful for large systems that are made up of many subprojects and internal libraries. In such environments, a project may appear stable from the outside while still containing multiple hidden quality problems. The AI can help reveal those hidden issues by systematically checking:
+This is especially useful for large systems made up of many subprojects and internal libraries. In such environments, a project may appear stable from the outside while still containing multiple hidden quality problems. The AI can help reveal those issues by systematically checking:
 
 - test coverage and test quality
 - dependency age and security exposure
@@ -211,7 +209,11 @@ This is especially useful for large systems that are made up of many subprojects
 - architecture maturity and modularity
 - user-facing quality and operational stability
 
-The result is a score-based quality assessment, not only a generic opinion. This gives technical leadership something concrete to work with: a prioritized list of pain points and a measurable baseline.
+The result is a score-based quality assessment, not just a generic opinion. This gives technical leadership something concrete to work with: a prioritized list of pain points and a measurable baseline.
+
+A set of ten skills is created to cover the main quality characteristics defined in ISO/IEC 25010. These skills are stored in a shared repository and committed to GitLab so they can be reused across projects. Because they are generic and technology-neutral, they can be applied to different software systems and adapted to the specific context of each project.
+
+The evaluation skill set is designed to be reusable, neutral, and project-independent. It does not encode a specific application domain or technology stack, which makes it suitable for many software systems and helps ensure consistent, repeatable assessments over time.
 
 ## 5. Experience: Modernization of a large legacy software system in the Smart Card team
 
@@ -236,7 +238,7 @@ The next step was not a large reimplementation. Instead, we focused on the main 
 
 After this modernization effort, we evaluated the system again using the same ISO/IEC 25010-based skill. The score improved substantially. This was important because it showed not only that the code had been cleaned up, but that the modernization work had actually improved system quality in a measurable way.
 
-The result was a system with new life: better maintainability, better security posture, cleaner dependencies, stronger tests, and clearer room for future development. Most importantly, this happened without interrupting delivery to end users.
+The result was a system with renewed vitality: better maintainability, a stronger security posture, cleaner dependencies, stronger tests, and clearer room for future development. Most importantly, this happened without interrupting delivery to end users.
 
 ## 6. Why this approach is valuable
 
