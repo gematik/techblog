@@ -87,7 +87,7 @@ Let’s take a look at the requirement “Maintainability Reviewer: Assess analy
 > Use only reliable evidence from code, architecture, documentation, CI/CD, tests, build configuration, dependencies, and known runtime/operational artifacts. Strictly separate observations, derived risks, and recommendations. Do not invent project details; if evidence is missing, state this explicitly and mark the assessment as provisional.
 >
 > Assessment rules:
-> - Assign a score from 1–5
+> - Assign a score from 1 to 5
 > - Describe strengths and weaknesses
 > - Provide concrete evidence for each statement
 > - Derive technical debt only from verifiable indicators
@@ -264,3 +264,7 @@ ISO/IEC 25010 provides a strong foundation for evaluating software quality in a 
 When combined with AI, the standard becomes much more actionable. A reusable skill can evaluate an old software system quickly, score each quality characteristic, identify the major pain points, and help shape a realistic modernization plan. This is especially valuable for large legacy systems where the challenge is not only technical debt, but also the risk of continuing to evolve without a clear view of the system’s actual health.
 
 In practice, the benefit is significant: we can evaluate early, focus on the biggest gaps, modernize in controlled steps, and then evaluate again to confirm real improvement. That is how an old system can regain momentum without interrupting business delivery.
+
+**About The Author**
+
+Zhenwu Duan is responsible in the Smartcard team for the development and maintenance of test tools. His interests include various programming languages such as ​​Java, Go, C#, Typescript, as well as system testing and PKI technology.
