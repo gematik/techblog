@@ -4,7 +4,7 @@ title:  "Introducing ISO/IEC 25010:2011 and ISO/IEC 25010:2023"
 date:   2026-09-17 16:00:00 +0200
 author: Zhenwu Duan
 categories: tech
-tags: ISO25010 AI-Skills quality legacy evaluation
+tags: ISO25010 AI-Skills quality legacy evaluation modernization
 excerpt: "<br/>ISO/IEC 25010 gives teams a common language for software quality. This short article introduces the 2011 and 2023 editions and explains why the newer version is useful for modern assessments.<br/><br/>"
 ---
 
@@ -49,7 +49,7 @@ This structure is important because software quality is not only about whether t
 
 With AI, the evaluation process becomes much faster and easier to repeat. Instead of manually reviewing large codebases in an ad hoc way, a team can define a reusable evaluation skill that follows the ISO/IEC 25010 model.
 
-A typical AI-based evaluation workflow looks like this:
+### 3.1. A typical AI-based evaluation workflow looks like this:
 
 1. Create a reusable evaluation skill for the project or project family.
 2. Provide a prompt that asks the AI to assess the project using ISO/IEC 25010.
@@ -58,11 +58,142 @@ A typical AI-based evaluation workflow looks like this:
 5. Identify weaknesses, missing evidence, and the main risks.
 6. Produce a prioritized modernization plan and a follow-up evaluation strategy.
 
-Example prompt:
+Each requirement in ISO/IEC 25010 is represented by a dedicated skill. This skill acts as a bridge between the abstract quality model and the concrete project context. The AI can then apply the same assessment logic consistently across different projects, libraries, and components, which improves comparability and makes reuse much easier. 
 
-"Evaluate this software project according to ISO/IEC 25010. Assess product quality and quality in use using only evidence from requirements, architecture, code, tests, deployment, monitoring, incidents, and user feedback. Score each characteristic from 1 to 5, explain the score, list strengths and weaknesses, identify gaps, and provide a prioritised remediation roadmap."
+### 3.2. An example skill for the requirement “Maintainability Reviewer Assess analyzability, modifiability, stability, testability, and reusability. Review architecture, code structure, tests, and technical debt. Identify changes that are hard or risky to make.” is shown below:
+> "ISO25010-Maintainability
+> 
+> **Purpose:** Evidence-based assessment of a project's maintainability according to ISO/IEC 25010.
+> Act as a senior software quality assessor according to ISO/IEC 25010. Evaluate only the maintainability of this project.
+>
+> Focus:
+> - Analyzability
+> - Changeability
+> - Modularity
+> - Reusability
+> - Testability
+> - Technical debt
+> In particular, assess:
+> - Architecture and responsibilities
+> - Code structure and coupling
+> - Duplication and reuse
+> - Tests, test coverage, and testability
+> - Documentation and understandability
+> - Dependency management and update capability
+> - Complexity, hotspots, and maintenance risks
+>
+> Use only reliable evidence from code, architecture, documentation, CI/CD, tests, build configuration, dependencies, and known runtime/operational artifacts. Strictly separate observations, derived risks, and recommendations. Do not invent project details; if evidence is missing, state this explicitly and mark the assessment as provisional.
+>
+> Assessment rules:
+> - Assign a score from 1–5
+> - Describe strengths and weaknesses
+> - Provide concrete evidence for each statement
+> - Derive technical debt only from verifiable indicators
+> - Make modernization recommendations that are prioritized and actionable
+>
+> Output format:
+> 1. Executive summary
+>    - Overall maintainability assessment
+>    - Maintenance risk: low / medium / high
+>    - Main justification
+>
+> 2. Assessment by sub-characteristic
+     >    For each of the six sub-characteristics:
+>    - Score
+>    - Status: strong / medium / weak
+>    - Evidence
+>    - Risks
+>    - Measures
+>
+> 3. Technical debt
+>    - Recognizable debt drivers
+>    - Affected areas
+>    - Estimated modernization pressure
+>
+> 4. Prioritized recommendations
+>    - Top 5 measures
+>    - Expected benefit
+>    - Priority
+>
+> 5. Conclusion
+>    - Confidence level of the assessment
+>    - Whether the project appears more modern, stable, or legacy
+>
+> Additional rules:
+> - No blanket statements without evidence
+> - No mixing of observation and evaluation
+> - Do not overrate individual metrics without context
+> - If context is missing, explicitly mark the uncertainty
+> **Short form:** structured, traceable, evidence-based, with clear prioritization.
+> **File output:** After the assessment is complete, Write the complete result unchanged in a Markdown file named `ISO25010-Maintainability-Evaluation-<ProjectName>-<DD.MM.YYYY-HH-MM>.md`.
 
 This is valuable because it creates a stable evaluation method that can be reused across similar projects. The same skill can be used for different services, libraries, or project components, making assessments more consistent and easier to compare.
+
+### 3.3. Score of a software system 
+
+After an AI-assisted evaluation, the project receives a score for each quality characteristic, a clear list of the main weaknesses, and a prioritized modernization plan. The plan can then be executed in a controlled manner, and the system can be re-evaluated to verify that the modernization work has measurably improved software quality.
+
+Scoring rubric Use:
+*	5 = Excellent / fully compliant / strong evidence
+*	4 = Good / minor gaps
+*	3 = Acceptable / moderate gaps
+*	2 = Weak / significant issues
+*	1 = Poor / major nonconformance
+*	N/A = Not applicable or no evidence available
+
+### 3.4. An example of evaluation result using skill for maintability looks as below:
+
+> **ISO25010 Maintainability -ProjectName--28.08.2026-11-10**
+>
+> ### Kurzfazit
+> - Gesamtbewertung der Wartbarkeit: mittel
+> - Wartungsrisiko: mittel
+> - wichtigste Begründung: Das Projekt ist klar strukturiert, gut getestet und auf Java 17/Spring Boot aufgebaut. Schwachpunkte liegen in der Zentralisierung fachlicher Logik in `Processor.java` und der fehlenden technischen Debt-Strategie.
+>
+> ### Bewertung nach Untermerkmalen
+> #### Analysierbarkeit — Score 3, Status mittel
+> - Evidenz: `README.md` und Klassen wie `AppController`, `UserService`, `Processor`, `Parser` zeigen klare Verantwortlichkeiten.
+> - Risiken: XML-/Schema-Regeln sind fachlich dicht und teilweise in wenigen Klassen konzentriert.
+> - Maßnahmen: Kritische Regeln dokumentieren und als eigene Konzepte auslagern.
+>
+> #### Änderbarkeit — Score 3, Status mittel
+> - Evidenz: `pom.xml` nutzt Spring Boot 3.4.13, Java 17, JaCoCo, Spotless; viele Tests existieren.
+> - Risiken: `Processor.java` kombiniert XML-Erkennung, Filterung, Parsing, Validierung und CSV-Export.
+> - Maßnahmen: Verarbeitung in Services und Adapter aufteilen.
+>
+> #### Modularität — Score 3, Status mittel
+> - Evidenz: Layerstruktur (`app`, `process`, `utils`, `model`) ist vorhanden.
+> - Risiken: Geschäftslogik und I/O sind nicht vollständig getrennt.
+> - Maßnahmen: Interfaces für Parser-/Export-/Validation-Services einführen.
+>
+> #### Testbarkeit — Score 4, Status stark
+> - Evidenz: Erfolgreicher Maven-Testlauf; JUnit 5, Testcontainers, JaCoCo und viele Unit-/Integrations-Tests sind im Repository sichtbar.
+> - Risiken: Einige Tests sind stark auf konkrete Dateien und Pfade fixiert.
+> - Maßnahmen: Testmatrix für XML-Varianten ergänzen.
+>
+> #### Technische Schuld — Score 3, Status mittel
+> - Evidenz: `Processor.java` weist Anzeichen für lange, fachlich dichte Methoden und mehrere Verantwortlichkeiten auf.
+> - Risiken: Erweiterungen an XML-/Schema-Regeln erhöhen das Änderungsrisiko.
+> - Maßnahmen: Refactoring-Roadmap und Hotspot-Review priorisieren.
+>
+> ### Technische Schuld
+> - Schuldtreiber: XML-/Schema-Logik, lokale Pfadbehandlung, zentrale CSV-Exportlogik
+> - betroffene Bereiche: `Processor.java`, `Parser.java`, `UserService.java`
+> - geschätzter Modernisierungsdruck: mittel
+>
+> ### Priorisierte Empfehlungen
+> 1. `Processor.java` in kleinere Services aufteilen (hoch)
+> 2. kritische XML-Regeln mit Testmatrix absichern (hoch)
+> 3. CI-Checks für Refactoring/Codequalität konsolidieren (mittel)
+> 4. Domain-/Fehlerhierarchien vereinfachen (mittel)
+> 5. Architektur-Doku für Export-Workflow ergänzen (mittel)
+>
+> ### Abschluss
+> - Confidence-Level: mittel
+> - Bewertung: Das Projekt ist gut getestet und nachvollziehbar, aber die fachliche Kernlogik weist genug Legacy-Charakter auf, um gezielte Modernisierung zu erfordern.
+
+Ten skills are created to cover the main quality characteristics defined in ISO/IEC 25010. These skills are stored in a shared repository and committed to GitLab so they can be reused across projects. Because they are generic and technology-neutral, they can be applied to different software projects and adapted to specific project contexts as needed.
+The evaluation skill set is designed to be reusable, neutral, and project-independent. It does not encode a specific application domain or technology stack, which makes it suitable for many software systems and helps ensure consistent, repeatable assessments over time.
 
 ## 4. Generation of AI skills and system analysis
 
@@ -116,7 +247,7 @@ This approach is useful because it combines standards, AI, and practical moderni
 
 This is a much safer and more effective path than trying to modernize everything at once or making changes based only on gut feeling. With AI and ISO/IEC 25010, we can move faster, identify the real issues, and create a modernization roadmap that is grounded in evidence.
 
-## 6. Evaluation and modernization flow
+### Evaluation and modernization flow
 
 ![ISO/IEC 25010 evaluation and modernization flow](../assets/img/iso25010-modernization-flow.svg)
 
