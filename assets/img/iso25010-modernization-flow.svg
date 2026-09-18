@@ -1,0 +1,71 @@
+<svg width="1200" height="540" viewBox="0 0 1200 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ISO/IEC 25010 evaluation and modernization flow (gem-tech-blog-zd)</title>
+  <desc id="desc">A cyclic workflow with one vertical connection from Evaluate to Score and a closed loop for iterative modernization.</desc>
+
+  <defs>
+    <style>
+      .blueBox { fill: #f4f7ff; stroke: #2c5ec8; stroke-width: 2.5; }
+      .greenBox { fill: #edf9f2; stroke: #2f8f5b; stroke-width: 2.5; }
+      .blueLine { stroke: #2c5ec8; stroke-width: 3; fill: none; marker-end: url(#arrowBlue); }
+      .greenLine { stroke: #2f8f5b; stroke-width: 3; fill: none; marker-end: url(#arrowGreen); }
+      .txt { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #1b2432; }
+      .small { font-size: 15px; }
+      .title { font-size: 28px; font-weight: 600; fill: #1b2432; }
+    </style>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#2c5ec8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#2f8f5b"/>
+    </marker>
+  </defs>
+
+  <text x="600" y="42" text-anchor="middle" class="title">ISO/IEC 25010 evaluation and modernization flow (gem-tech-blog-zd)</text>
+
+  <!-- Start / standard -->
+  <rect x="50" y="80" width="170" height="60" class="blueBox" rx="12" ry="12"/>
+  <text x="135" y="108" text-anchor="middle" class="txt">ISO/IEC 25010</text>
+  <text x="135" y="124" text-anchor="middle" class="txt small">requirements</text>
+
+  <!-- AI skill -->
+  <rect x="290" y="80" width="170" height="60" class="blueBox" rx="12" ry="12"/>
+  <text x="375" y="108" text-anchor="middle" class="txt">AI skill</text>
+  <text x="375" y="124" text-anchor="middle" class="txt small">for evaluation</text>
+
+  <!-- Evaluate project -->
+  <rect x="565" y="80" width="190" height="60" class="blueBox" rx="12" ry="12"/>
+  <text x="625" y="108" text-anchor="middle" class="txt">Evaluate</text>
+  <text x="625" y="124" text-anchor="middle" class="txt small">project</text>
+
+  <!-- Identify pain points -->
+  <rect x="290" y="200" width="210" height="60" class="blueBox" rx="12" ry="12"/>
+  <text x="395" y="228" text-anchor="middle" class="txt">Identify</text>
+  <text x="395" y="244" text-anchor="middle" class="txt small">pain points</text>
+
+  <!-- Score results -->
+  <rect x="565" y="200" width="190" height="60" class="blueBox" rx="12" ry="12"/>
+  <text x="625" y="228" text-anchor="middle" class="txt">Score</text>
+  <text x="625" y="244" text-anchor="middle" class="txt small">results</text>
+
+  <!-- Modernization plan -->
+  <rect x="290" y="330" width="210" height="60" class="greenBox" rx="12" ry="12"/>
+  <text x="395" y="358" text-anchor="middle" class="txt">Modernization</text>
+  <text x="395" y="374" text-anchor="middle" class="txt small">plan</text>
+
+  <!-- Evaluate again -->
+  <rect x="565" y="330" width="210" height="60" class="greenBox" rx="12" ry="12"/>
+  <text x="635" y="358" text-anchor="middle" class="txt">Evaluate</text>
+  <text x="635" y="374" text-anchor="middle" class="txt small">again</text>
+
+  <!-- Arrows -->
+  <path d="M220 110 H290" class="blueLine"/>
+  <path d="M460 110 H560" class="blueLine"/>
+  <path d="M655 140 V200" class="blueLine"/>
+  <path d="M565 230 H500" class="blueLine"/>
+  <path d="M395 260 V330" class="greenLine"/>
+  <path d="M500 360 H565" class="greenLine"/>
+  <path d="M775 360 H980 V110 H760" class="greenLine"/>
+
+  <!-- Label on loop -->
+  <text x="830" y="260" text-anchor="middle" class="txt small">iterate</text>
+</svg>
