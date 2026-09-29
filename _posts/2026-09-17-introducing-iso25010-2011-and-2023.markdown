@@ -149,52 +149,52 @@ Scoring rubric:
 
 > **ISO25010 Maintainability -ProjectName--28.08.2026-11-10**
 >
-> ### Kurzfazit
-> - Gesamtbewertung der Wartbarkeit: mittel
-> - Wartungsrisiko: mittel
-> - wichtigste Begründung: Das Projekt ist klar strukturiert, gut getestet und auf Java 17/Spring Boot aufgebaut. Schwachpunkte liegen in der Zentralisierung fachlicher Logik in `Processor.java` und der fehlenden technischen Debt-Strategie.
+> ### Executive Summary
+> - Overall maintainability assessment: medium
+> - Maintenance risk: medium
+> - Main justification: The project is clearly structured, well tested, and built with Java 17 and Spring Boot. Weaknesses include the concentration of business logic in `Processor.java` and the lack of a technical debt strategy.
 >
-> ### Bewertung nach Untermerkmalen
-> #### Analysierbarkeit — Score 3, Status mittel
-> - Evidenz: `README.md` und Klassen wie `AppController`, `UserService`, `Processor`, `Parser` zeigen klare Verantwortlichkeiten.
-> - Risiken: XML-/Schema-Regeln sind fachlich dicht und teilweise in wenigen Klassen konzentriert.
-> - Maßnahmen: Kritische Regeln dokumentieren und als eigene Konzepte auslagern.
+> ### Assessment by Sub-characteristic
+> #### Analyzability — Score 3, Status: medium
+> - Evidence: `README.md` and classes such as `AppController`, `UserService`, `Processor`, and `Parser` show clear responsibilities.
+> - Risks: XML and schema rules are complex and concentrated in a small number of classes.
+> - Measures: Document critical rules and extract them into dedicated components.
 >
-> #### Änderbarkeit — Score 3, Status mittel
-> - Evidenz: `pom.xml` nutzt Spring Boot 3.4.13, Java 17, JaCoCo, Spotless; viele Tests existieren.
-> - Risiken: `Processor.java` kombiniert XML-Erkennung, Filterung, Parsing, Validierung und CSV-Export.
-> - Maßnahmen: Verarbeitung in Services und Adapter aufteilen.
+> #### Modifiability — Score 3, Status: medium
+> - Evidence: `pom.xml` uses Spring Boot 3.4.13, Java 17, JaCoCo, and Spotless; many tests are present.
+> - Risks: `Processor.java` combines XML detection, filtering, parsing, validation, and CSV export.
+> - Measures: Split the processing logic into services and adapters.
 >
-> #### Modularität — Score 3, Status mittel
-> - Evidenz: Layerstruktur (`app`, `process`, `utils`, `model`) ist vorhanden.
-> - Risiken: Geschäftslogik und I/O sind nicht vollständig getrennt.
-> - Maßnahmen: Interfaces für Parser-/Export-/Validation-Services einführen.
+> #### Modularity — Score 3, Status: medium
+> - Evidence: A layered structure (`app`, `process`, `utils`, `model`) is present.
+> - Risks: Business logic and I/O are not fully separated.
+> - Measures: Introduce interfaces for parser, export, and validation services.
 >
-> #### Testbarkeit — Score 4, Status stark
-> - Evidenz: Erfolgreicher Maven-Testlauf; JUnit 5, Testcontainers, JaCoCo und viele Unit-/Integrations-Tests sind im Repository sichtbar.
-> - Risiken: Einige Tests sind stark auf konkrete Dateien und Pfade fixiert.
-> - Maßnahmen: Testmatrix für XML-Varianten ergänzen.
+> #### Testability — Score 4, Status: strong
+> - Evidence: Maven tests completed successfully; the repository includes JUnit 5, Testcontainers, JaCoCo, and many unit and integration tests.
+> - Risks: Some tests are tightly coupled to specific files and paths.
+> - Measures: Add a test matrix covering XML variants.
 >
-> #### Technische Schuld — Score 3, Status mittel
-> - Evidenz: `Processor.java` weist Anzeichen für lange, fachlich dichte Methoden und mehrere Verantwortlichkeiten auf.
-> - Risiken: Erweiterungen an XML-/Schema-Regeln erhöhen das Änderungsrisiko.
-> - Maßnahmen: Refactoring-Roadmap und Hotspot-Review priorisieren.
+> #### Technical Debt — Score 3, Status: medium
+> - Evidence: `Processor.java` shows signs of long, complex methods with multiple responsibilities.
+> - Risks: Changes to XML and schema rules may increase modification risk.
+> - Measures: Prioritize a refactoring roadmap and a review of code hotspots.
 >
-> ### Technische Schuld
-> - Schuldtreiber: XML-/Schema-Logik, lokale Pfadbehandlung, zentrale CSV-Exportlogik
-> - betroffene Bereiche: `Processor.java`, `Parser.java`, `UserService.java`
-> - geschätzter Modernisierungsdruck: mittel
+> ### Technical Debt
+> - Debt drivers: XML and schema logic, local path handling, and centralized CSV export logic
+> - Affected areas: `Processor.java`, `Parser.java`, `UserService.java`
+> - Estimated modernization pressure: medium
 >
-> ### Priorisierte Empfehlungen
-> 1. `Processor.java` in kleinere Services aufteilen (hoch)
-> 2. kritische XML-Regeln mit Testmatrix absichern (hoch)
-> 3. CI-Checks für Refactoring/Codequalität konsolidieren (mittel)
-> 4. Domain-/Fehlerhierarchien vereinfachen (mittel)
-> 5. Architektur-Doku für Export-Workflow ergänzen (mittel)
+> ### Prioritized Recommendations
+> 1. Split `Processor.java` into smaller services (high)
+> 2. Cover critical XML rules with a test matrix (high)
+> 3. Consolidate CI checks for refactoring and code quality (medium)
+> 4. Simplify domain and error hierarchies (medium)
+> 5. Add architecture documentation for the export workflow (medium)
 >
-> ### Abschluss
-> - Confidence-Level: mittel
-> - Bewertung: Das Projekt ist gut getestet und nachvollziehbar, aber die fachliche Kernlogik weist genug Legacy-Charakter auf, um gezielte Modernisierung zu erfordern.
+> ### Conclusion
+> - Confidence level: medium
+> - Assessment: The project is well tested and understandable, but its core business logic has enough legacy characteristics to warrant targeted modernization.
 
 
 ## 4. Generation of AI Skills and System Analysis
