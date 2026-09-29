@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Modernizing Legacy Software with ISO/IEC 25010 and AI"
-date:   2026-09-17 16:00:00 +0200
+date:   2026-09-29 16:00:00 +0200
 author: Zhenwu Duan
 categories: tech
 tags: ISO25010 AI-Skills quality legacy evaluation modernization
@@ -18,9 +18,9 @@ This is where ISO/IEC 25010 becomes useful. It is a standard published by the In
 
 The value becomes even stronger when we combine the standard with AI. Instead of relying solely on manual review, we can create reusable evaluation skills and prompts that assess a project consistently. This allows us to generate an initial quality score, identify the main pain points, and turn that into a modernization plan.
 
-In short, the 2023 edition is the more current reference for modern software, while the 2011 edition remains valuable for continuity and historical comparison. For teams evaluating new or modernized systems, the 2023 version is usually the better choice.
+ISO/IEC 25010 has been published in two editions relevant to this discussion: the original 2011 edition and the revised 2023 edition. The 2023 edition is the more current reference for modern software, while the 2011 edition remains valuable for continuity and historical comparison. For teams evaluating new or modernized systems, the 2023 edition is usually the better choice.
 
-## 2. What ISO/IEC 25010 is and what it does
+## 2. What ISO/IEC 25010 Is and What It Does
 
 ISO/IEC 25010 is a quality model. It does not prescribe specific implementation patterns or force a single technology stack. Instead, it defines dimensions of software quality that organizations can use to assess products and systems in a structured way.
 
@@ -35,7 +35,7 @@ The most common quality characteristics include:
 - Maintainability
 - Portability
 
-It also includes quality in use characteristics such as:
+It also includes quality-in-use characteristics such as:
 
 - Effectiveness
 - Efficiency
@@ -45,11 +45,11 @@ It also includes quality in use characteristics such as:
 
 This structure is important because software quality is not only about whether the code compiles or the system runs. It is also about whether the system meets user needs, behaves safely in production, remains maintainable, and can evolve over time.
 
-## 3. AI support for evaluation based on ISO/IEC 25010
+## 3. AI Support for Evaluation Based on ISO/IEC 25010
 
-With AI, the evaluation process becomes much faster and easier to repeat. Instead of manually reviewing large codebases in an ad hoc way, a team can define a reusable evaluation skill that follows the ISO/IEC 25010 model.
+With AI, the evaluation process becomes much faster and more repeatable. Instead of manually reviewing large codebases in an ad hoc way, a team can define a reusable evaluation skill that follows the ISO/IEC 25010 model.
 
-### 3.1. A typical AI-based evaluation workflow looks like this:
+### 3.1. A Typical AI-Based Evaluation Workflow Looks Like This:
 
 1. Create a reusable evaluation skill for the project or project family.
 2. Provide a prompt that asks the AI to assess the project using ISO/IEC 25010.
@@ -60,7 +60,7 @@ With AI, the evaluation process becomes much faster and easier to repeat. Instea
 
 In practice, each requirement in ISO/IEC 25010 can be represented by a dedicated skill. Such a skill acts as a bridge between the abstract quality model and the concrete project context. The AI can then apply the same assessment logic consistently across different projects, libraries, and components, which improves comparability and makes reuse much easier.
 
-### 3.2. An example skill
+### 3.2. An Example Skill
 
 Let’s take a look at the requirement “Maintainability Reviewer: Assess analyzability, modifiability, stability, testability, and reusability. Review architecture, code structure, tests, and technical debt. Identify changes that are hard or risky to make.” The skill for this requirement is shown below:
 > "ISO25010-Maintainability
@@ -133,7 +133,7 @@ Let’s take a look at the requirement “Maintainability Reviewer: Assess analy
 
 This is valuable because it creates a stable evaluation method that can be reused across similar projects. The same skill can be applied to different services, libraries, or project components, making assessments more consistent and easier to compare.
 
-### 3.3. Scoring a software system
+### 3.3. Scoring a Software System
 
 After an AI-assisted evaluation, each quality characteristic is assigned a score, the main weaknesses are identified, and a prioritized modernization plan is derived. This creates a transparent baseline for the current state of the system and makes quality issues visible in a structured, comparable way. The plan can then be executed in a controlled manner, and the system can be re-evaluated to confirm whether the modernization work has actually improved software quality.
 
@@ -145,7 +145,7 @@ Scoring rubric:
 * 1 = Poor / major nonconformance
 * N/A = Not applicable or no evidence available
 
-### 3.4. An example of an evaluation result using the maintainability skill is shown below:
+### 3.4. An Example of an Evaluation Result Using the Maintainability Skill Is Shown Below:
 
 > **ISO25010 Maintainability -ProjectName--28.08.2026-11-10**
 >
@@ -197,7 +197,7 @@ Scoring rubric:
 > - Bewertung: Das Projekt ist gut getestet und nachvollziehbar, aber die fachliche Kernlogik weist genug Legacy-Charakter auf, um gezielte Modernisierung zu erfordern.
 
 
-## 4. Generation of AI skills and system analysis
+## 4. Generation of AI Skills and System Analysis
 
 A reusable skill is helpful because it turns evaluation into a repeatable process. It standardizes the criteria and improves comparability. Instead of each review depending on the reviewer’s background or memory, the AI applies the same logic across projects.
 
@@ -215,11 +215,11 @@ A set of ten skills is created to cover the main quality characteristics defined
 
 The evaluation skill set is designed to be reusable, neutral, and project-independent. It does not encode a specific application domain or technology stack, which makes it suitable for many software systems and helps ensure consistent, repeatable assessments over time.
 
-## 5. Experience: Modernization of a large legacy software system in the Smart Card team
+## 5. Experience: Modernization of a Large Legacy Software System in the Smart Card Team
 
-The need for this kind of evaluation becomes very clear in legacy systems. In many organizations, older software systems continue operating for years, extended by many patches, bug fixes, and incremental features. The system still delivers business value, but it no longer has a coherent modernization strategy.
+The need for this kind of evaluation becomes very clear in legacy systems. In many organizations, older software systems continue operating for years and are extended through patches, bug fixes, and incremental features. The system still delivers business value, but it no longer has a coherent modernization strategy.
 
-In our case, the system consisted of three active projects and more than ten internal libraries developed over the past decade. It was built on older technology and evolved continuously through many extensions and fixes. There was no consistent modernization effort across the whole platform. As a result, the system accumulated:
+In our case, the system consisted of three active projects, three projects that had been inactive for a long time, and more than ten internal libraries developed over the past decade. It was built on older technology and evolved continuously through many extensions and fixes. There was no consistent modernization effort across the whole platform. As a result, the system accumulated:
 
 - redundant code
 - weak or incomplete test coverage
@@ -234,26 +234,26 @@ This is exactly where ISO/IEC 25010 becomes valuable. It helped us move from an 
 
 With the help of AI, we could run this assessment faster and more consistently. A reusable AI skill based on ISO/IEC 25010 evaluated each project and library, reviewed architecture, tests, dependencies, deployment, and operational evidence, and produced a score for each quality characteristic. This provided a common language for engineers and management alike.
 
-The next step was not a large reimplementation. Instead, we focused on the main pain points. We replaced outdated technology with modern alternatives, reduced redundant logic, improved test coverage, updated dependencies, and addressed the most critical security exposures. The goal was not to rewrite everything at once, but to improve the core weaknesses with minimum disruption to ongoing delivery.
+The next step was not a large reimplementation. Instead, we focused on the main pain points. We replaced outdated technology with modern alternatives, reduced redundant logic, improved test coverage, updated dependencies, and addressed the most critical security exposures. The goal was not to rewrite everything at once, but to improve the core weaknesses with minimal disruption to ongoing delivery.
 
 After this modernization effort, we evaluated the system again using the same ISO/IEC 25010-based skill. The score improved substantially. This was important because it showed not only that the code had been cleaned up, but that the modernization work had actually improved system quality in a measurable way.
 
 The result was a system with renewed vitality: better maintainability, a stronger security posture, cleaner dependencies, stronger tests, and clearer room for future development. Most importantly, this happened without interrupting delivery to end users.
 
-## 6. Why this approach is valuable
+## 6. Why This Approach Is Valuable
 
 This approach is useful because it combines standards, AI, and practical modernization work in a disciplined loop:
 
-1. Evaluate the current system.
-2. Identify the main quality gaps.
+1. Evaluate the current system. (AI-assisted)
+2. Identify the main quality gaps. (AI-assisted)
 3. Plan targeted modernization work.
 4. Replace old technology and clean up the pain points.
-5. Re-evaluate the system.
-6. Repeat the process for the next priority topic.
+5. Re-evaluate the system. (AI-assisted)
+6. Repeat the process for the next priority area.
 
 This is a much safer and more effective path than trying to modernize everything at once or making changes based only on gut feeling. With AI and ISO/IEC 25010, we can move faster, identify the real issues, and create a modernization roadmap that is grounded in evidence.
 
-### Evaluation and modernization flow
+### Evaluation and Modernization Flow
 
 ![ISO/IEC 25010 evaluation and modernization flow](../assets/img/iso25010-modernization-flow.svg)
 
@@ -267,4 +267,4 @@ In practice, the benefit is significant: we can evaluate early, focus on the big
 
 **About The Author**
 
-Zhenwu Duan is responsible in the Smartcard team for the development and maintenance of test tools. His interests include various programming languages such as ​​Java, Go, C#, Typescript, as well as system testing and PKI technology.
+Zhenwu Duan is responsible in the Smartcard team for the development and maintenance of test tools. His interests include various programming languages such as ​​Java, Go, C#, TypeScript, as well as system testing and PKI technology.
