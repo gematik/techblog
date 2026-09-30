@@ -255,7 +255,7 @@ This is a much safer and more effective path than trying to modernize everything
 
 ### Evaluation and Modernization Flow
 
-![ISO/IEC 25010 evaluation and modernization flow](/assets/img/iso25010-modernization-flow.svg)
+![ISO/IEC 25010 evaluation and modernization flow](../assets/img/iso25010-modernization-flow.svg)
 
 ## 7. Conclusion
 
