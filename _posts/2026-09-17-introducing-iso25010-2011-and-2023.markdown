@@ -5,7 +5,7 @@ date:   2026-09-29 16:00:00 +0200
 author: Zhenwu Duan
 categories: tech
 tags: ISO25010 AI-Skills quality legacy evaluation modernization
-excerpt: "ISO/IEC 25010 is a quality model that helps teams assess software in a structured and objective way. It defines key quality characteristics such as maintainability, reliability, security, and usability, without prescribing a specific technology stack. With AI support, the evaluation process becomes faster and more repeatable: reusable skills can assess a project using the same logic across different systems, libraries, and components. After evaluation, the project receives scores for each quality characteristic, a list of main weaknesses, and a prioritized modernization plan that can be implemented and re-evaluated over time."
+excerpt:"<br />ISO/IEC 25010 is a quality model that helps teams assess software in a structured and objective way. It defines key quality characteristics such as maintainability, reliability, security, and usability, without prescribing a specific technology stack. With AI support, the evaluation process becomes faster and more repeatable: reusable skills can assess a project using the same logic across different systems, libraries, and components. After evaluation, the project receives scores for each quality characteristic, a list of main weaknesses, and a prioritized modernization plan that can be implemented and re-evaluated over time.<br/><br/>"
 ---
 
 # Modernizing Legacy Software with ISO/IEC 25010 and AI  
@@ -255,7 +255,7 @@ This is a much safer and more effective path than trying to modernize everything
 
 ### Evaluation and Modernization Flow
 
-![ISO/IEC 25010 evaluation and modernization flow](../assets/img/iso25010-modernization-flow.svg)
+![ISO/IEC 25010 evaluation and modernization flow](/assets/img/iso25010-modernization-flow.svg)
 
 ## 7. Conclusion
 
